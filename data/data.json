@@ -1,0 +1,59 @@
+{ "Nodes" : {
+    "Start": {
+        "thresholds": [0],
+        "nextNodes": [
+            "IsSceneSafe"
+        ]
+    },
+    "IsSceneSafeClear": {
+        "thresholds": [0, 1, 2, 3],
+        "nextNodes": [
+            "PTAwake",
+            "QuickAccess",
+            "Call911",
+            "MovePT"
+        ]
+    },
+    "PTAwake": {
+        "thresholds": [0, 1],
+        "nextNodes": [
+            "AskPT",
+            "Call911"
+        ]
+    },
+    "QuickAccess": {
+        "thresholds": [0, 1],
+        "nextNodes": [
+            "IsSceneSafe",
+            "PulseOx"
+        ]
+    },
+    "Call911": {
+        "thresholds": [0],
+        "nextNodes": [
+            "END"
+        ]
+    },
+    "MovePT": {
+        "thresholds": [0],
+        "nextNodes": [
+            "END"
+        ]
+    },
+    "AskPT": {
+        "thresholds": [0, 1],
+        "nextNodes": [
+            "PulseOx",
+            "END"
+        ]
+    },
+    "PulseOx": {
+        "thresholds": [95, 88, 0],
+        "nextNodes": [
+            "KnowWhatHappened",
+            "Fix",
+            "END"
+        ]
+    }
+}
+}
