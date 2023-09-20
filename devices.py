@@ -11,7 +11,7 @@ class Device(object):
     
     """Class for abstract medical device"""
 
-    status = None
+    self.status = DeviceState.off
 
     def __init__(self):
         self.status = DeviceState.off
