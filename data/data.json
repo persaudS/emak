@@ -5,7 +5,7 @@
             "IsSceneSafe"
         ]
     },
-    "IsSceneSafeClear": {
+    "IsSceneSafe": {
         "thresholds": [0, 1, 2, 3],
         "nextNodes": [
             "PTAwake",
