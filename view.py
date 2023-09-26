@@ -2,7 +2,7 @@
 import tkinter as tk
 
 
-def startView():
+class startView:
     def __init__(self, root):
         self.root = root
         self.root.title("MVC - EMAK")
