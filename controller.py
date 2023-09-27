@@ -1,7 +1,8 @@
 import logging
-from model import Patient
+import tkinter
+from model.model import Patient
 from devices import BPCuff, PulseOx, Glucometer
-import view
+from view import StartView
 import devices
 
 
@@ -9,13 +10,14 @@ class Controller:
    """Controller class for connecting Model, View, and Devices"""
 
    def __init__(self):
+      self.logger = self._set_logger()
       self.patient = Patient()
-      self.view = View()
+      self.logger.info("Starting GUI")
+      self.view = StartView(tkinter.Tk())
       self.devices = []
       self.devices.append(BPCuff())
       self.devices.append(PulseOx())
       self.devices.append(Glucometer())
-      self.logger = self._set_logger()
       self._view_start()
 
    def _set_logger(self):
@@ -33,17 +35,17 @@ class Controller:
       states = {}
       for device in self.devices:
          states[device.name] = device.GetStatus()
-      logger.info("Starting GUI")
-      self.view.start(states)
+      self.logger.info("Adding device status to view")
+      self.view.set_states(states)
 
-   def next():
+   def next(self):
       # get input
-      choice = view.patientInput()
+      choice = self.view.patientInput()
       # decide next node
       patient.decide(choice)
 
       # display current node
-      view.display_node(patient.current_node)
+      view.get_view_node(patient.current_node.node_id)
 
 
 if __name__ == "__main__":
