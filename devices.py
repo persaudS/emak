@@ -2,9 +2,10 @@ from enum import Enum
 
 
 class DeviceState(str, Enum):
-    on = 'online'
-    off = 'off'
-    error = 'error'
+    on_no_reading = 'Online, No Reading'
+    on_reading = 'Online, Reading'
+    off = 'Off'
+    error = 'Error'
 
 
 class Device(object):
@@ -21,6 +22,9 @@ class Device(object):
 
     def Start(self):
         return False
+    
+    def GetReading(self):
+        return None
  
  
 class BPCuff(Device):
@@ -34,6 +38,12 @@ class BPCuff(Device):
  
     def Start(self):
         self.status = DeviceState.on
+    
+    def GetReading(self):
+        readings = {}
+        readings['systolic'] = 120
+        readings['diastolic'] = 80
+        return readings
  
  
 class PulseOx(Device):
@@ -47,6 +57,12 @@ class PulseOx(Device):
  
     def Start(self):
         self.status = DeviceState.on
+    
+    def GetReading(self):
+        readings = {}
+        readings['pulse'] = 80
+        readings['oxygen'] = 98
+        return [120, 80]
  
  
 class Glucometer(Device):
