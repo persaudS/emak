@@ -2,7 +2,8 @@ from enum import Enum
 
 
 class DeviceState(str, Enum):
-    on = 'online'
+    onReading = 'onReading'
+    onNotReading = 'onNotReading'
     off = 'off'
     error = 'error'
 
@@ -11,16 +12,19 @@ class Device(object):
     
     """Class for abstract medical device"""
 
-    self.status = DeviceState.off
-
     def __init__(self):
         self.status = DeviceState.off
+        self.name = None
+        self.value = None
     
-    def GetStatus(self):
+    def get_status(self):
         return self.status
 
-    def Start(self):
+    def start(self):
         return False
+
+    def to_json(self):
+        return {"name": self.name, "status": self.status, "value": self.value}
  
  
 class BPCuff(Device):
@@ -30,10 +34,15 @@ class BPCuff(Device):
     def __init__(self):
         super()
         self.name = "Blood Pressure Cuff"
-        self.Start()
+        self.value = {"systolic": None, "diastolic": None, "pulse": None}
+        self.start()
  
-    def Start(self):
-        self.status = DeviceState.on
+    def start(self):
+        self.status = DeviceState.onNotReading
+    
+    def to_json(self):
+        return {"name": self.name, "status": self.status, "value": self.value}
+
  
  
 class PulseOx(Device):
@@ -43,10 +52,11 @@ class PulseOx(Device):
     def __init__(self):
         super()
         self.name = "Pulse Oximeter"
-        self.Start()
+        self.value = {"pulse": None, "oxygen": None}
+        self.start()
  
-    def Start(self):
-        self.status = DeviceState.on
+    def start(self):
+        self.status = DeviceState.onNotReading
  
  
 class Glucometer(Device):
@@ -56,8 +66,9 @@ class Glucometer(Device):
     def __init__(self):
         super()
         self.name = "Glucometer"
-        self.Start()
+        self.value = None
+        self.start()
  
-    def Start(self):
-        self.status = DeviceState.on
+    def start(self):
+        self.status = DeviceState.onNotReading
  

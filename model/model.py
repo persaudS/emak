@@ -27,17 +27,29 @@ class Patient:
        self.current_node = Node("Start", model_data=self.model_data)   
        self.past_nodes = [] # list of nodes
        self.age = None
-       self.blood_pressure = None
-       self.pulse_ox = None
-       self.glucose = None
+       self.biometrics = {} # dictionary of biometrics, prob could make a class for this
+       self._observers = []
     
+    # adds observer to list of observers
+    def add_observer(self, observer):
+        """""adds observer to list of observers"""""
+        if(observer in self._observers):
+            return
+        self._observers.append(observer)
+
     # loads data from json file
     def _load_data(self):
         """loads data from json file"""
         with open(self.data_path, 'r') as json_file:
             model_data = json.load(json_file).get("Nodes", {})
             return model_data
-    
+        
+    # notifies observers of change
+    def _notify(self):
+        """""notifies observers of change"""""
+        for observer in self._observers:
+            observer.update(self)
+
     # goes back to the last node visited
     def _go_back(self):
         """""goes back to the last node visited"""""
@@ -59,6 +71,20 @@ class Patient:
             if choice <= option:
                 self._go_forward(self.current_node.next_nodes[i])
             i += 1
+    
+    # adds observer to list of observers
+    def add_observer(self, observer):
+        self._observers.append(observer)
+    
+    # Notifies observers of change
+    def ptUpdate(self):
+        for observer in self._observers:
+            observer.update(self)
+    
+    def update_metrics(self, devices):
+        """Updates the model with new device biometrics"""
+        for device in devices:
+            self.biometrics.update(device.value) #Pulse is provided by both PulseOx and BPCuff, make sure to decide which one to use
 
 
 p = Patient()
