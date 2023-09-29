@@ -17,12 +17,12 @@ class Controller:
       self.add_observer(self.patient) #Patient is an observer of Controller
       self.logger = self.set_logger()
       self.logger.info("Starting GUI")
+      self.view = StartView(tkinter.Tk())
       self.devices = []
       self.devices.append(BPCuff())
       self.devices.append(PulseOx())
       self.devices.append(Glucometer())
-      self._observers = []
-      self.view_start()
+      self._view_start()
 
    def set_logger(self):
        logging.basicConfig(filename="EMAK.log",
@@ -33,26 +33,18 @@ class Controller:
 
        current_logger = logging.getLogger('EMAK')
        return current_logger
-   
-   # adds observer to list of observers
-   def add_observer(self, observer):
-        self._observers.append(observer)
-   
-   def device_notify(self):
-       for observer in self._observers:
-           observer.update_metrics(self.devices)
-           
-   def view_start(self):
+
+   def _view_start(self):
       """Starts the view"""
       states = {}
+      self.logger.info("Getting devices' statuses.")
       for device in self.devices:
          states[device.name] = device.GetStatus()
       self.logger.info("Adding device status to view")
       self.view.set_states(states)
-      
-      self.view.start()
 
-   def next(self):#TODO
+   def next(self):
+      # get input
       choice = self.view.patientInput()
       # decide next node
       self.patient.decide(choice)

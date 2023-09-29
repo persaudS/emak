@@ -3,7 +3,7 @@
         "text": "Starting Page",
         "buttons": ["Start"]
     },
-    "IsSceneSafeClear": {
+    "IsSceneSafe": {
         "text": "Is the scene safe for you and the PT? Clear Cause?",
         "buttons": ["Scene safe, unclear cause", "Scene safe, clear cause", "Scene unsafe", "Scene safe for you but not for the PT"]
     },

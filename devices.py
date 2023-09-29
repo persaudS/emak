@@ -2,8 +2,7 @@ from enum import Enum
 
 
 class DeviceState(str, Enum):
-    onReading = 'onReading'
-    onNotReading = 'onNotReading'
+    on = 'online'
     off = 'off'
     error = 'error'
 
@@ -22,9 +21,6 @@ class Device(object):
 
     def start(self):
         return False
-
-    def to_json(self):
-        return {"name": self.name, "status": self.status, "value": self.value}
  
  
 class BPCuff(Device):
@@ -37,12 +33,8 @@ class BPCuff(Device):
         self.value = {"systolic": None, "diastolic": None, "pulse": None}
         self.start()
  
-    def start(self):
-        self.status = DeviceState.onNotReading
-    
-    def to_json(self):
-        return {"name": self.name, "status": self.status, "value": self.value}
-
+    def Start(self):
+        self.status = DeviceState.on
  
  
 class PulseOx(Device):
@@ -55,8 +47,8 @@ class PulseOx(Device):
         self.value = {"pulse": None, "oxygen": None}
         self.start()
  
-    def start(self):
-        self.status = DeviceState.onNotReading
+    def Start(self):
+        self.status = DeviceState.on
  
  
 class Glucometer(Device):

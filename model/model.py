@@ -36,7 +36,13 @@ class Patient:
         with open(self.data_path, 'r') as json_file:
             model_data = json.load(json_file).get("Nodes", {})
             return model_data
-    
+        
+    # notifies observers of change
+    def _notify(self):
+        """""notifies observers of change"""""
+        for observer in self._observers:
+            observer.update(self)
+
     # goes back to the last node visited
     def _go_back(self):
         """""goes back to the last node visited"""""
