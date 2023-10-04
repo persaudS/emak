@@ -1,5 +1,5 @@
 from enum import Enum
-
+from controller import Controller
 
 class DeviceState(str, Enum):
     on = 'online'
@@ -15,12 +15,20 @@ class Device(object):
         self.status = DeviceState.off
         self.name = None
         self.value = None
+        self._observers = []
     
     def get_status(self):
         return self.status
 
     def start(self):
         return False
+    def add_observer(self, observer):
+        self._observers.append(observer)
+
+    def notify(self):
+        for observer in self._observers:
+            observer.device_notify()
+
  
  
 class BPCuff(Device):
