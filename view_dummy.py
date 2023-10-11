@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import json
+from PIL import ImageTk, Image
 
 
 class MainView(tk.Tk):
@@ -10,23 +11,21 @@ class MainView(tk.Tk):
 
     PAD = 10
 
-    def __init__(self, controller, nodeTitles=["Start"]):
+    def __init__(self, nodeTitles=["Start"]):
         super().__init__()
         self.data_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), os.pardir, "data/display.json"))
-
-        self.controller = controller
+            os.path.dirname(__file__), "data/display.json"))
+        self.image_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), "data/resources/main_frame.png"))
+       
         self._make_main_frame()
-
-        self.device_states = controller.devices.map(
-            lambda device: device.get_status())
 
         # generate frames
         self.nodeFrames = []
         for nodeTitle in nodeTitles:
             self.nodeFrames.append(
-                NodeView(self, self._get_view_node(nodeTitle), self.controller, self))
-
+                NodeView(self, self._get_view_node(nodeTitle), self))
+        self.device_states = {}
         self.sensorFrame = SensorView(self, self.device_states)
 
         self.continueButton = ttk.Button(
@@ -40,17 +39,22 @@ class MainView(tk.Tk):
         self.mainloop()
 
     def _make_main_frame(self):
-        self.main_frame = ttk.Frame(self)
+        
+        self.img = ImageTk.PhotoImage(Image.open(self.image_path))  # label image (frame background)
+        self.label = tk.Label(self, image = self.img, width=1554, height=1356)  # frame parent
+        self.main_frame = ttk.Frame(self.label, width=1554, height=1356)
+        self.geometry("1554x1356")
         self.main_frame.pack(padx=self.PAD, pady=self.PAD)
+        self.label.pack()
 
     def on_state_change(self, text):
         """Button submission event"""
         if text == "continue":
-            self.controller.next(list(map(lambda node: int(node.selected), self.nodeFrames)))
+            print("continue")
         if text == "back":
-            self.controller.next([0])
+            print("back")
         if text == "end":
-            self.controller.next([-1])
+            print("end")
         pass
 
     def update_selected(self):
@@ -70,28 +74,19 @@ class MainView(tk.Tk):
         """Gets the node view information from json file"""
         with open(self.data_path, 'r') as json_file:
             view_data = json.load(json_file).get("Nodes", {})
-            node = view_data.get(nodeTitle, {})
+            node = view_data[nodeTitle]
             return node
 
     def update_metrics(self, devices):
         """Updates the view with new device states"""
         self.devices = devices
 
-    def button_onclick(self, text):
-        if text == 'Back':
-            self.controller.back()
-        elif text == 'Continue':
-            # check if the Node views have selections
-            # if yes
-            self.controller.next()
-
 
 class NodeView():
-    def __init__(self, root, node, controller, main_view):
+    def __init__(self, root, node, main_view):
         self.frame = tk.Frame(root, bg="red")
         self.text = node["text"]
         self.buttons = node["buttons"]
-        self.controller = controller
         self.selected = None
         self.main_view = main_view
 
@@ -134,7 +129,7 @@ class SensorView(tk.Frame):
 
 
 if __name__ == "__main__":
-    main = MainView("Start")
-
+    main = MainView(["Start"])
+    main.start()
     # print('MVC - the simplest example')
     # print('Do you want to see everyone in my db?[y/n]')

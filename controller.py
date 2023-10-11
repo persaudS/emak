@@ -53,14 +53,14 @@ class Controller:
         self.view.set_states(states)
 
         self.view.start()
-
-    def next(self):  # TODO
-        choice = self.view.patientInput()
+    def base_button_click(self, text):
+        
+    def next(self, choice):  # TODO
         # decide next node
         self.patient.decide(choice)
 
         # display current node
-        self.view.get_view_node(patient.current_node.node_id)
+        self.view.get_view_node(self.patient.current_node.node_id)
 
 
 if __name__ == "__main__":
