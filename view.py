@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import ttk
 import os
 import json
+from PIL import ImageTk, Image
 
 
 class MainView(tk.Tk):
@@ -14,6 +15,8 @@ class MainView(tk.Tk):
         super().__init__()
         self.data_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), os.pardir, "data/display.json"))
+        self.image_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), "data/resources/main_frame.png"))
 
         self.controller = controller
         self._make_main_frame()
@@ -41,6 +44,11 @@ class MainView(tk.Tk):
 
     def _make_main_frame(self):
         self.main_frame = ttk.Frame(self)
+        self.img = ImageTk.PhotoImage(Image.open(self.image_path))  # label image (frame background)
+        self.label = tk.Label(self, image = self.img, width=1554, height=1356)  # frame parent
+        self.main_frame = ttk.Frame(self.label, width=1554, height=1356)
+        self.geometry("1554x1356")
+        self.label.pack()
         self.main_frame.pack(padx=self.PAD, pady=self.PAD)
 
     def on_state_change(self, text):
