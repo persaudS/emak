@@ -38,34 +38,65 @@ class MainView(tk.Tk):
         self.mainloop()
 
     def _make_main_frame(self):
-        
-        self.img = ImageTk.PhotoImage(Image.open(self.image_path))  # label image (frame background)
-        self.label = tk.Label(self, image = self.img, width=1554, height=1356)  # frame parent
+        self.img = ImageTk.PhotoImage(Image.open(self.image_path))
+        self.label = tk.Label(self, image=self.img, width=1554, height=1356)
         self.main_frame = ttk.Frame(self.label, width=1554, height=1356)
-        self.buttom_frame = ttk.Frame(self.label, width=1554, height=600,padding=100,border=25)
+
+        self.buttom_frame = ttk.Frame(self.label, width=1554, height=600, padding=100, border=25)
         self.geometry("1554x1356")
 
-        self.buttom_frame.pack(side="bottom")
-        self.label.pack()
+        # Place the main frame in the grid to cover the entire screen
+        self.label.grid(row=0, column=0, sticky="nsew")
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
+        self.buttom_frame = ttk.Frame(self)
+        self.buttom_frame.grid(row=3, column=0, sticky="se")
+
+        #Opening all images for buttons
+        self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path))
+        self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path))
+        self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path))
+
         self.continueButton = ttk.Button(
-            self.buttom_frame, text="Continue", command=lambda: self.on_state_change("continue"), state="disabled")
-        self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path)) 
-        self.continueButton.config(image=self.continue_img)
-        self.continueButton.pack(side="right")
-        self.continueButton.pack(side="bottom")
+            self.buttom_frame, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_img)
+        self.continueButton.grid(row=3, column=2, padx=(10,10), pady=10)
 
         self.backButton = ttk.Button(
-            self.buttom_frame, text="Back", command=lambda: self.on_state_change("back"))
-        self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path)) 
-        self.backButton.config(image=self.back_img)
-        self.backButton.pack(side="left")
-        
+            self.buttom_frame, text="Back", command=lambda: self.on_state_change("back"), image=self.back_img)
+        self.backButton.grid(row=3, column=0, padx=10, pady=10)
+
         self.endButton = ttk.Button(
-            self, text="EMS Arrived", command=lambda: self.on_state_change("end"))
-        self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path)) 
-        self.endButton.config(image=self.end_img)
-        self.endButton.pack(side="left")
-        self.endButton.pack(side="bottom")
+            self.buttom_frame, text="EMS Arrived", command=lambda: self.on_state_change("end"), image=self.end_img)
+        self.endButton.grid(row=3, column=1, padx=10, pady=10)
+        
+        # self.img = ImageTk.PhotoImage(Image.open(self.image_path))  # label image (frame background)
+        # self.label = tk.Label(self, image = self.img, width=1554, height=1356)  # frame parent
+        # self.main_frame = ttk.Frame(self.label, width=1554, height=1356)
+        # self.buttom_frame = ttk.Frame(self.label, width=1554, height=600,padding=100,border=25)
+        # self.geometry("1554x1356")
+
+        # self.buttom_frame.pack(side="bottom")
+        # self.label.pack()
+        # self.continueButton = ttk.Button(
+        #     self.buttom_frame, text="Continue", command=lambda: self.on_state_change("continue"), state="disabled")
+        # self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path)) 
+        # self.continueButton.config(image=self.continue_img)
+        # self.continueButton.pack(side="right")
+        # self.continueButton.pack(side="bottom")
+
+        # self.backButton = ttk.Button(
+        #     self.buttom_frame, text="Back", command=lambda: self.on_state_change("back"))
+        # self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path)) 
+        # self.backButton.config(image=self.back_img)
+        # self.backButton.pack(side="left")
+        
+        # self.endButton = ttk.Button(
+        #     self, text="EMS Arrived", command=lambda: self.on_state_change("end"))
+        # self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path)) 
+        # self.endButton.config(image=self.end_img)
+        # self.endButton.pack(side="left")
+        # self.endButton.pack(side="bottom")
 
 
 
