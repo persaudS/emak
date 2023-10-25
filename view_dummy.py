@@ -16,7 +16,7 @@ class MainView(tk.Tk):
         self.data_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/display.json"))
         self.image_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/main_frame.png"))
+            os.path.dirname(__file__), "data/resources/main_frame1.jpg"))
         self.back_image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/back_button.png"))
         self.continue_image_path = os.path.abspath(os.path.join(
@@ -38,20 +38,20 @@ class MainView(tk.Tk):
         self.mainloop()
 
     def _make_main_frame(self):
-        self.img = ImageTk.PhotoImage(Image.open(self.image_path))
-        self.label = tk.Label(self, image=self.img, width=1554, height=1356)
-        self.main_frame = ttk.Frame(self.label, width=1554, height=1356)
+        self.img = ImageTk.PhotoImage(Image.open(self.image_path).resize((777, 678)))
+        self.geometry("777x678")
+        self.label = tk.Label(self, image=self.img, width=777, height=678, borderwidth=5, relief="solid")
+        #self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
 
-        self.buttom_frame = ttk.Frame(self.label, width=1554, height=600, padding=100, border=25)
-        self.geometry("1554x1356")
+        self.buttom_frame = ttk.Frame(self.label)
 
         # Place the main frame in the grid to cover the entire screen
-        self.label.grid(row=0, column=0, sticky="nsew")
+        self.label.place(width=777, height=678)
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
-        self.buttom_frame = ttk.Frame(self)
-        self.buttom_frame.grid(row=3, column=0, sticky="se")
+        # self.buttom_frame = ttk.Frame(self)
+        # self.buttom_frame.grid(row=0, column=0, sticky="se")
 
         #Opening all images for buttons
         self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path))
@@ -59,16 +59,16 @@ class MainView(tk.Tk):
         self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path))
 
         self.continueButton = ttk.Button(
-            self.buttom_frame, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_img)
-        self.continueButton.grid(row=3, column=2, padx=(10,10), pady=10)
+            self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_img)
+        self.continueButton.grid(row=0, column=0, padx=1, pady=1)
 
         self.backButton = ttk.Button(
-            self.buttom_frame, text="Back", command=lambda: self.on_state_change("back"), image=self.back_img)
-        self.backButton.grid(row=3, column=0, padx=10, pady=10)
+            self, text="Back", command=lambda: self.on_state_change("back"), image=self.back_img)
+        self.backButton.grid(row=3, column=1, padx=1, pady=1)
 
         self.endButton = ttk.Button(
-            self.buttom_frame, text="EMS Arrived", command=lambda: self.on_state_change("end"), image=self.end_img)
-        self.endButton.grid(row=3, column=1, padx=10, pady=10)
+            self, text="EMS Arrived", command=lambda: self.on_state_change("end"), image=self.end_img)
+        self.endButton.grid(row=3, column=2, padx=1, pady=1)
         
         # self.img = ImageTk.PhotoImage(Image.open(self.image_path))  # label image (frame background)
         # self.label = tk.Label(self, image = self.img, width=1554, height=1356)  # frame parent
