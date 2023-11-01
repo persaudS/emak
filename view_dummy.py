@@ -26,6 +26,8 @@ class MainView(tk.Tk):
        
         self._make_main_frame()
 
+        self.resizable(False,False)
+
         # generate frames
         self.nodeFrames = []
         for nodeTitle in nodeTitles:
@@ -47,28 +49,36 @@ class MainView(tk.Tk):
 
         # Place the main frame in the grid to cover the entire screen
         self.label.place(width=777, height=678)
-        self.grid_rowconfigure(0, weight=1)
-        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1, uniform="row", minsize=43)
+        self.grid_rowconfigure(1, weight=1, uniform="row", minsize=525)
+        self.grid_rowconfigure(2, weight=1, uniform="row", minsize=88, pad=5)
+        self.grid_rowconfigure(3, weight=1, uniform="row")
+        self.grid_columnconfigure(0, weight=1, uniform="column", minsize=18)
+        self.grid_columnconfigure(1, weight=1, uniform="column", minsize=145)
+        self.grid_columnconfigure(2, weight=1, uniform="column", minsize=199)
+        self.grid_columnconfigure(3, weight=1, uniform="column", minsize=199)
+        self.grid_columnconfigure(4, weight=1, uniform="column", minsize=199)
+        self.grid_columnconfigure(5, weight=1, uniform="column")
 
         # self.buttom_frame = ttk.Frame(self)
         # self.buttom_frame.grid(row=0, column=0, sticky="se")
 
         #Opening all images for buttons
-        self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path))
-        self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path))
-        self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path))
+        self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path).resize((150, 75)))
+        self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path).resize((150, 75)))
+        self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path).resize((150, 75)))
 
         self.continueButton = ttk.Button(
             self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_img)
-        self.continueButton.grid(row=3, column=2, padx=1, pady=1)
+        self.continueButton.grid(row=2, column=4, sticky="s")
 
         self.backButton = ttk.Button(
             self, text="Back", command=lambda: self.on_state_change("back"), image=self.back_img)
-        self.backButton.grid(row=3, column=0, padx=1, pady=1)
+        self.backButton.grid(row=2, column=2, sticky="s")
 
         self.endButton = ttk.Button(
             self, text="EMS Arrived", command=lambda: self.on_state_change("end"), image=self.end_img)
-        self.endButton.grid(row=3, column=1, padx=1, pady=1)
+        self.endButton.grid(row=2, column=3, sticky="s")
 
 
 
@@ -111,21 +121,27 @@ class MainView(tk.Tk):
 
 class NodeView():
     def __init__(self, root, node, main_view):
-        self.frame = tk.Frame(root, bg="red")
-        self.text = node["text"]
-        self.buttons = node["buttons"]
-        self.selected = None
-        self.main_view = main_view
+            self.text = node["text"]
+            self.buttons = node["buttons"]
+            self.selected = None
+            self.main_view = main_view
+    
+            self.frame = tk.Frame(root, bg="red", width=500, height=100, padx=3, pady=3)
+            ttk.Label(self.frame, text=self.text).pack()
+            self.frame.grid(row=1, column=2,columnspan = 3, sticky="nsew")
 
-        self._make_text()
-        # self._make_buttons()
 
-    def _make_text(self):
-        """Creates prompt text for the node"""
-        text_frame = ttk.Frame(self.frame)
-        text_frame.pack()
 
-        ttk.Label(text_frame, text=self.text).pack()
+            # self._make_text()
+             # self._make_buttons()
+
+    # def _make_text(self):
+    #     """Creates prompt text for the node"""
+    #     text_frame = ttk.Frame(self.frame)
+    #     ttk.Label(text_frame, text=self.text).pack()
+    #     text_frame.grid(row=1, col=1, sticky="nsew")
+
+        
 
     # def _make_buttons(self):
     #     print("here")
