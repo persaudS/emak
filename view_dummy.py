@@ -40,7 +40,7 @@ class MainView(tk.Tk):
     def _make_main_frame(self):
         self.img = ImageTk.PhotoImage(Image.open(self.image_path).resize((777, 678)))
         self.geometry("777x678")
-        self.label = tk.Label(self, image=self.img, width=777, height=678, borderwidth=5, relief="solid")
+        self.label = tk.Label(self, image=self.img, width=777, height=678)
         #self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
 
         self.buttom_frame = ttk.Frame(self.label)
@@ -60,43 +60,16 @@ class MainView(tk.Tk):
 
         self.continueButton = ttk.Button(
             self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_img)
-        self.continueButton.grid(row=0, column=0, padx=1, pady=1)
+        self.continueButton.grid(row=3, column=2, padx=1, pady=1)
 
         self.backButton = ttk.Button(
             self, text="Back", command=lambda: self.on_state_change("back"), image=self.back_img)
-        self.backButton.grid(row=3, column=1, padx=1, pady=1)
+        self.backButton.grid(row=3, column=0, padx=1, pady=1)
 
         self.endButton = ttk.Button(
             self, text="EMS Arrived", command=lambda: self.on_state_change("end"), image=self.end_img)
-        self.endButton.grid(row=3, column=2, padx=1, pady=1)
-        
-        # self.img = ImageTk.PhotoImage(Image.open(self.image_path))  # label image (frame background)
-        # self.label = tk.Label(self, image = self.img, width=1554, height=1356)  # frame parent
-        # self.main_frame = ttk.Frame(self.label, width=1554, height=1356)
-        # self.buttom_frame = ttk.Frame(self.label, width=1554, height=600,padding=100,border=25)
-        # self.geometry("1554x1356")
+        self.endButton.grid(row=3, column=1, padx=1, pady=1)
 
-        # self.buttom_frame.pack(side="bottom")
-        # self.label.pack()
-        # self.continueButton = ttk.Button(
-        #     self.buttom_frame, text="Continue", command=lambda: self.on_state_change("continue"), state="disabled")
-        # self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path)) 
-        # self.continueButton.config(image=self.continue_img)
-        # self.continueButton.pack(side="right")
-        # self.continueButton.pack(side="bottom")
-
-        # self.backButton = ttk.Button(
-        #     self.buttom_frame, text="Back", command=lambda: self.on_state_change("back"))
-        # self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path)) 
-        # self.backButton.config(image=self.back_img)
-        # self.backButton.pack(side="left")
-        
-        # self.endButton = ttk.Button(
-        #     self, text="EMS Arrived", command=lambda: self.on_state_change("end"))
-        # self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path)) 
-        # self.endButton.config(image=self.end_img)
-        # self.endButton.pack(side="left")
-        # self.endButton.pack(side="bottom")
 
 
 
@@ -145,7 +118,7 @@ class NodeView():
         self.main_view = main_view
 
         self._make_text()
-        self._make_buttons()
+        # self._make_buttons()
 
     def _make_text(self):
         """Creates prompt text for the node"""
@@ -154,12 +127,13 @@ class NodeView():
 
         ttk.Label(text_frame, text=self.text).pack()
 
-    def _make_buttons(self):
-        """Creates option buttons for the node"""
+    # def _make_buttons(self):
+    #     print("here")
+    #     """Creates option buttons for the node"""
 
-        for button in self.buttons:
-            ttk.Button(self.frame,
-                       text=button, command=lambda: self.button_onclick(button)).pack()
+    #     for button in self.buttons:
+    #         ttk.Button(self.frame,
+    #                    text=button, command=lambda: self.button_onclick(button)).pack()
 
     def button_onclick(self, button):
         """Button click event"""
