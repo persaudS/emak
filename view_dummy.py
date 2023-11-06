@@ -1,6 +1,7 @@
 # from model import DecisionTree
 import tkinter as tk
 from tkinter import ttk
+from tkmacosx import Button
 import os
 import json
 from PIL import ImageTk, Image
@@ -21,6 +22,8 @@ class MainView(tk.Tk):
             os.path.dirname(__file__), "data/resources/back_button.png"))
         self.continue_image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/continue.png"))
+        self.continue_disabled_image_path = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), "data/resources/continue_disabled.png"))
         self.end_image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/ems_arrived.png"))
        
@@ -65,19 +68,20 @@ class MainView(tk.Tk):
 
         #Opening all images for buttons
         self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path).resize((150, 75)))
+        self.continue_disabled_img = ImageTk.PhotoImage(Image.open(self.continue_disabled_image_path).resize((150, 75)))
         self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path).resize((150, 75)))
         self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path).resize((150, 75)))
 
-        self.continueButton = ttk.Button(
-            self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_img)
+        self.continueButton =Button(
+            self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_disabled_img, borderless=1)
         self.continueButton.grid(row=2, column=4, sticky="s")
 
-        self.backButton = ttk.Button(
-            self, text="Back", command=lambda: self.on_state_change("back"), image=self.back_img)
+        self.backButton = Button(
+            self, command=lambda: self.on_state_change("back"), image=self.back_img, borderless=1)
         self.backButton.grid(row=2, column=2, sticky="s")
 
-        self.endButton = ttk.Button(
-            self, text="EMS Arrived", command=lambda: self.on_state_change("end"), image=self.end_img)
+        self.endButton = Button(
+            self, command=lambda: self.on_state_change("end"), image=self.end_img, borderless=1)
         self.endButton.grid(row=2, column=3, sticky="s")
 
 
@@ -98,7 +102,8 @@ class MainView(tk.Tk):
         """Updates the continue button if all selections made"""
         nodes = list(filter(lambda node: node.selected is not None, self.nodeFrames))
         if len(self.nodeFrames) == len(nodes) and self.continueButton is not None:
-            self.continueButton.config(state="normal")
+            self.continueButton['state'] = 'normal'
+            self.continueButton['image'] = self.continue_img
 
 
     def set_states(self, states):
@@ -126,7 +131,7 @@ class NodeView():
             self.selected = None
             self.main_view = main_view
     
-            self.frame = tk.Frame(root, bg="red", width=500, height=100, padx=3, pady=3)
+            self.frame = tk.Frame(root, bg="white", width=500, height=100, padx=3, pady=3)
             ttk.Label(self.frame, text=self.text).pack()
             self.frame.grid(row=1, column=2,columnspan = 3, sticky="nsew")
 
