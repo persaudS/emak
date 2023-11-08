@@ -1,6 +1,7 @@
 # from model import DecisionTree
 import tkinter as tk
 from tkinter import ttk
+from tkinter import font
 from tkmacosx import Button
 import os
 import json
@@ -26,10 +27,10 @@ class MainView(tk.Tk):
             os.path.dirname(__file__), "data/resources/continue_disabled.png"))
         self.end_image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/ems_arrived.png"))
-       
+
         self._make_main_frame()
 
-        self.resizable(False,False)
+        self.resizable(False, False)
 
         # generate frames
         self.nodeFrames = []
@@ -43,10 +44,11 @@ class MainView(tk.Tk):
         self.mainloop()
 
     def _make_main_frame(self):
-        self.img = ImageTk.PhotoImage(Image.open(self.image_path).resize((777, 678)))
+        self.img = ImageTk.PhotoImage(
+            Image.open(self.image_path).resize((777, 678)))
         self.geometry("777x678")
         self.label = tk.Label(self, image=self.img, width=777, height=678)
-        #self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
+        # self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
 
         self.buttom_frame = ttk.Frame(self.label)
 
@@ -66,13 +68,17 @@ class MainView(tk.Tk):
         # self.buttom_frame = ttk.Frame(self)
         # self.buttom_frame.grid(row=0, column=0, sticky="se")
 
-        #Opening all images for buttons
-        self.continue_img = ImageTk.PhotoImage(Image.open(self.continue_image_path).resize((150, 75)))
-        self.continue_disabled_img = ImageTk.PhotoImage(Image.open(self.continue_disabled_image_path).resize((150, 75)))
-        self.back_img = ImageTk.PhotoImage(Image.open(self.back_image_path).resize((150, 75)))
-        self.end_img = ImageTk.PhotoImage(Image.open(self.end_image_path).resize((150, 75)))
+        # Opening all images for buttons
+        self.continue_img = ImageTk.PhotoImage(
+            Image.open(self.continue_image_path).resize((150, 75)))
+        self.continue_disabled_img = ImageTk.PhotoImage(
+            Image.open(self.continue_disabled_image_path).resize((150, 75)))
+        self.back_img = ImageTk.PhotoImage(
+            Image.open(self.back_image_path).resize((150, 75)))
+        self.end_img = ImageTk.PhotoImage(
+            Image.open(self.end_image_path).resize((150, 75)))
 
-        self.continueButton =Button(
+        self.continueButton = Button(
             self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_disabled_img, borderless=1)
         self.continueButton.grid(row=2, column=4, sticky="s")
 
@@ -83,10 +89,6 @@ class MainView(tk.Tk):
         self.endButton = Button(
             self, command=lambda: self.on_state_change("end"), image=self.end_img, borderless=1)
         self.endButton.grid(row=2, column=3, sticky="s")
-
-
-
-
 
     def on_state_change(self, text):
         """Button submission event"""
@@ -100,11 +102,11 @@ class MainView(tk.Tk):
 
     def update_selected(self):
         """Updates the continue button if all selections made"""
-        nodes = list(filter(lambda node: node.selected is not None, self.nodeFrames))
+        nodes = list(
+            filter(lambda node: node.selected is not None, self.nodeFrames))
         if len(self.nodeFrames) == len(nodes) and self.continueButton is not None:
             self.continueButton['state'] = 'normal'
             self.continueButton['image'] = self.continue_img
-
 
     def set_states(self, states):
         """Sets the states of the devices"""
@@ -126,19 +128,18 @@ class MainView(tk.Tk):
 
 class NodeView():
     def __init__(self, root, node, main_view):
-            self.text = node["text"]
-            self.buttons = node["buttons"]
-            self.selected = None
-            self.main_view = main_view
-    
-            self.frame = tk.Frame(root, bg="white", width=500, height=100, padx=3, pady=3)
-            ttk.Label(self.frame, text=self.text).pack()
-            self.frame.grid(row=1, column=2,columnspan = 3, sticky="nsew")
+        self.text = node["text"]
+        self.buttons = node["buttons"]
+        self.selected = None
+        self.main_view = main_view
 
-
-
-            # self._make_text()
-             # self._make_buttons()
+        self.frame = tk.Frame(root, bg="white", width=500,
+                              height=100, padx=3, pady=3)
+        ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
+                                                             weight='bold', slant='roman'),
+                  wraplength=554, justify="center", relief="solid", padding=10).pack()
+        self.frame.grid(row=1, column=2, columnspan=3, sticky="nsew")
+        self._make_buttons()
 
     # def _make_text(self):
     #     """Creates prompt text for the node"""
@@ -146,15 +147,16 @@ class NodeView():
     #     ttk.Label(text_frame, text=self.text).pack()
     #     text_frame.grid(row=1, col=1, sticky="nsew")
 
-        
-
-    # def _make_buttons(self):
-    #     print("here")
-    #     """Creates option buttons for the node"""
-
-    #     for button in self.buttons:
-    #         ttk.Button(self.frame,
-    #                    text=button, command=lambda: self.button_onclick(button)).pack()
+    def _make_buttons(self):
+        print("here")
+        """Creates option buttons for the node"""
+        for button in self.buttons:
+            Button(self.frame,
+                   text=button, width=554, command=lambda: self.button_onclick(button),
+                   font=font.Font(family='Helvetica', size=25,
+                                  weight='normal', slant='roman'),
+                   bg="black", fg="white", borderless=1, pady=15).pack()
+        self.frame.grid(row=1, column=2, columnspan=3, sticky="n")
 
     def button_onclick(self, button):
         """Button click event"""
@@ -178,7 +180,7 @@ class SensorView(tk.Frame):
 
 
 if __name__ == "__main__":
-    main = MainView(["Start"])
+    main = MainView(["IsSceneSafe"])
     main.start()
     # print('MVC - the simplest example')
     # print('Do you want to see everyone in my db?[y/n]')
