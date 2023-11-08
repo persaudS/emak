@@ -19,15 +19,6 @@ class MainView(tk.Tk):
             os.path.dirname(__file__), "data/display.json"))
         self.image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/main_frame1.jpg"))
-        self.back_image_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/back_button.png"))
-        self.continue_image_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/continue.png"))
-        self.continue_disabled_image_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/continue_disabled.png"))
-        self.end_image_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/ems_arrived.png"))
-
         self._make_main_frame()
 
         self.resizable(False, False)
@@ -68,27 +59,26 @@ class MainView(tk.Tk):
         # self.buttom_frame = ttk.Frame(self)
         # self.buttom_frame.grid(row=0, column=0, sticky="se")
 
-        # Opening all images for buttons
-        self.continue_img = ImageTk.PhotoImage(
-            Image.open(self.continue_image_path).resize((150, 75)))
-        self.continue_disabled_img = ImageTk.PhotoImage(
-            Image.open(self.continue_disabled_image_path).resize((150, 75)))
-        self.back_img = ImageTk.PhotoImage(
-            Image.open(self.back_image_path).resize((150, 75)))
-        self.end_img = ImageTk.PhotoImage(
-            Image.open(self.end_image_path).resize((150, 75)))
-
         self.continueButton = Button(
-            self, command=lambda: self.on_state_change("continue"), state="disabled", image=self.continue_disabled_img, borderless=1)
-        self.continueButton.grid(row=2, column=4, sticky="s")
+            self, text="Continue", command=lambda: self.on_state_change("continue"),
+            state="disabled", bg="black", fg="white",
+            font=font.Font(family='Helvetica', size=25,
+                           weight='normal', slant='roman'))
+        self.continueButton.grid(row=2, column=4, sticky="nsew")
 
         self.backButton = Button(
-            self, command=lambda: self.on_state_change("back"), image=self.back_img, borderless=1)
-        self.backButton.grid(row=2, column=2, sticky="s")
+            self, text="Back", command=lambda: self.on_state_change("back"),
+            bg="black", fg="white",
+            font=font.Font(family='Helvetica', size=25,
+                           weight='normal', slant='roman'))
+        self.backButton.grid(row=2, column=2, sticky="nsew")
 
         self.endButton = Button(
-            self, command=lambda: self.on_state_change("end"), image=self.end_img, borderless=1)
-        self.endButton.grid(row=2, column=3, sticky="s")
+            self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+            bg="black", fg="white",
+            font=font.Font(family='Helvetica', size=25,
+                           weight='normal', slant='roman'))
+        self.endButton.grid(row=2, column=3, sticky="nsew")
 
     def on_state_change(self, text):
         """Button submission event"""
@@ -106,7 +96,6 @@ class MainView(tk.Tk):
             filter(lambda node: node.selected is not None, self.nodeFrames))
         if len(self.nodeFrames) == len(nodes) and self.continueButton is not None:
             self.continueButton['state'] = 'normal'
-            self.continueButton['image'] = self.continue_img
 
     def set_states(self, states):
         """Sets the states of the devices"""
