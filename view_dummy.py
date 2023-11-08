@@ -141,10 +141,10 @@ class NodeView():
         """Creates option buttons for the node"""
         for button in self.buttons:
             Button(self.frame,
-                   text=button, width=554, command=lambda: self.button_onclick(button),
+                   text=button[0], width=554, command=lambda: self.button_onclick(button),
                    font=font.Font(family='Helvetica', size=25,
                                   weight='normal', slant='roman'),
-                   bg="black", fg="white", borderless=1, pady=15).pack()
+                   bg="black", fg=button[1], borderless=1, pady=15).pack()
         self.frame.grid(row=1, column=2, columnspan=3, sticky="n")
 
     def button_onclick(self, button):
