@@ -7,6 +7,8 @@ import os
 import json
 from PIL import ImageTk, Image
 
+from devices import DeviceState
+
 
 class MainView(tk.Tk):
     """MainView class for the GUI"""
@@ -22,14 +24,12 @@ class MainView(tk.Tk):
         self._make_main_frame()
 
         self.resizable(False, False)
-
         # generate frames
         self.nodeFrames = []
         for nodeTitle in nodeTitles:
             self.nodeFrames.append(
                 NodeView(self, self._get_view_node(nodeTitle), self))
-        self.device_states = {}
-        self.sensorFrame = SensorView(self, self.device_states)
+        self.devices = {}
 
     def start(self):
         self.mainloop()
@@ -45,13 +45,13 @@ class MainView(tk.Tk):
 
         # Place the main frame in the grid to cover the entire screen
         self.label.place(width=777, height=678)
-        self.grid_rowconfigure(0, weight=1, uniform="row", minsize=43)
+        self.grid_rowconfigure(0, weight=1, uniform="row", minsize=44)
         self.grid_rowconfigure(1, weight=1, uniform="row", minsize=525)
-        self.grid_rowconfigure(2, weight=1, uniform="row", minsize=88, pad=5)
+        self.grid_rowconfigure(2, weight=1, uniform="row", minsize=80, pad=5)
         self.grid_rowconfigure(3, weight=1, uniform="row")
-        self.grid_columnconfigure(0, weight=1, uniform="column", minsize=18)
-        self.grid_columnconfigure(1, weight=1, uniform="column", minsize=145)
-        self.grid_columnconfigure(2, weight=1, uniform="column", minsize=199)
+        self.grid_columnconfigure(0, weight=1, uniform="column", minsize=10)
+        self.grid_columnconfigure(1, weight=2, uniform="column", minsize=155)
+        self.grid_columnconfigure(2, weight=1, uniform="column", minsize=190)
         self.grid_columnconfigure(3, weight=1, uniform="column", minsize=199)
         self.grid_columnconfigure(4, weight=1, uniform="column", minsize=199)
         self.grid_columnconfigure(5, weight=1, uniform="column")
@@ -113,6 +113,7 @@ class MainView(tk.Tk):
     def update_metrics(self, devices):
         """Updates the view with new device states"""
         self.devices = devices
+        self.sensorFrame = SensorView(self, self.devices)
 
 
 class NodeView():
@@ -160,14 +161,67 @@ class NodeView():
 
 class SensorView(tk.Frame):
     def __init__(self, root, devices):
-        tk.Frame(root, bg="white")
+        self.frame = tk.Frame(root, bg="#c4c4c4", width=160,
+                              height=151, padx=0, pady=0)
+        # ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
+        #                                                      weight='bold', slant='roman'),
+        #           wraplength=554, justify="center", relief="solid", padding=10).pack()
+        self.frame.grid(row=1, column=1, rowspan=2, sticky="nsew")
+        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=45)
+        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=100)
+        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=45)
+        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=100)
+        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=45)
+        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=100)
+        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=15)
+        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=3)
+        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=146)
+        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=6)
         self.devices = devices
+        i = 1
+        for device in devices:
+            labels = self.handle_text(root, device)
+            labels[0].grid(row=i, column=1, sticky="sew")
+            labels[1].grid(row=i+1, column=1, sticky="nsew")
+            i+=3
 
-    def update_metrics(self, devices):
-        """Updates the view with new device states"""
-        self.devices = devices
 
+    def handle_text(self, root, device):
+        """Handles the text for the device"""
+        textLabel = f"\n\n\n{device.name}:\n"
 
+        labelStatus = None
+        if device.status == DeviceState.off:
+            text = f"Device Off"
+            color = "yellow"
+            labelStatus = tk.Label(self.frame, text=text, bg="black", fg=color, font=font.Font(family='Helvetica', size=12,
+                                                             weight='normal', slant='roman'))
+            
+        elif device.status == DeviceState.error:
+            text = f"{device.name}:\n\nDevice Error"
+            color = "red"
+            labelStatus = tk.Label(self.frame, text=text, bg="black", fg=color, font=font.Font(family='Helvetica', size=12,
+                                                             weight='normal', slant='roman'))
+        else :
+            color = "green" # Add checks for vitals
+            if device.name == "Blood Pressure Cuff":
+                text = f"\n\n\n{device.name}\n\nSystolic: {device.value['systolic']}\nDiastolic: {device.value['diastolic']}\nPulse: {device.value['pulse']}"
+            elif device.name == "Pulse Oximeter":
+                text = f"{device.name}\n\nPulse: {device.value['pulse']}\nOxygen: {device.value['oxygen']}"
+            elif device.name == "Glucometer":
+                text = f"{device.name}\n\nGlucose: {device.value}"
+            else:
+                text = f"{device.name}\n\n{device.value}"
+                labelStatus = tk.Label(self.frame, text=text, bg="black", fg=color, font=font.Font(family='Helvetica', size=12,
+                                                         weight='normal', slant='roman'))
+                
+        labelName = tk.Label(self.frame, text=textLabel, bg="black", fg=color, font=font.Font(family='Helvetica', size=13,
+                                                             weight='bold', slant='roman'))
+        labels = [labelName, labelStatus]
+        return labels
 if __name__ == "__main__":
     main = MainView(["IsSceneSafe"])
     main.start()

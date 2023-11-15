@@ -1,5 +1,4 @@
 from enum import Enum
-from controller import Controller
 
 class DeviceState(str, Enum):
     on = 'online'
@@ -36,13 +35,13 @@ class BPCuff(Device):
     """Class for BP Cuff"""
  
     def __init__(self):
-        super()
+        super().__init__()
         self.name = "Blood Pressure Cuff"
         self.value = {"systolic": None, "diastolic": None, "pulse": None}
         self.start()
  
     def Start(self):
-        self.status = DeviceState.on
+        self.status = DeviceState.off
  
  
 class PulseOx(Device):
@@ -50,13 +49,13 @@ class PulseOx(Device):
     """Class for Pulse Ox"""
  
     def __init__(self):
-        super()
+        super().__init__()
         self.name = "Pulse Oximeter"
         self.value = {"pulse": None, "oxygen": None}
         self.start()
  
     def Start(self):
-        self.status = DeviceState.on
+        self.status = DeviceState.off
  
  
 class Glucometer(Device):
@@ -64,11 +63,11 @@ class Glucometer(Device):
     """Class for Glucometer"""
  
     def __init__(self):
-        super()
+        super().__init__()
         self.name = "Glucometer"
         self.value = None
         self.start()
  
     def start(self):
-        self.status = DeviceState.onNotReading
+        self.status = DeviceState.off
  

@@ -3,6 +3,7 @@ import tkinter
 from model.model import Patient
 from devices import BPCuff, PulseOx, Glucometer
 from view import MainView
+from view_dummy import MainView as MainViewDummy
 import devices
 
 # TODO: add observer pattern for devices
@@ -11,19 +12,22 @@ import devices
 class Controller:
     """Controller class for connecting Model, View, and Devices"""
 
-    def __init__(self):
-        self.view = MainView(self)
+    def __init__(self, dummy=False):
+        if not dummy:
+            self.view = MainView(self)
+        else:
+            self.view = MainViewDummy(["IsSceneSafe"])
         self.patient = Patient()
-        self.patient.add_observer(self)  # Controller is an observer of Patient
-        self.add_observer(self.view)  # View is an observer of Controller
-        self.add_observer(self.patient)  # Patient is an observer of Controller
+        self._observers = []
         self.logger = self.set_logger()
-        self.logger.info("Starting GUI")
         self.devices = []
         self.devices.append(BPCuff())
         self.devices.append(PulseOx())
         self.devices.append(Glucometer())
-        self._observers = []
+        self.patient.add_observer(self)  # Controller is an observer of Patient
+        self.add_observer(self.view)  # View is an observer of Controller
+        self.add_observer(self.patient)  # Patient is an observer of Controller
+        self.logger.info("Starting GUI")
         self.view_start()
 
     def set_logger(self):
@@ -43,26 +47,28 @@ class Controller:
     def device_notify(self):
         for observer in self._observers:
             observer.update_metrics(self.devices)
+        
+        logging.info("Device status updated")
 
     def view_start(self):
         """Starts the view"""
-        states = {}
-        for device in self.devices:
-            states[device.name] = device.GetStatus()
+        # states = {}
+        # for device in self.devices:
+        #     states[device.name] = device.GetStatus()
         self.logger.info("Adding device status to view")
-        self.view.set_states(states)
-
+        self.view.update_metrics(self.devices)
         self.view.start()
+
     def base_button_click(self, text):
+        return
         
     def next(self, choice):  # TODO
         # decide next node
         self.patient.decide(choice)
 
         # display current node
-        self.view.get_view_node(self.patient.current_node.node_id)
+        #self.view.get_view_node(self.patient.current_node.node_id)
 
 
 if __name__ == "__main__":
-    # running controller function
-    c = Controller()
+    controller = Controller(True)
