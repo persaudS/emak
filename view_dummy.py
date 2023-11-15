@@ -88,6 +88,7 @@ class MainView(tk.Tk):
             print("back")
         if text == "end":
             print("end")
+            self.popup_window()
         pass
 
     def update_selected(self):
@@ -114,6 +115,18 @@ class MainView(tk.Tk):
         """Updates the view with new device states"""
         self.devices = devices
         self.sensorFrame = SensorView(self, self.devices)
+
+    def popup_window(self):
+        window = tk.Toplevel()
+        window.title("EMS Arrived: Biometrics Available")
+        win_x = self.winfo_rootx() + 160
+        win_y = self.winfo_rooty() + 40
+        window.geometry(f'+{win_x}+{win_y}')
+        window.minsize(width=600, height=530)
+        label = tk.Label(window, text="Hello")
+        label.pack(fill='x', padx=50, pady=5)
+        button_close = tk.Button(window, text="Close", command=window.destroy)
+        button_close.pack(fill='x')
 
 
 class NodeView():
@@ -142,10 +155,10 @@ class NodeView():
         """Creates option buttons for the node"""
         for button in self.buttons:
             Button(self.frame,
-                   text=button, width=554, command=lambda: self.button_onclick(button),
+                   text=button[0], width=554, command=lambda: self.button_onclick(button),
                    font=font.Font(family='Helvetica', size=25,
                                   weight='normal', slant='roman'),
-                   bg="black", fg="white", borderless=1, pady=15).pack()
+                   bg="black", fg=button[1], borderless=1, pady=15).pack()
         self.frame.grid(row=1, column=2, columnspan=3, sticky="n")
 
     def button_onclick(self, button):

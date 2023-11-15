@@ -1,19 +1,19 @@
 { "Nodes" : {
     "Start": {
         "text": "Starting Page",
-        "buttons": ["Start"]
+        "buttons": [["Start", "Green"]]
     },
     "IsSceneSafe": {
         "text": "Is the scene safe for you and the PT? Clear Cause?",
-        "buttons": ["Scene safe, unclear cause", "Scene safe, clear cause", "Scene unsafe", "Scene safe for you but not for the PT"]
+        "buttons": [["Scene safe, unclear cause", "Yellow"], ["Scene safe, clear cause", "Green"], ["Scene unsafe", "Red"], ["Scene safe for you but not for the PT", "Red"]]
     },
     "PTAwake": {
         "text": "Is the PT awake? Address the PT verbally",
-        "buttons": ["Yes", "No"]
+        "buttons": [["Yes", "Green"], ["No", "Red"]]
     },
     "QuickAccess": {
         "text": "TODO",
-        "buttons": ["Yes", "No"]
+        "buttons": [["Yes", "Green"], ["No", "Red"]]
     }
     }
 }
