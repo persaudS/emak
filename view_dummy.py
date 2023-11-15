@@ -88,6 +88,7 @@ class MainView(tk.Tk):
             print("back")
         if text == "end":
             print("end")
+            self.popup_window()
         pass
 
     def update_selected(self):
@@ -113,6 +114,18 @@ class MainView(tk.Tk):
     def update_metrics(self, devices):
         """Updates the view with new device states"""
         self.devices = devices
+
+    def popup_window(self):
+        window = tk.Toplevel()
+        window.title("EMS Arrived: Biometrics Available")
+        win_x = self.winfo_rootx() + 160
+        win_y = self.winfo_rooty() + 40
+        window.geometry(f'+{win_x}+{win_y}')
+        window.minsize(width=600, height=530)
+        label = tk.Label(window, text="Hello")
+        label.pack(fill='x', padx=50, pady=5)
+        button_close = tk.Button(window, text="Close", command=window.destroy)
+        button_close.pack(fill='x')
 
 
 class NodeView():
