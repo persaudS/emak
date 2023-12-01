@@ -1,11 +1,11 @@
 { "Nodes" : {
     "Start": {
-        "text": "Starting Page",
-        "buttons": [["Start", "Green"]]
+        "text": "This program will walk you through how to help an emergency medical situation.\n\n\n Have someone call 911 now and follow the directions to the best of your ability.",
+        "buttons": [["I'm Ready", "Green"], ["Cancel", "Red"]]
     },
     "IsSceneSafe": {
         "text": "Is the scene safe for you and the PT? Clear Cause?",
-        "buttons": [["Scene safe, unclear cause", "Yellow"], ["Scene safe, clear cause", "Green"], ["Scene unsafe", "Red"], ["Scene safe for you but not for the PT", "Red"]]
+        "buttons": [["Scene safe, clear cause", "Green"], ["Scene safe, unclear cause", "Yellow"], ["Scene unsafe", "Red"], ["Scene safe for you but not for the PT", "Red"]]
     },
     "PTAwake": {
         "text": "Is the PT awake? Address the PT verbally",
