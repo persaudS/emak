@@ -15,26 +15,56 @@ class MainView(tk.Tk):
 
     PAD = 10
 
-    def __init__(self, nodeTitles=["Start"]):
+    def __init__(self, nodeTitle="Start"):
         super().__init__()
+        self._observers = []
         self.data_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/display.json"))
         self.image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/main_frame1.jpg"))
-        self._make_main_frame()
+        self._make_main_frame(nodeTitle)
 
         self.resizable(False, False)
         # generate frames
-        self.nodeFrames = []
-        for nodeTitle in nodeTitles:
-            self.nodeFrames.append(
-                NodeView(self, self._get_view_node(nodeTitle), self))
+        self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
+        self.nodeFrame.add_observer(self)
         self.devices = {}
 
     def start(self):
         self.mainloop()
 
-    def _make_main_frame(self):
+    def update_frame(self, nodeTitle):
+        """Updates the node frame"""
+        if nodeTitle == "IsSceneSafe":
+            self.sensorFrame = SensorView(self, self.devices)
+            self.continueButton.destroy()
+            self.backButton.destroy()
+            self.continueButton = Button(
+                self, text="Continue", command=lambda: self.on_state_change("continue"),
+                state="disabled", bg="black", fg="white", 
+                font=font.Font(family='Helvetica', size=25,
+                            weight='normal', slant='roman'))
+            self.continueButton.grid(row=2, column=4, sticky="nsew")
+
+            self.backButton = Button(
+                self, text="Back", command=lambda: self.on_state_change("back"),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=25,
+                            weight='normal', slant='roman'))
+            self.backButton.grid(row=2, column=2, sticky="nsew")
+
+            self.endButton = Button(
+                self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=25,
+                            weight='normal', slant='roman'))
+            self.endButton.grid(row=2, column=3, sticky="nsew")
+        
+        self.nodeFrame.frame.destroy()
+        self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
+        self.nodeFrame.add_observer(self)
+
+    def _make_main_frame(self, nodeTitle):
         self.img = ImageTk.PhotoImage(
             Image.open(self.image_path).resize((777, 678)))
         self.geometry("777x678")
@@ -42,6 +72,7 @@ class MainView(tk.Tk):
         # self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
 
         self.buttom_frame = ttk.Frame(self.label)
+        self.nodeTitle = nodeTitle
 
         # Place the main frame in the grid to cover the entire screen
         self.label.place(width=777, height=678)
@@ -58,45 +89,74 @@ class MainView(tk.Tk):
 
         # self.buttom_frame = ttk.Frame(self)
         # self.buttom_frame.grid(row=0, column=0, sticky="se")
+        if nodeTitle == "Start":
+                self.labelCover = tk.Label(self, bg="white", width=155, height=80)
+                self.labelCover.grid(row=2, rowspan=1, column=1, pady=2, sticky="nsew")  
+                self.continueButton = Button(
+                self, text="I'm Ready", command=lambda: self.on_state_change("continue"),
+                state="normal", bg="green", fg="black", pady=5, padx=5,
+                font=font.Font(family='Helvetica', size=25, 
+                            weight='normal', slant='roman'))
+                self.continueButton.grid(row=2, column=3, sticky="nsew")
 
-        self.continueButton = Button(
-            self, text="Continue", command=lambda: self.on_state_change("continue"),
-            state="disabled", bg="black", fg="white",
-            font=font.Font(family='Helvetica', size=25,
-                           weight='normal', slant='roman'))
-        self.continueButton.grid(row=2, column=4, sticky="nsew")
+                self.backButton = Button(
+                    self, text="Cancel", command=lambda: self.on_state_change("back"),
+                    bg="red", fg="black", pady=5, padx=5,
+                    font=font.Font(family='Helvetica', size=25,
+                                weight='normal', slant='roman'))
+                self.backButton.grid(row=2, column=2, sticky="nsew")
 
-        self.backButton = Button(
-            self, text="Back", command=lambda: self.on_state_change("back"),
-            bg="black", fg="white",
-            font=font.Font(family='Helvetica', size=25,
-                           weight='normal', slant='roman'))
-        self.backButton.grid(row=2, column=2, sticky="nsew")
+        else:
+            self.continueButton = Button(
+                self, text="Continue", command=lambda: self.on_state_change("continue"),
+                state="disabled", bg="black", fg="white", 
+                font=font.Font(family='Helvetica', size=25,
+                            weight='normal', slant='roman'))
+            self.continueButton.grid(row=2, column=4, sticky="nsew")
 
-        self.endButton = Button(
-            self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
-            bg="black", fg="white",
-            font=font.Font(family='Helvetica', size=25,
-                           weight='normal', slant='roman'))
-        self.endButton.grid(row=2, column=3, sticky="nsew")
+            self.backButton = Button(
+                self, text="Back", command=lambda: self.on_state_change("back"),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=25,
+                            weight='normal', slant='roman'))
+            self.backButton.grid(row=2, column=2, sticky="nsew")
+
+            self.endButton = Button(
+                self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=25,
+                            weight='normal', slant='roman'))
+            self.endButton.grid(row=2, column=3, sticky="nsew")
 
     def on_state_change(self, text):
         """Button submission event"""
-        if text == "continue":
-            print("continue")
-        if text == "back":
-            print("back")
         if text == "end":
             print("end")
             self.popup_window()
+        else:
+            self.nodeFrame.frame.destroy()
+            self.update_observers(text, self.nodeFrame.selected)
         pass
+    
+    def update_observers(self, main_choice, option_choice):
+        """Updates observers with new states"""
+        for observer in self._observers:
+            observer.update_state(main_choice, option_choice)
+
+
+    def add_observer(self, observer):
+        if observer not in self._observers:
+            self._observers.append(observer)
 
     def update_selected(self):
         """Updates the continue button if all selections made"""
-        nodes = list(
-            filter(lambda node: node.selected is not None, self.nodeFrames))
-        if len(self.nodeFrames) == len(nodes) and self.continueButton is not None:
+        if (self.nodeFrame.selected is not None):
             self.continueButton['state'] = 'normal'
+        # self.update_observers(text, self.nodeFrame.selected)
+        # nodes = list(
+        #     filter(lambda node: node.selected is not None, self.nodeFrames))
+        # if len(self.nodeFrames) == len(nodes) and self.continueButton is not None:
+        #     self.continueButton['state'] = 'normal'
 
     def set_states(self, states):
         """Sets the states of the devices"""
@@ -114,6 +174,8 @@ class MainView(tk.Tk):
     def update_metrics(self, devices):
         """Updates the view with new device states"""
         self.devices = devices
+        if self.nodeTitle == "Start":
+            return
         self.sensorFrame = SensorView(self, self.devices)
 
     def popup_window(self):
@@ -130,19 +192,28 @@ class MainView(tk.Tk):
 
 
 class NodeView():
-    def __init__(self, root, node, main_view):
+    def __init__(self, root, node, main_view, nodeTitle):
         self.text = node["text"]
         self.buttons = node["buttons"]
         self.selected = None
         self.main_view = main_view
+        self.nodeTitle = nodeTitle
+        self._observers = []
 
         self.frame = tk.Frame(root, bg="white", width=500,
                               height=100, padx=3, pady=3)
-        ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
+
+        if nodeTitle == "Start":
+            self.frame.grid(row=1, column=1, columnspan=4, sticky="nsew")
+            ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=20,
+                                                             weight='bold', slant='roman'),
+                  wraplength=700, justify="center", relief="solid", padding=10).pack()
+        else:
+            ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
                                                              weight='bold', slant='roman'),
                   wraplength=554, justify="center", relief="solid", padding=10).pack()
-        self.frame.grid(row=1, column=2, columnspan=3, sticky="nsew")
-        self._make_buttons()
+            self.frame.grid(row=1, column=2, columnspan=3, sticky="nsew")
+            self._make_buttons()
 
     # def _make_text(self):
     #     """Creates prompt text for the node"""
@@ -150,12 +221,15 @@ class NodeView():
     #     ttk.Label(text_frame, text=self.text).pack()
     #     text_frame.grid(row=1, col=1, sticky="nsew")
 
+    def add_observer(self, observer):
+        if observer not in self._observers:
+            self._observers.append(observer)
+
     def _make_buttons(self):
-        print("here")
         """Creates option buttons for the node"""
         for button in self.buttons:
             Button(self.frame,
-                   text=button[0], width=554, command=lambda: self.button_onclick(button),
+                   text=button[0], width=554, command=lambda option=button[0]: self.button_onclick(option),
                    font=font.Font(family='Helvetica', size=25,
                                   weight='normal', slant='roman'),
                    bg="black", fg=button[1], borderless=1, pady=15).pack()
@@ -163,12 +237,14 @@ class NodeView():
 
     def button_onclick(self, button):
         """Button click event"""
-        i = None
+        i = 0
         for i in range(len(self.buttons)):
-            if self.buttons[i] == button:
+            print(self.buttons[i])
+            if self.buttons[i][0] == button:
                 break
-        self.selected = i
-        self.main_view.update_selected()
+        self.selected = len(self.buttons) - i
+        for observer in self._observers:
+            observer.update_selected()
         return
 
 
@@ -236,7 +312,7 @@ class SensorView(tk.Frame):
         labels = [labelName, labelStatus]
         return labels
 if __name__ == "__main__":
-    main = MainView(["IsSceneSafe"])
+    main = MainView("IsSceneSafe")
     main.start()
     # print('MVC - the simplest example')
     # print('Do you want to see everyone in my db?[y/n]')

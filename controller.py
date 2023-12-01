@@ -15,8 +15,10 @@ class Controller:
     def __init__(self, dummy=False):
         if not dummy:
             self.view = MainView(self)
+            # self.view.add_observer(self)
         else:
-            self.view = MainViewDummy(["IsSceneSafe"])
+            self.view = MainViewDummy("Start")
+            self.view.add_observer(self)
         self.patient = Patient()
         self._observers = []
         self.logger = self.set_logger()
@@ -32,7 +34,7 @@ class Controller:
 
     def set_logger(self):
         logging.basicConfig(filename="EMAK.log",
-                            filemode='a',
+                            filemode='w',
                             format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
                             datefmt='%H:%M:%S',
                             level=logging.DEBUG)
@@ -43,6 +45,19 @@ class Controller:
     # adds observer to list of observers
     def add_observer(self, observer):
         self._observers.append(observer)
+
+    def update_state(self, main_choice, sub_choice):
+        """Updates the state of the patient"""
+        if main_choice == "back":
+            self.patient.go_back()
+            self.view.update_frame(self.patient.current_node.node_id) 
+        elif main_choice == "end":
+            print("End")
+        else:
+            self.patient.decide(sub_choice)
+            self.logger.info("Patient state updated")
+            self.view.update_frame(self.patient.current_node.node_id) 
+
 
     def device_notify(self):
         for observer in self._observers:

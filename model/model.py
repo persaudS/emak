@@ -44,7 +44,7 @@ class Patient:
             observer.update(self)
 
     # goes back to the last node visited
-    def _go_back(self):
+    def go_back(self):
         """""goes back to the last node visited"""""
         if self.past_nodes:
             self.current_node = self.past_nodes.pop()
@@ -59,6 +59,10 @@ class Patient:
     # decides which node is next based on the input
     def decide(self, choice):
         """""decides which node to go to based on the input"""""
+        if (self.current_node.node_id == "Start"):
+            self._go_forward(self.current_node.next_nodes[0])
+            return
+        
         i = 0
         for option in self.current_node.thresholds:
             if choice <= option:
@@ -80,8 +84,8 @@ class Patient:
             self.biometrics.update(device.value) #Pulse is provided by both PulseOx and BPCuff, make sure to decide which one to use
 
 
-p = Patient()
-print(p.current_node.node_id)
-p.decide(0)
-print(p.current_node.node_id)
+# p = Patient()
+# print(p.current_node.node_id)
+# p.decide(0)
+# print(p.current_node.node_id)
 
