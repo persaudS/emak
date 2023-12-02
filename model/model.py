@@ -67,6 +67,7 @@ class Patient:
         for option in self.current_node.thresholds:
             if choice <= option:
                 self._go_forward(self.current_node.next_nodes[i])
+                return
             i += 1
     
     # adds observer to list of observers

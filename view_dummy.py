@@ -59,7 +59,8 @@ class MainView(tk.Tk):
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.endButton.grid(row=2, column=3, sticky="nsew")
-        
+        else:
+            self.continueButton['state'] = 'disabled'
         self.nodeFrame.frame.destroy()
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
@@ -239,10 +240,9 @@ class NodeView():
         """Button click event"""
         i = 0
         for i in range(len(self.buttons)):
-            print(self.buttons[i])
             if self.buttons[i][0] == button:
                 break
-        self.selected = len(self.buttons) - i
+        self.selected = i
         for observer in self._observers:
             observer.update_selected()
         return

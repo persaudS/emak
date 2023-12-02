@@ -50,6 +50,12 @@ class Controller:
         """Updates the state of the patient"""
         if main_choice == "back":
             self.patient.go_back()
+            if self.patient.current_node.node_id == "Start":
+                self.view.destroy()
+                self.view = MainViewDummy("Start")
+                self.view.add_observer(self)
+                self.view_start()
+                return
             self.view.update_frame(self.patient.current_node.node_id) 
         elif main_choice == "end":
             print("End")
