@@ -1,59 +1,101 @@
-{ "Nodes" : {
+{
+  "Nodes": {
     "Start": {
-        "thresholds": [0],
-        "nextNodes": [
-            "IsSceneSafe"
-        ]
+      "thresholds": [0],
+      "nextNodes": ["IsSceneSafe"]
     },
     "IsSceneSafe": {
-        "thresholds": [0, 1, 2, 3],
-        "nextNodes": [
-            "PTAwake",
-            "QuickAccess",
-            "Call911",
-            "MovePT"
-        ]
-    },
-    "PTAwake": {
-        "thresholds": [0, 1],
-        "nextNodes": [
-            "AskPT",
-            "Call911"
-        ]
-    },
-    "QuickAccess": {
-        "thresholds": [0, 1],
-        "nextNodes": [
-            "IsSceneSafe",
-            "PulseOx"
-        ]
-    },
-    "Call911": {
-        "thresholds": [0],
-        "nextNodes": [
-            "END"
-        ]
+      "thresholds": [0, 1, 2, 3],
+      "nextNodes": ["QuickAccess", "PTAwake", "MovePT", "Call911"]
     },
     "MovePT": {
-        "thresholds": [0],
-        "nextNodes": [
-            "END"
-        ]
+      "thresholds": [0, 1],
+      "nextNodes": ["IsSceneSafe", "Call911"]
+    },
+    "Call911": {
+      "thresholds": [0],
+      "nextNodes": ["END"]
+    },
+    "PTAwake": {
+      "thresholds": [0, 1],
+      "nextNodes": ["AskPT", "SternumRub"]
+    },
+    "QuickAccess": {
+      "thresholds": [0, 1],
+      "nextNodes": ["IsSceneSafe", "PulseOx"]
+    },
+    "SternumRub": {
+      "thresholds": [0, 1],
+      "nextNodes": ["AskPT", "AskWitnesses"]
+    },
+    "AskWitnesses": {
+      "thresholds": [0, 1, 2, 3],
+      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"]
+    },
+    "NonPhysical": {
+      "thresholds": [0, 1, 2, 3, 4],
+      "nextNodes": ["END", "END", "END", "END", "END"]
     },
     "AskPT": {
-        "thresholds": [0, 1],
-        "nextNodes": [
-            "PulseOx",
-            "END"
-        ]
+      "thresholds": [0, 1, 2, 3],
+      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"]
+    },
+    "KnownPhysical": {
+      "thresholds": [0, 1, 2, 3, 4],
+      "nextNodes": ["END", "END", "END", "END", "END"]
     },
     "PulseOx": {
-        "thresholds": [95, 88, 0],
-        "nextNodes": [
-            "KnowWhatHappened",
-            "Fix",
-            "END"
-        ]
+      "thresholds": [95, 88, 0],
+      "nextNodes": ["KnowWhatHappened", "Fix", "END"]
+    },
+
+    "Trauma": {
+      "thresholds": [0, 1],
+      "nextNodes": ["InLineStabilization", "Airway"]
+    },
+    "InLineStabilization": {
+      "thresholds": [0, 1],
+      "nextNodes": ["Airway", "KeepComfortable"]
+    },
+    "Airway": {
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["ApplyPO/AssessBreath", "EmergencyPos", "JawThrust"]
+    },
+    "JawThrust": {
+      "thresholds": [0, 1],
+      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"]
+    },
+    "ApplyPO/AssessBreath": {
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"]
+    },
+    "EmergencyPos": {
+      "thresholds": [0],
+      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"]
+    },
+    "NeckPulse": {
+      "thresholds": [0],
+      "nextNodes": ["END"]
+    },
+    "SupplementO2": {
+      "thresholds": [0],
+      "nextNodes": ["END"]
+    },
+    "AssessBleeding": {
+      "thresholds": [0, 1],
+      "nextNodes": ["END", "ApplyBP"]
+    },
+    "ApplyBP": {
+      "thresholds": [0, 1],
+      "nextNodes": ["ObtainHistory", "END"]
+    },
+    "ObtainHistory": {
+      "thresholds": [0, 1, 2, 3, 4],
+      "nextNodes": ["END", "END", "END", "END", "KeepComfortable"]
+    },
+    "KeepComfortable": {
+      "thresholds": [0],
+      "nextNodes": ["END"]
     }
-}
+  }
 }
