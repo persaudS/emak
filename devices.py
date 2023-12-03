@@ -42,6 +42,9 @@ class BPCuff(Device):
  
     def Start(self):
         self.status = DeviceState.off
+    
+    def turn_on(self): 
+        print("BPCuff")
  
  
 class PulseOx(Device):
@@ -56,6 +59,9 @@ class PulseOx(Device):
  
     def Start(self):
         self.status = DeviceState.off
+    
+    def turn_on(self): 
+        print("PulseOx")
  
  
 class Glucometer(Device):
@@ -70,4 +76,7 @@ class Glucometer(Device):
  
     def start(self):
         self.status = DeviceState.off
+    
+    def turn_on(self): 
+        print("Glucometer")
  
