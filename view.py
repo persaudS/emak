@@ -126,7 +126,7 @@ class MainView(tk.Tk):
         win_y = self.winfo_rooty() + 40
         window.geometry(f'+{win_x}+{win_y}')
         window.minsize(width=600, height=530)
-        label = tk.Label(window, text="Hello")
+        label = tk.Label(window, text="Hello View")
         label.pack(fill='x', padx=50, pady=5)
         button_close = tk.Button(window, text="Close", command=window.destroy)
         button_close.pack(fill='x')
