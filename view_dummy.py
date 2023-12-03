@@ -26,9 +26,11 @@ class MainView(tk.Tk):
 
         self.resizable(False, False)
         # generate frames
+        self.devices = {}
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
-        self.devices = {}
+
+
 
     def start(self):
         self.mainloop()
@@ -59,6 +61,12 @@ class MainView(tk.Tk):
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.endButton.grid(row=2, column=3, sticky="nsew")
+            
+            self.toggle_button = Button(
+                self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
+            self.toggle_button.grid(row=2, column=1, sticky="nsew")
         else:
             self.continueButton['state'] = 'disabled'
         self.nodeFrame.frame.destroy()
@@ -129,11 +137,17 @@ class MainView(tk.Tk):
                             weight='normal', slant='roman'))
             self.endButton.grid(row=2, column=3, sticky="nsew")
 
+            self.toggle_button = Button(
+                self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
+            self.toggle_button.grid(row=0, column=0, sticky="nsew")
+
     def on_state_change(self, text):
         """Button submission event"""
         if text == "end":
             print("end")
-            self.popup_window()
+            self.ems_popup_window()
         else:
             self.nodeFrame.frame.destroy()
             self.update_observers(text, self.nodeFrame.selected)
@@ -179,17 +193,50 @@ class MainView(tk.Tk):
             return
         self.sensorFrame = SensorView(self, self.devices)
 
-    def popup_window(self):
+    def ems_popup_window(self):
         window = tk.Toplevel()
         window.title("EMS Arrived: Biometrics Available")
         win_x = self.winfo_rootx() + 160
         win_y = self.winfo_rooty() + 40
         window.geometry(f'+{win_x}+{win_y}')
         window.minsize(width=600, height=530)
-        label = tk.Label(window, text="Hello")
+        label = tk.Label(window, text="Hello Dummy View")
         label.pack(fill='x', padx=50, pady=5)
         button_close = tk.Button(window, text="Close", command=window.destroy)
         button_close.pack(fill='x')
+
+    def quick_access_popup_window(self):
+        window = tk.Toplevel()
+        window.title("Quick Access Panel")
+        win_x = self.winfo_rootx() + 160
+        win_y = self.winfo_rooty() + 40
+        window.geometry(f'+{win_x}+{win_y}')
+        window.minsize(width=600, height=530)
+        button_close = tk.Button(window, text="Close", command=window.destroy)
+        button_close.pack(fill='x')
+        
+        # Define button titles TODO: Get images for the buttons
+        button_titles = [
+            "Heart Emergency",
+            "Patient Fall",
+            "Bleeding",
+            "Stroke",
+            "Choking",
+            "Unknown Medical",
+            "Unknown Trauma"
+        ]
+
+        for title in button_titles:
+            button = self.handle_text(window, title)
+            button.pack(fill='both', expand=False)
+
+    def handle_text(self, root, title):
+        """Handles the text for the quick access buttons"""
+        button = tk.Button(root, text=title, font=font.Font(family='Helvetica', size=15, weight='normal'))
+        button.config(width=15, height=3, pady=10, anchor="center")
+
+        return button
+
 
 
 class NodeView():
@@ -251,21 +298,21 @@ class NodeView():
 class SensorView(tk.Frame):
     def __init__(self, root, devices):
         self.frame = tk.Frame(root, bg="#c4c4c4", width=160,
-                              height=151, padx=0, pady=0)
+                              height=100, padx=0, pady=0)
         # ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
         #                                                      weight='bold', slant='roman'),
         #           wraplength=554, justify="center", relief="solid", padding=10).pack()
         self.frame.grid(row=1, column=1, rowspan=2, sticky="nsew")
-        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=15)
-        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=45)
-        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=15)
-        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=45)
-        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=15)
-        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=45)
-        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=10)
+        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=35)
+        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=95)
+        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=10)
+        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=35)
+        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=95)
+        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=10)
+        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=35)
+        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=95)
+        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=10)
         self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=3)
         self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=146)
         self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=6)
@@ -312,7 +359,7 @@ class SensorView(tk.Frame):
         labels = [labelName, labelStatus]
         return labels
 if __name__ == "__main__":
-    main = MainView("IsSceneSafe")
+    main = MainView("Start")
     main.start()
     # print('MVC - the simplest example')
     # print('Do you want to see everyone in my db?[y/n]')
