@@ -63,7 +63,6 @@ class Controller:
             self.patient.decide(sub_choice)
             self.logger.info("Patient state updated")
             self.logger.info(self.patient.current_node.node_id)
-            # Update device state when the node title is "PulseOx"
             if self.patient.current_node.node_id == "BPCuff":
                 self.turn_on_device("BPCuff")
             if self.patient.current_node.node_id == "PulseOx":
