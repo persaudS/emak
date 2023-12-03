@@ -1,19 +1,170 @@
-{ "Nodes" : {
+{
+  "Nodes": {
     "Start": {
-        "text": "This program will walk you through how to help an emergency medical situation.\n\n\n Have someone call 911 now and follow the directions to the best of your ability.",
-        "buttons": [["I'm Ready", "Green"], ["Cancel", "Red"]]
+      "text": "This program will walk you through how to help an emergency medical situation.\n\n\n Have someone call 911 now and follow the directions to the best of your ability.",
+      "buttons": [
+        ["I'm Ready", "Green"],
+        ["Cancel", "Red"]
+      ]
     },
     "IsSceneSafe": {
-        "text": "Is the scene safe for everyone? Clear Cause?",
-        "buttons": [["Scene safe, clear cause", "Green"], ["Scene safe, unclear cause", "Yellow"], ["Scene unsafe", "Red"], ["Scene safe for you but not for the patient", "Red"]]
+      "text": "Is the scene safe for everyone? Clear Cause?",
+      "buttons": [
+        ["Scene safe, clear cause", "Green"],
+        ["Scene safe, unclear cause", "Yellow"],
+        ["Scene safe for you but not for the patient", "Red"],
+        ["Scene unsafe", "Red"]
+      ]
+    },
+    "MovePT": {
+      "text": "Move the patient to somewhere safe for both you and the patient",
+      "buttons": [
+        ["Completed", "Green"],
+        ["Patient cannot be moved to a safe location", "Red"]
+      ]
+    },
+    "Call911": {
+      "text": "Ensure 911 has been called and wait in a safe place for EMS to arrive",
+      "buttons": []
     },
     "PTAwake": {
-        "text": "Is the patient awake? Address the patient verbally",
-        "buttons": [["Yes", "Green"], ["No", "Red"]]
+      "text": "Is the patient awake and able to speak well? Address the patient directly",
+      "buttons": [
+        ["Yes", "Green"],
+        ["No", "Red"]
+      ]
     },
     "QuickAccess": {
-        "text": "TODO",
-        "buttons": [["Yes", "Green"], ["No", "Red"]]
+      "text": "TODO",
+      "buttons": [
+        ["Yes", "Green"],
+        ["No", "Red"]
+      ]
+    },
+    "AskPT": {
+      "text": "Ask PT",
+      "buttons": [
+        ["Known Physical Injury", "Yellow"],
+        ["Unknown Physical Injury", "Yellow"],
+        ["Known Non-Physical Issue", "Yellow"],
+        ["Other Issue", "Yellow"]
+      ]
+    },
+    "KnownPhysical": {
+      "text": "TEMPORARY: Obtain injury type",
+      "buttons": [
+        ["Burn", "Yellow"],
+        ["Fall", "Yellow"],
+        ["Head Injury", "Yellow"],
+        ["Bleeding", "Yellow"],
+        ["Broken Bone(s)", "Yellow"]
+      ]
+    },
+    "SternumRub": {
+      "text": "Ensure 911 has been called and emergency services are coming. Rub the patient's sternum.",
+      "buttons": [
+        ["Patient has become able to speak well", "Green"],
+        ["Patient cannot speak/speech is impaired", "Red"]
+      ]
+    },
+    "AskWitnesses": {
+      "text": "Apply the pulse oximeter in the case on the patients finger as shown below. If injury is not apparent, ask witnesses if anyone knows what is wrong with the patient",
+      "buttons": [
+        ["Known Physical Injury", "Yellow"],
+        ["Unknown Physical Injury", "Yellow"],
+        ["Known Non-Physical Issue", "Yellow"],
+        ["Other Issue", "Yellow"]
+      ]
+    },
+    "NonPhysical": {
+      "text": "Choose the appropriate non-physical ailment",
+      "buttons": [
+        ["Heart Issue", "Yellow"],
+        ["Allergic Reaction", "Yellow"],
+        ["Asthma Attack", "Yellow"],
+        ["Neurological Issue", "Yellow"],
+        ["Diabetic Issue", "Yellow"]
+      ]
+    },
+    "Trauma": {
+      "text": "Has patient sustained any possible neck/head/spine injury?",
+      "buttons": [
+        ["Yes", "Green"],
+        ["No", "Red"]
+      ]
+    },
+    "InLineStabilization": {
+      "text": "Perform the in line stabilization move as shown below",
+      "buttons": [
+        ["In line stabilization performed", "Green"],
+        ["Move cannot be performed", "Red"]
+      ]
+    },
+    "Airway": {
+      "text": "Can the patient breath clearly?",
+      "buttons": [
+        ["Yes", "Green"],
+        ["The patient is breathing but vomiting", "Yellow"],
+        ["No", "Red"]
+      ]
+    },
+    "JawThrust": {
+      "text": "Perform the jaw thrust move as shown below",
+      "buttons": [
+        ["Jaw thrust move performed", "Green"],
+        ["Move cannot be performed", "Red"]
+      ]
+    },
+    "ApplyPO/AssessBreath": {
+      "text": "Apply the pulse oximeter in the case on the patients finger as shown below",
+      "buttons": [
+        ["TEMPORARY: Normal Readings", "Green"],
+        ["TEMPORARY: Cardiac arrest", "Red"],
+        ["TEMPORARY: SpO2 < 88, Respiratory distress ", "Red"]
+      ]
+    },
+    "EmergencyPos": {
+      "text": "Place the patient in the emergency position as shown below. Ensure their airway is kept clear",
+      "buttons": [
+        ["Patient moved into the emergency position", "Green"],
+        ["Move cannot be performed", "Red"]
+      ]
+    },
+    "NeckPulse": {
+      "text": "Feel for pulse in the neck as shown below. If none, begin CPR. If available, apply an AED and follow the provided instructions. Otherwise, wait for EMS.",
+      "buttons": []
+    },
+    "SupplementO2": {
+      "text": "Ensure that 911 has been called and wait for EMS to arrive. If possible, supply the patient with supplemental oxygen. If possible, have someone else find a person with medical experience",
+      "buttons": []
+    },
+    "AssessBleeding": {
+      "text": "Is the patient bleeding?",
+      "buttons": [
+        ["Yes", "Green"],
+        ["No", "Red"]
+      ]
+    },
+    "ApplyBP": {
+      "text": "Apply the blood pressure monitor on the upper arm of the patient. Use the velcro to make it moderately tight. Once on, press the blue Start/Stop button. Wait for monitor to take reading",
+      "buttons": [
+        ["Blood pressure shown on small monitor screen", "Green"],
+        ["Blood pressure not taken", "Red"]
+      ]
+    },
+    "ObtainHistory": {
+      "text": "TEMPORARY: Obtain SAMPLE history",
+      "buttons": [
+        ["Fall", "Yellow"],
+        ["Head Injury", "Yellow"],
+        ["Broken Bone(s)", "Yellow"],
+        ["Burn", "Yellow"],
+        ["Other", "Yellow"]
+      ]
+    },
+    "KeepComfortable": {
+      "text": "Ensure 911 has been called and wait for EMS to arrive. In the mean time, keep the patient comfortable. If possible, have someone else find a person with medical experience",
+      "buttons": []
     }
-    }
+  }
 }
