@@ -68,7 +68,6 @@
     "KnownPhysical": {
       "text": "TEMPORARY: Obtain injury type",
       "buttons": [
-        ["Burn", "Yellow"],
         ["Fall", "Yellow"],
         ["Head Injury", "Yellow"],
         ["Bleeding", "Yellow"],
@@ -183,7 +182,6 @@
         ["Fall", "Yellow"],
         ["Head Injury", "Yellow"],
         ["Broken Bone(s)", "Yellow"],
-        ["Burn", "Yellow"],
         ["Other", "Yellow"]
       ]
     },
@@ -253,10 +251,6 @@
       "buttons": [["Completed as best as possible", "Green"]]
     },
 
-    "Burn": {
-      "text": "TEMPORARY: Handle burn",
-      "buttons": []
-    },
     "Fall": {
       "text": "TEMPORARY: Handle fall",
       "buttons": []
@@ -266,12 +260,24 @@
       "buttons": []
     },
     "Bleeding": {
-      "text": "TEMPORARY: Handle bleeding",
-      "buttons": []
+      "text": "Is the patient bleeding severly from an extremity?",
+      "buttons": [
+        ["Yes", "Green"],
+        ["No", "Red"]
+      ]
     },
     "BrokenBones": {
-      "text": "TEMPORARY: Handle broken bone(s)",
+      "text": "Make sure EMS is on the way an stabilize the patient in a comfortable position.",
       "buttons": []
+    },
+
+    "BleedExtremity": {
+      "text": "If bleeding profusely from an extremity, grab some piece of cloth or belt which can be wrapped around the extremity above the wound. Make this as tight as possible so as to limit the loss of blood. Make sure EMS is on the way",
+      "buttons": [["End assessment", "Red"]]
+    },
+    "BleedOther": {
+      "text": "Find some clean piece of gauze or cloth and use it to cover the wound. Apply pressure to limit the loss of blood as much as possible. Make sure EMS is on the way.",
+      "buttons": [["End assessment", "Red"]]
     },
 
     "HeartIssue": {

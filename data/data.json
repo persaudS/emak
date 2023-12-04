@@ -63,7 +63,7 @@
     },
     "KnownPhysical": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["Burn", "Fall", "HeadInjury", "Bleeding", "BrokenBones"],
+      "nextNodes": ["Fall", "HeadInjury", "Bleeding", "BrokenBones"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "CPRPre": {
@@ -208,11 +208,6 @@
       "device_status": ["Unneeded", "Glucometer"]
     },
 
-    "Burn": {
-      "thresholds": [0],
-      "nextNodes": ["END"],
-      "device_status": ["Unneeded", "Glucometer"]
-    },
     "Fall": {
       "thresholds": [0],
       "nextNodes": ["END"],
@@ -224,11 +219,22 @@
       "device_status": ["Unneeded", "Glucometer"]
     },
     "Bleeding": {
+      "thresholds": [0, 1],
+      "nextNodes": ["BleedExtremity", "BleedOther"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "BrokenBones": {
       "thresholds": [0],
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
     },
-    "BrokenBones": {
+
+    "BleedExtremity": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "BleedOther": {
       "thresholds": [0],
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
