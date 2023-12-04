@@ -189,6 +189,19 @@
       "buttons": [
         ["Reading Done", "Green"]
       ]
+    },
+    "END":{
+      "text": "Please ensure 911 has been called and emergency services are on the way.\nIf possible, have someone else find a person with medical experience\n*DO NOT* turn off device until medical personnel arrive.",
+      "buttons":[
+        ["Shutdown Device", "Yellow"]
+      ]
+    },
+    "Shutdown":{
+      "text": "Are you really sure you want to turn off this device?",
+      "buttons":[
+        ["Yes", "Green"],
+        ["No", "Red"]
+      ]
     }
   }
 }

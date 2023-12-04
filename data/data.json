@@ -152,6 +152,16 @@
       "thresholds": [0, 1],
       "nextNodes": ["END", "END"],
       "device_status": ["Unneeded", "Glucometer"]
+    },
+    "END" : {
+      "thresholds" : [0], 
+      "nextNodes": ["Shutdown"],
+      "device_status": ["Unneeded", "None"]
+    },
+    "Shutdown" : {
+      "thresholds" : [0,1], 
+      "nextNodes": ["END","END"],
+      "device_status": ["Unneeded", "Shutdown"]
     }
   }
 }

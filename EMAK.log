@@ -1,44 +1,38 @@
-13:13:43,642 EMAK INFO Starting GUI
-13:13:43,642 EMAK INFO Adding device status to view
-13:13:43,642 EMAK INFO Resize Factor: 1.592920353982301
-13:13:45,881 EMAK INFO Patient state updated
-13:13:45,881 EMAK INFO IsSceneSafe
-13:13:45,882 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
-13:13:45,882 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-13:13:45,882 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-13:13:45,883 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
-13:13:45,883 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
-13:13:54,742 EMAK INFO Patient state updated
-13:13:54,742 EMAK INFO PTAwake
-13:13:58,965 EMAK INFO Patient state updated
-13:13:58,965 EMAK INFO AskPT
-13:14:03,369 EMAK INFO Patient state updated
-13:14:03,369 EMAK INFO NonPhysical
-13:14:06,197 EMAK INFO Patient state updated
-13:14:06,197 EMAK INFO Trauma
-13:14:14,177 EMAK INFO Patient state updated
-13:14:14,177 EMAK INFO InLineStabilization
-13:14:18,196 EMAK INFO Patient state updated
-13:14:18,196 EMAK INFO KeepComfortable
-13:14:26,197 EMAK INFO Patient state updated
-13:14:26,197 EMAK INFO Airway
-13:14:47,377 EMAK INFO Patient state updated
-13:14:47,377 EMAK INFO EmergencyPos
-13:14:51,530 EMAK INFO Patient state updated
-13:14:51,530 EMAK INFO ApplyPO/AssessBreath
-13:15:08,78 EMAK INFO Patient state updated
-13:15:08,79 EMAK INFO AssessBleeding
-13:15:15,625 EMAK INFO Patient state updated
-13:15:15,626 EMAK INFO ApplyBP
-13:17:38,541 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
-13:17:38,541 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-13:17:38,541 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-13:17:38,541 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
-13:17:38,541 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
-13:17:39,196 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
-13:17:39,197 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-13:17:39,197 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-13:17:39,197 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
-13:17:39,197 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
-13:17:39,850 EMAK INFO Adding device status to view
-13:17:39,850 EMAK INFO Resize Factor: 1.592920353982301
+16:14:52,656 EMAK INFO Starting GUI
+16:14:52,661 EMAK INFO Adding device status to view
+16:14:52,662 EMAK INFO Resize Factor: 1.592920353982301
+16:14:53,738 EMAK INFO Patient state updated
+16:14:53,739 EMAK INFO IsSceneSafe
+16:14:53,740 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+16:14:53,740 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+16:14:53,741 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+16:14:53,741 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+16:14:53,742 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+16:14:56,302 EMAK INFO Patient state updated
+16:14:56,304 EMAK INFO PTAwake
+16:14:58,714 EMAK INFO Patient state updated
+16:14:58,715 EMAK INFO AskPT
+16:15:00,395 EMAK INFO Patient state updated
+16:15:00,395 EMAK INFO NonPhysical
+16:15:01,758 EMAK INFO Patient state updated
+16:15:01,760 EMAK INFO END
+16:15:03,3 EMAK INFO Patient state updated
+16:15:03,4 EMAK INFO Shutdown
+16:15:04,427 EMAK INFO Patient state updated
+16:15:04,427 EMAK INFO END
+16:15:13,581 EMAK INFO Patient state updated
+16:15:13,582 EMAK INFO Shutdown
+16:15:15,164 EMAK INFO Patient state updated
+16:15:15,165 EMAK INFO END
+16:15:24,415 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+16:15:24,415 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+16:15:24,415 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+16:15:24,416 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+16:15:24,416 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+16:15:25,55 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+16:15:25,55 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+16:15:25,55 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+16:15:25,55 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+16:15:25,56 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+16:15:25,636 EMAK INFO Adding device status to view
+16:15:25,637 EMAK INFO Resize Factor: 1.592920353982301
