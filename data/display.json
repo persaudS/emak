@@ -212,15 +212,13 @@
         ["TEMPORARY: SpO2 < 88, Respiratory distress ", "Red"]
       ]
     },
-    "END":{
+    "END": {
       "text": "Please ensure 911 has been called and emergency services are on the way.\nIf possible, have someone else find a person with medical experience\n*DO NOT* turn off device until medical personnel arrive.",
-      "buttons":[
-        ["Shutdown Device", "Yellow"]
-      ]
+      "buttons": [["Shutdown Device", "Yellow"]]
     },
-    "Shutdown":{
+    "Shutdown": {
       "text": "Are you really sure you want to turn off this device?",
-      "buttons":[
+      "buttons": [
         ["Yes", "Green"],
         ["No", "Red"]
       ]
@@ -257,44 +255,44 @@
 
     "Burn": {
       "text": "TEMPORARY: Handle burn",
-      "buttons": [[]]
+      "buttons": []
     },
     "Fall": {
       "text": "TEMPORARY: Handle fall",
-      "buttons": [[]]
+      "buttons": []
     },
     "HeadInjury": {
       "text": "TEMPORARY: Handle head injury",
-      "buttons": [[]]
+      "buttons": []
     },
     "Bleeding": {
       "text": "TEMPORARY: Handle bleeding",
-      "buttons": [[]]
+      "buttons": []
     },
     "BrokenBones": {
       "text": "TEMPORARY: Handle broken bone(s)",
-      "buttons": [[]]
+      "buttons": []
     },
 
     "HeartIssue": {
       "text": "TEMPORARY: Handle heart issue",
-      "buttons": [[]]
+      "buttons": []
     },
     "AllergicRxn": {
       "text": "TEMPORARY: Handle allergic reaction",
-      "buttons": [[]]
+      "buttons": []
     },
     "Asthma": {
       "text": "TEMPORARY: Handle asthma",
-      "buttons": [[]]
+      "buttons": []
     },
     "Neurological": {
       "text": "TEMPORARY: Handle neurologicaSl",
-      "buttons": [[]]
+      "buttons": []
     },
     "Diabetic": {
       "text": "TEMPORARY: Handle diabetic",
-      "buttons": [[]]
+      "buttons": []
     }
   }
 }
