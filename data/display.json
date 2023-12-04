@@ -23,6 +23,12 @@
         ["Patient cannot be moved to a safe location", "Red"]
       ]
     },
+    "TestNode": {
+        "text": "If device has gotten reading click yes and continue for informed decision",
+        "buttons": [
+            ["Reading complete", "Green"], 
+            ["Not complete", "Red"]]
+    },
     "Call911": {
       "text": "Ensure 911 has been called and wait in a safe place for EMS to arrive",
       "buttons": []
@@ -148,9 +154,10 @@
     "ApplyBP": {
       "text": "Apply the blood pressure monitor on the upper arm of the patient. Use the velcro to make it moderately tight. Once on, press the blue Start/Stop button. Wait for monitor to take reading",
       "buttons": [
-        ["Blood pressure shown on small monitor screen", "Green"],
-        ["Blood pressure not taken", "Red"]
-      ]
+        ["Blood pressure cuff attached", "Green"],
+        ["Blood pressure cuff unable to be attached", "Red"]
+      ], 
+      "device_state":["Needed"]
     },
     "ObtainHistory": {
       "text": "TEMPORARY: Obtain SAMPLE history",

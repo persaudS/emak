@@ -149,7 +149,6 @@ class MainView(tk.Tk):
             print("end")
             self.ems_popup_window()
         elif text == "quick_access": 
-            print(quickAccessChoice)
             self.nodeFrame.frame.destroy()
             self.update_observers(text, quickAccessChoice)
         else:
@@ -236,7 +235,6 @@ class MainView(tk.Tk):
 
     def handle_text(self, root, title):
         """Handles the text for the quick access buttons"""
-        print(title)
         button = tk.Button(root, text=title[0], command=lambda: self.on_state_change("quick_access", title[1]), font=font.Font(family='Helvetica', size=15, weight='normal'))
         button.config(width=15, height=3, pady=10, anchor="center")
 

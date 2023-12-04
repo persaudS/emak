@@ -9,6 +9,7 @@ class Node:
         self.node_id = node_id
         self.thresholds = []
         self.next_nodes = []
+        self.device_status = []
         self.load_node(model_data)
 
     # loads node data from passed model data from Patient
@@ -17,14 +18,16 @@ class Node:
         node = model_data[str(self.node_id)]
         self.next_nodes = node["nextNodes"]
         self.thresholds = sorted(node["thresholds"])
+        self.device_status = node["device_status"]
         return node
 
 class Patient:
     """Patient class for navigating the decision tree"""
+
     def __init__(self):
        self.data_path = os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "data/data.json"))
        self.model_data = self._load_data()
-       self.current_node = Node("Start", model_data=self.model_data)   
+       self.current_node = Node("Start", model_data=self.model_data)
        self.past_nodes = [] # list of nodes
        self.age = None
        self.biometrics = {} # dictionary of biometrics, prob could make a class for this
@@ -62,13 +65,31 @@ class Patient:
         if (self.current_node.node_id == "Start"):
             self._go_forward(self.current_node.next_nodes[0])
             return
+        if (self.current_node.device_status[0] == "Needed"): 
+            #Assuming controller is only observer of patient
+            self._observers[0].turn_on_device(self.current_node.device_status[1])
+            #Once device is turned on, we need to update biometrics with return values
+            self.ptUpdate()
         
-        i = 0
-        for option in self.current_node.thresholds:
-            if choice <= option:
-                self._go_forward(self.current_node.next_nodes[i])
-                return
-            i += 1
+        if (self.current_node.device_status[0] == "Needed"): 
+            #For when the value we receive is larger than the largest value in threshold 
+            if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
+                self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
+            i = 0
+            for option in self.current_node.thresholds:
+                if self.biometrics.get(self.current_node.device_status[1]) <= option: 
+                    print("OPTION", i)
+                    self._go_forward(self.current_node.next_nodes[i])
+                    print(i)
+                    return
+                i += 1
+        else:
+            i = 0
+            for option in self.current_node.thresholds:
+                if choice <= option:
+                    self._go_forward(self.current_node.next_nodes[i])
+                    return
+                i += 1
     
     # adds observer to list of observers
     def add_observer(self, observer):
@@ -77,12 +98,14 @@ class Patient:
     # Notifies observers of change
     def ptUpdate(self):
         for observer in self._observers:
-            observer.update(self)
+            observer.patient_update()
     
     def update_metrics(self, devices):
         """Updates the model with new device biometrics"""
+        print("MODEL BIOMETRICS ", self.biometrics)
         for device in devices:
-            self.biometrics.update(device.value) #Pulse is provided by both PulseOx and BPCuff, make sure to decide which one to use
+            self.biometrics.update({device.name: device.value}) #Pulse is provided by both PulseOx and BPCuff, make sure to decide which one to use
+            print("UPDATED BIOMETRICS", self.biometrics)
 
 
 # p = Patient()
