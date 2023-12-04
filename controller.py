@@ -1,7 +1,7 @@
 import logging
 import tkinter
 from model.model import Patient
-from devices import BPCuff, PulseOx, Glucometer, DummyDevice
+from devices import BPCuff, PulseOx, Glucometer
 from view import MainView
 from view_dummy import MainView as MainViewDummy
 import devices
@@ -26,7 +26,6 @@ class Controller:
         self.devices.append(BPCuff())
         self.devices.append(PulseOx())
         self.devices.append(Glucometer())
-        self.devices.append(DummyDevice())
         self.patient.add_observer(self)  # Controller is an observer of Patient
         self.add_observer(self.view)  # View is an observer of Controller
         self.add_observer(self.patient)  # Patient is an observer of Controller
@@ -72,6 +71,7 @@ class Controller:
                 self.turn_on_device("Glucometer")
             self.view.update_frame(self.patient.current_node.node_id)
     
+    #Turn on devices when they need to be turned on
     def turn_on_device(self, device):
         if len(self.devices) > 0:
             if (device == "BPCuff"):

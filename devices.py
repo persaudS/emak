@@ -79,23 +79,3 @@ class Glucometer(Device):
     
     def turn_on(self): 
         print("Glucometer")
-
-
-class DummyDevice(Device):
-
-    """Class for Testing"""
-    def __init__(self):
-        super().__init__()
-        self.name = "DummyDevice"
-        self.value = 0
-        self.start()
- 
-    def start(self):
-        self.status = DeviceState.off
-    
-    def turn_on(self): 
-        print("DummyDevice Online")
-        self.status = DeviceState.on
-        self.value= 0
-
- 
