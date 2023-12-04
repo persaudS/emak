@@ -1,4 +1,5 @@
 from enum import Enum
+from pulseOxArduino import read_pulseOx
 
 class DeviceState(str, Enum):
     on = 'online'
@@ -36,7 +37,7 @@ class BPCuff(Device):
  
     def __init__(self):
         super().__init__()
-        self.name = "Blood Pressure Cuff"
+        self.name = "BPCuff"
         self.value = {"systolic": None, "diastolic": None, "pulse": None}
         self.start()
  
@@ -60,8 +61,11 @@ class PulseOx(Device):
     def Start(self):
         self.status = DeviceState.off
     
-    def turn_on(self): 
-        print("PulseOx")
+    def turn_on(self):
+        self.status = DeviceState.on
+        self.value["pulse"], self.value["oxygen"] = read_pulseOx()
+        print(self.value["pulse"], self.value["oxygen"])
+        self.status = DeviceState.off
  
  
 class Glucometer(Device):
