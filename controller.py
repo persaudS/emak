@@ -19,7 +19,7 @@ class Controller:
             self.view = MainView(self)
             # self.view.add_observer(self)
         else:
-            self.view = MainViewDummy("CPR")
+            self.view = MainViewDummy("IsSceneSafe")
             self.view.add_observer(self)
         self.patient = Patient()
         self._observers = []

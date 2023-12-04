@@ -2,11 +2,11 @@
 import math
 import threading
 import tkinter as tk
-import pygame
+# import pygame
 from tkinter import ttk
 from tkinter import font
 from tkinter import Button
-import tkvideo as tkv
+# import tkvideo as tkv
 import os
 import json
 from PIL import ImageTk, Image
@@ -28,9 +28,9 @@ class MainView(tk.Tk):
             os.path.dirname(__file__), "data/resources/main_frame3.jpg"))
         self._make_main_frame(nodeTitle)
         # self.attributes('-fullscreen', True)
-        self.wm_attributes('-fullscreen', 1)
+        # self.wm_attributes('-fullscreen', 1)
         self.resizable(True, True)
-        self.state('zoomed')
+        # self.state('zoomed')
         # generate frames
         self.devices = {}
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
@@ -93,7 +93,7 @@ class MainView(tk.Tk):
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         print(w," ", h)
         w = int(h * 1.30)
-        self.resizeFactor = h / 777
+        self.resizeFactor = h / 858
         self.geometry("%dx%d+0+0" % (w, h))
         # self.bind("<Configure>", self.resize)
         self.overrideredirect(True)
@@ -290,36 +290,36 @@ class NodeView():
                   wraplength=int(554*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
            
         
-        if node.get("video", None) is not None:
-            self.video = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/", node["video"]))
-            self.audio = self.video.replace("mp4", "wav")
-            self._play_audio()
-            self.video_label = tk.Label(self.frame, bg="black", width=int(450*self.resizeFactor), height=int(253*self.resizeFactor))
-            self.video_label.pack()
-            vidThread = threading.Thread(target=self._generate_video, args=()) 
-            vidThread.start()
+        # if node.get("video", None) is not None:
+        #     self.video = os.path.abspath(os.path.join(
+        #     os.path.dirname(__file__), "data/resources/", node["video"]))
+        #     self.audio = self.video.replace("mp4", "wav")
+        #     self._play_audio()
+        #     self.video_label = tk.Label(self.frame, bg="black", width=int(450*self.resizeFactor), height=int(253*self.resizeFactor))
+        #     self.video_label.pack()
+        #     vidThread = threading.Thread(target=self._generate_video, args=()) 
+        #     vidThread.start()
         
         self._make_buttons()
 
 
-    def _generate_video(self):
-        """Generates the video for the node"""
-        video = tkv.tkvideo(self.video, self.video_label, loop=1, size=(int(450*self.resizeFactor),int(253*self.resizeFactor)))
-        video.play()
+    # def _generate_video(self):
+    #     """Generates the video for the node"""
+    #     video = tkv.tkvideo(self.video, self.video_label, loop=1, size=(int(450*self.resizeFactor),int(253*self.resizeFactor)))
+    #     video.play()
 
-    def _play_audio(self):
-        """Plays audio for the node"""
-        # pygame.init()
-        self.mixer = pygame.mixer
-        self.mixer.init()
-        self.mixer.music.load(self.audio)
-        self.mixer.music.play(loops = -1)
+    # def _play_audio(self):
+    #     """Plays audio for the node"""
+    #     # pygame.init()
+    #     self.mixer = pygame.mixer
+    #     self.mixer.init()
+    #     self.mixer.music.load(self.audio)
+    #     self.mixer.music.play(loops = -1)
     
-    def stop_audio(self):
-        """Stops audio for the node"""
-        self.mixer.music.stop()
-        self.mixer.quit()
+    # def stop_audio(self):
+    #     """Stops audio for the node"""
+    #     self.mixer.music.stop()
+    #     self.mixer.quit()
 
 
     def add_observer(self, observer):
