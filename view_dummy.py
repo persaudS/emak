@@ -92,8 +92,8 @@ class MainView(tk.Tk):
     def _make_main_frame(self, nodeTitle):
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         print(w," ", h)
-        w = int(h * 1.30)
-        self.resizeFactor = h / 858
+        w = int(h * 1.80)
+        self.resizeFactor = h / 777
         self.geometry("%dx%d+0+0" % (w, h))
         # self.bind("<Configure>", self.resize)
         self.overrideredirect(True)
