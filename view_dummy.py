@@ -32,9 +32,12 @@ class MainView(tk.Tk):
         self.resizable(True, True)
         self.state('zoomed')
         # generate frames
+        self.devices = {}
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
-        self.devices = {}
+
+
+
 
 
     def start(self):
@@ -46,26 +49,33 @@ class MainView(tk.Tk):
             self.sensorFrame = SensorView(self, self.devices)
             self.continueButton.destroy()
             self.backButton.destroy()
+            self.toggle_button.destroy()
             self.continueButton = Button(
-                self, text="Continue", command=lambda: self.on_state_change("continue"),
+                self, text="Continue", command=lambda: self.on_state_change("continue", None),
                 state="disabled", bg="black", fg="white", 
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.continueButton.grid(row=2, column=4, sticky="nsew")
 
             self.backButton = Button(
-                self, text="Back", command=lambda: self.on_state_change("back"),
+                self, text="Back", command=lambda: self.on_state_change("back", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.backButton.grid(row=2, column=2, sticky="nsew")
 
             self.endButton = Button(
-                self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+                self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.endButton.grid(row=2, column=3, sticky="nsew")
+            
+            self.toggle_button = Button(
+                self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
+            self.toggle_button.grid(row=2, column=1, sticky="nsew")
         else:
             self.continueButton['state'] = 'disabled'
         self.nodeFrame.frame.destroy()
@@ -107,32 +117,20 @@ class MainView(tk.Tk):
         self.grid_columnconfigure(3, weight=1, uniform="column", minsize=int(199*self.resizeFactor))
         self.grid_columnconfigure(4, weight=1, uniform="column", minsize=int(199*self.resizeFactor))
         self.grid_columnconfigure(5, weight=1, uniform="column")
-        # self.grid_rowconfigure(0, weight=1, uniform="row", minsize=44)
-        # self.grid_rowconfigure(1, weight=1, uniform="row", minsize=525)
-        # self.grid_rowconfigure(2, weight=1, uniform="row", minsize=80, pad=5)
-        # self.grid_rowconfigure(3, weight=1, uniform="row")
-        # self.grid_columnconfigure(0, weight=1, uniform="column", minsize=10)
-        # self.grid_columnconfigure(1, weight=2, uniform="column", minsize=155)
-        # self.grid_columnconfigure(2, weight=1, uniform="column", minsize=190)
-        # self.grid_columnconfigure(3, weight=1, uniform="column", minsize=199)
-        # self.grid_columnconfigure(4, weight=1, uniform="column", minsize=199)
-        # self.grid_columnconfigure(5, weight=1, uniform="column")
         self.label.grid(row=0, columnspan=6, rowspan=4, column=0, sticky="nsew")
 
-        # self.buttom_frame = ttk.Frame(self)
-        # self.buttom_frame.grid(row=0, column=0, sticky="se")
         if nodeTitle == "Start":
                 self.labelCover = tk.Label(self, bg="white", width=int(155*self.resizeFactor), height=int(80*self.resizeFactor))
                 self.labelCover.grid(row=2, rowspan=1, column=1, pady=2, sticky="nsew")  
                 self.continueButton = Button(
-                self, text="I'm Ready", command=lambda: self.on_state_change("continue"),
+                self, text="I'm Ready", command=lambda: self.on_state_change("continue", None),
                 state="normal", bg="green", fg="black", pady=5, padx=5,
                 font=font.Font(family='Helvetica', size=25, 
                             weight='normal', slant='roman'))
                 self.continueButton.grid(row=2, column=3, sticky="nsew")
 
                 self.backButton = Button(
-                    self, text="Cancel", command=lambda: self.on_state_change("back"),
+                    self, text="Cancel", command=lambda: self.on_state_change("back", None),
                     bg="red", fg="black", pady=5, padx=5,
                     font=font.Font(family='Helvetica', size=25,
                                 weight='normal', slant='roman'))
@@ -140,31 +138,40 @@ class MainView(tk.Tk):
 
         else:
             self.continueButton = Button(
-                self, text="Continue", command=lambda: self.on_state_change("continue"),
+                self, text="Continue", command=lambda: self.on_state_change("continue", None),
                 state="disabled", bg="black", fg="white", 
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.continueButton.grid(row=2, column=4, sticky="nsew")
 
             self.backButton = Button(
-                self, text="Back", command=lambda: self.on_state_change("back"),
+                self, text="Back", command=lambda: self.on_state_change("back", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.backButton.grid(row=2, column=2, sticky="nsew")
 
             self.endButton = Button(
-                self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+                self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.endButton.grid(row=2, column=3, sticky="nsew")
 
-    def on_state_change(self, text):
+            self.toggle_button = Button(
+                self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
+                bg="black", fg="white",
+                font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
+            self.toggle_button.grid(row=3, column=1, sticky="nsew")
+
+    def on_state_change(self, text, quickAccessChoice):
         """Button submission event"""
         if text == "end":
             print("end")
-            self.popup_window()
+            self.ems_popup_window()
+        elif text == "quick_access": 
+            self.nodeFrame.frame.destroy()
+            self.update_observers(text, quickAccessChoice)
         else:
             self.nodeFrame.frame.destroy()
             self.update_observers(text, self.nodeFrame.selected)
@@ -184,11 +191,6 @@ class MainView(tk.Tk):
         """Updates the continue button if all selections made"""
         if (self.nodeFrame.selected is not None):
             self.continueButton['state'] = 'normal'
-        # self.update_observers(text, self.nodeFrame.selected)
-        # nodes = list(
-        #     filter(lambda node: node.selected is not None, self.nodeFrames))
-        # if len(self.nodeFrames) == len(nodes) and self.continueButton is not None:
-        #     self.continueButton['state'] = 'normal'
 
     def set_states(self, states):
         """Sets the states of the devices"""
@@ -210,17 +212,50 @@ class MainView(tk.Tk):
             return
         self.sensorFrame = SensorView(self, self.devices)
 
-    def popup_window(self):
+    def ems_popup_window(self):
         window = tk.Toplevel()
         window.title("EMS Arrived: Biometrics Available")
         win_x = self.winfo_rootx() + 160
         win_y = self.winfo_rooty() + 40
         window.geometry(f'+{win_x}+{win_y}')
         window.minsize(width=600, height=530)
-        label = tk.Label(window, text="Hello")
+        label = tk.Label(window, text="Hello Dummy View")
         label.pack(fill='x', padx=50, pady=5)
         button_close = tk.Button(window, text="Close", command=window.destroy)
         button_close.pack(fill='x')
+
+    def quick_access_popup_window(self):
+        window = tk.Toplevel()
+        window.title("Quick Access Panel")
+        win_x = self.winfo_rootx() + 160
+        win_y = self.winfo_rooty() + 40
+        window.geometry(f'+{win_x}+{win_y}')
+        window.minsize(width=600, height=530)
+        button_close = tk.Button(window, text="Close", command=window.destroy)
+        button_close.pack(fill='x')
+        
+        # Define button titles TODO: Get images for the buttons
+        button_titles = [
+            ["Heart Emergency", 0],
+            ["Patient Fall", 1],
+            ["Bleeding", 2],
+            ["Stroke", 3],
+            ["Choking", 4],
+            ["Unknown Medical", 5],
+            ["Unknown Trauma", 6]
+        ]
+
+        for title in button_titles:
+            button = self.handle_text(window, title)
+            button.pack(fill='both', expand=False)
+
+    def handle_text(self, root, title):
+        """Handles the text for the quick access buttons"""
+        button = tk.Button(root, text=title[0], command=lambda: self.on_state_change("quick_access", title[1]), font=font.Font(family='Helvetica', size=15, weight='normal'))
+        button.config(width=15, height=3, pady=10, anchor="center")
+
+        return button
+
 
 
 class NodeView():
@@ -241,7 +276,7 @@ class NodeView():
                                                              weight='bold', slant='roman'),
                   wraplength=int(700*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
         else:
-            ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
+            ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=25,
                                                              weight='bold', slant='roman'),
                   wraplength=int(554*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
            
@@ -257,25 +292,12 @@ class NodeView():
             vidThread.start()
         
         self._make_buttons()
-            # self.slider.pack()
-            # print(os.environ['IMAGEIO_FFMPEG_EXE'])
-            # player = tkv.VideoPlayer(root, self.video, audio_path=self.audio, label=self.video_label, size=(300, 200), slider=self.slider, slider_var=self.slider_var,loading_gif=self.loading_gif, keep_ratio=True, cleanup_audio=False)
-            # player.play()
 
-    # def _make_text(self):
-    #     """Creates prompt text for the node"""
-    #     text_frame = ttk.Frame(self.frame)
-    #     ttk.Label(text_frame, text=self.text).pack()
-    #     text_frame.grid(row=1, col=1, sticky="nsew")
 
     def _generate_video(self):
-            # self.loading_gif = self.video.replace(node["video"], "loading_gif.gif")
-            #play = lambda: PlaySound('Sound.wav', SND_FILENAME)
-            # self.slider_var = IntVar(self.frame)
-            # self.slider = TickScale(self.frame, orient="horizontal", variable=self.slider_var)
-
-            video = tkv.tkvideo(self.video, self.video_label, loop=1, size=(int(450*self.resizeFactor),int(253*self.resizeFactor)))
-            video.play()
+        """Generates the video for the node"""
+        video = tkv.tkvideo(self.video, self.video_label, loop=1, size=(int(450*self.resizeFactor),int(253*self.resizeFactor)))
+        video.play()
 
     def _play_audio(self):
         """Plays audio for the node"""
@@ -315,24 +337,24 @@ class SensorView(tk.Frame):
     def __init__(self, root, devices):
         self.resizeFactor = root.resizeFactor
         self.frame = tk.Frame(root, bg="#c4c4c4", width=160,
-                              height=151, padx=0, pady=0)
+                              height=100, borderwidth=5, relief="ridge", padx=0, pady=0)
         # ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
         #                                                      weight='bold', slant='roman'),
         #           wraplength=554, justify="center", relief="solid", padding=10).pack()
         self.frame.grid(row=1, column=1, rowspan=2, sticky="nsew")
-        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
-        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=int(45*self.resizeFactor))
-        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=int(100*self.resizeFactor))
-        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
-        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=int(45*self.resizeFactor))
-        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=int(100*self.resizeFactor))
-        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
-        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=int(45*self.resizeFactor))
-        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=int(100*self.resizeFactor))
-        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
-        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=int(3*self.resizeFactor))
-        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=int(146*self.resizeFactor))
-        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=int(6*self.resizeFactor))
+        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=45)
+        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=100)
+        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=45)
+        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=100)
+        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=45)
+        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=100)
+        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=15)
+        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=3)
+        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=146)
+        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=6)
         self.devices = devices
         i = 1
         for device in devices:
@@ -378,7 +400,7 @@ class SensorView(tk.Frame):
 
 
 if __name__ == "__main__":
-    main = MainView("IsSceneSafe")
+    main = MainView("Start")
     main.start()
     # print('MVC - the simplest example')
     # print('Do you want to see everyone in my db?[y/n]')

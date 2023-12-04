@@ -64,10 +64,42 @@ class Controller:
         else:
             self.patient.decide(sub_choice)
             self.logger.info("Patient state updated")
-            self.view.update_frame(self.patient.current_node.node_id) 
+            self.logger.info(self.patient.current_node.node_id)
+            if self.patient.current_node.node_id == "BPCuff":
+                self.turn_on_device("BPCuff")
+            if self.patient.current_node.node_id == "PulseOx":
+                self.turn_on_device("PulseOx")
+            if self.patient.current_node.node_id == "Glucometer":
+                self.turn_on_device("Glucometer")
+            self.view.update_frame(self.patient.current_node.node_id)
+    
+    #Turn on devices when they need to be turned on
+    def turn_on_device(self, device):
+        if len(self.devices) > 0:
+            if (device == "BPCuff"):
+                bp_device = self.devices[0]
+                bp_device.turn_on()
+                #self.device_notify() TODO: Figure out why this isnt working
+            if (device == "PulseOx"):
+                pulse_ox_device = self.devices[1]
+                pulse_ox_device.turn_on()
+                #self.device_notify()
+            if (device == "Glucometer"):
+                glucometer_device = self.devices[2]
+                glucometer_device.turn_on()
+                #self.device_notify() 
+            if (device == "DummyDevice"):
+                dummy_device = self.devices[3]
+                dummy_device.turn_on()
+                self.device_notify() 
+    
+    #Update the patient with the retrieved device metrics 
+    def patient_update(self):
+        self.patient.update_metrics(self.devices)
 
 
     def device_notify(self):
+        print("here", self._observers)
         for observer in self._observers:
             observer.update_metrics(self.devices)
         
