@@ -1,0 +1,6 @@
+[  290.092147] usb 1-1.3: Manufacturer: Abbott Diabetes Care
+[  290.104614] hid-generic 0003:1A61:3850.0005: hiddev98,hidraw4: USB HID v10.10 Device [Abbott Diabetes Care ADC P2] on usb-0000:01:00.0-1.3/input0
+[  371.526960] usb 1-1.3: Manufacturer: Abbott Diabetes Care
+[  371.538090] hid-generic 0003:1A61:3850.0006: hiddev98,hidraw4: USB HID v10.10 Device [Abbott Diabetes Care ADC P2] on usb-0000:01:00.0-1.3/input0
+[ 1837.329189] usb 1-1.3: Manufacturer: Abbott Diabetes Care
+[ 1837.339678] hid-generic 0003:1A61:3850.0007: hiddev98,hidraw4: USB HID v10.10 Device [Abbott Diabetes Care ADC P2] on usb-0000:01:00.0-1.3/input0
