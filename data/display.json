@@ -20,10 +20,11 @@
       ]
     },
     "TestNode": {
-        "text": "If device has gotten reading click yes and continue for informed decision",
-        "buttons": [
-            ["Reading complete", "Green"], 
-            ["Not complete", "Red"]]
+      "text": "If device has gotten reading click yes and continue for informed decision",
+      "buttons": [
+        ["Reading complete", "Green"],
+        ["Not complete", "Red"]
+      ]
     },
     "Call911": {
       "text": "Ensure 911 has been called and wait in a safe place for EMS to arrive",
@@ -37,13 +38,16 @@
       ]
     },
     "CPRPre": {
-        "text": "Ask someone to look for an AED if possible. Ensure that 911 has been called. \n\n Place the person on their back on a firm, flat surface",
-        "buttons": [["I'm Ready to do CPR", "Green"], ["No", "Red"]]
+      "text": "Ask someone to look for an AED if possible. Ensure that 911 has been called. \n\n Place the person on their back on a firm, flat surface",
+      "buttons": [
+        ["I'm Ready to do CPR", "Green"],
+        ["No", "Red"]
+      ]
     },
     "CPR": {
-        "text": "Follow Video Instructions. \n If AED is found, turn it on and follow instructions.",
-        "buttons": [["Return of Pulse", "Green"]],
-        "video": "CPR.mp4"
+      "text": "Follow Video Instructions. \n If AED is found, turn it on and follow instructions.",
+      "buttons": [["Return of Pulse", "Green"]],
+      "video": "CPR.mp4"
     },
     "QuickAccess": {
       "text": "TODO",
@@ -157,16 +161,19 @@
       ]
     },
     "ApplyBP": {
-      "text": "Apply the blood pressure monitor on the relaxed upper arm of the patient. Use the velcro to make it moderately tight. Once on, press the blue Start/Stop button once.",
+      "text": "Wrap the blood pressure monitor cuff around the bare skin of the relaxed upper arm of the patient. Use the velcro to make it moderately tight. Once on, press the blue Start/Stop button once.",
       "buttons": [
         ["Blood pressure cuff attached and blue button pressed", "Green"],
         ["Blood pressure cuff unable to be attached", "Red"]
       ]
     },
     "ReadBP": {
-      "text": "Wait for the reading to finish (around 30 sec). You will know the reading has finished once three numbers come on screen",
+      "text": "Wait for the reading to finish (around 30 sec). You will know the reading has finished once three 2-3 digit numbers appear on screen",
       "buttons": [
-        ["Blood pressure cuff finished reading and shows three numbers", "Green"],
+        [
+          "Blood pressure cuff finished reading and shows three numbers",
+          "Green"
+        ],
         ["Blood pressure cuff does not show three numbers", "Red"]
       ]
     },
@@ -186,8 +193,23 @@
     },
     "Glucometer": {
       "text": "1. Unplug Glucometer \n2. Insert test strip\n3. Take and apply blood sample to test strip using blood lancets\n4. Wait for reading and plug in Glucometer",
+      "buttons": [["Reading Done", "Green"]]
+    },
+
+    "Medical": {
+      "text": "Can the patient breath clearly?",
       "buttons": [
-        ["Reading Done", "Green"]
+        ["Yes", "Green"],
+        ["The patient is breathing but vomiting", "Yellow"],
+        ["No", "Red"]
+      ]
+    },
+    "ApplyPO/AssessBreath2": {
+      "text": "Apply the pulse oximeter in the case on the patients finger as shown below",
+      "buttons": [
+        ["TEMPORARY: Normal Readings", "Green"],
+        ["TEMPORARY: Cardiac arrest", "Red"],
+        ["TEMPORARY: SpO2 < 88, Respiratory distress ", "Red"]
       ]
     },
     "END":{
@@ -202,6 +224,77 @@
         ["Yes", "Green"],
         ["No", "Red"]
       ]
+    },
+    "EmergencyPos2": {
+      "text": "Place the patient in the emergency position as shown below. Ensure their airway is kept clear",
+      "buttons": [
+        ["Patient moved into the emergency position and is breathing", "Green"],
+        ["Patient moved into the emergency position and is choking", "Red"],
+        ["Move cannot be performed", "Red"]
+      ]
+    },
+    "HeadTiltChinLift": {
+      "text": "Perform the head-tilt chin-lift as shown below.",
+      "buttons": [
+        ["Patient is breathing clearly", "Green"],
+        ["Patient appears to be having an allergic reaction", "Red"],
+        ["Patient is choking", "Red"]
+      ]
+    },
+
+    "Fowler": {
+      "text": "Ensure 911 has been called and emergency services are coming. If possible, place the patient in the Fowler position shown below and supply them with supplemental oxygen",
+      "buttons": [["Completed as best as possible", "Green"]]
+    },
+    "Choking": {
+      "text": "Check if the patient has debris visible in their throat. If so, attempt to remove it. Otherwise perform the Heimlich shown below.",
+      "buttons": []
+    },
+    "Allergic": {
+      "text": "Move the patient away from potential allergens. If possible, use Epipen or supplemental oxygen. Move patient into the Fowler position shown below.",
+      "buttons": [["Completed as best as possible", "Green"]]
+    },
+
+    "Burn": {
+      "text": "TEMPORARY: Handle burn",
+      "buttons": [[]]
+    },
+    "Fall": {
+      "text": "TEMPORARY: Handle fall",
+      "buttons": [[]]
+    },
+    "HeadInjury": {
+      "text": "TEMPORARY: Handle head injury",
+      "buttons": [[]]
+    },
+    "Bleeding": {
+      "text": "TEMPORARY: Handle bleeding",
+      "buttons": [[]]
+    },
+    "BrokenBones": {
+      "text": "TEMPORARY: Handle broken bone(s)",
+      "buttons": [[]]
+    },
+
+    "HeartIssue": {
+      "text": "TEMPORARY: Handle heart issue",
+      "buttons": [[]]
+    },
+    "AllergicRxn": {
+      "text": "TEMPORARY: Handle allergic reaction",
+      "buttons": [[]]
+    },
+    "Asthma": {
+      "text": "TEMPORARY: Handle asthma",
+      "buttons": [[]]
+    },
+    "Neurological": {
+      "text": "TEMPORARY: Handle neurologicaSl",
+      "buttons": [[]]
+    },
+    "Diabetic": {
+      "text": "TEMPORARY: Handle diabetic",
+      "buttons": [[]]
     }
   }
 }
