@@ -6,6 +6,7 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import font
 from tkinter import Button
+
 # import tkvideo as tkv
 import os
 import json
@@ -26,6 +27,7 @@ class MainView(tk.Tk):
             os.path.dirname(__file__), "data/display.json"))
         self.image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/main_frame3.jpg"))
+        self.resizeFactor = 1
         self._make_main_frame(nodeTitle)
         # self.attributes('-fullscreen', True)
         # self.wm_attributes('-fullscreen', 1)
@@ -36,51 +38,56 @@ class MainView(tk.Tk):
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
 
-
-
-
-
     def start(self):
         self.mainloop()
 
     def update_frame(self, nodeTitle):
         """Updates the node frame"""
+
+        self.nodeTitle = nodeTitle
         if nodeTitle == "IsSceneSafe":
-            self.sensorFrame = SensorView(self, self.devices)
-            self.continueButton.destroy()
-            self.backButton.destroy()
-            self.toggle_button.destroy()
-            self.continueButton = Button(
-                self, text="Continue", command=lambda: self.on_state_change("continue", None),
-                state="disabled", bg="black", fg="white", 
-                font=font.Font(family='Helvetica', size=25,
-                            weight='normal', slant='roman'))
-            self.continueButton.grid(row=2, column=4, sticky="nsew")
+            # self.nodeFrame.frame.destroy()
+            # self.continueButton.destroy()
+            # self.backButton.destroy()
+            # self.toggle_button.destroy()
+            # self.sensorFrame = SensorView(self, self.devices)
+            self._make_main_frame(nodeTitle)
+            self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
+            self.nodeFrame.add_observer(self)
+            return
 
-            self.backButton = Button(
-                self, text="Back", command=lambda: self.on_state_change("back", None),
-                bg="black", fg="white",
-                font=font.Font(family='Helvetica', size=25,
-                            weight='normal', slant='roman'))
-            self.backButton.grid(row=2, column=2, sticky="nsew")
+ 
+            # self.continueButton = Button(
+            #     self, text="Continue", command=lambda: self.on_state_change("continue", None),
+            #     state="disabled", bg="black", fg="white", 
+            #     font=font.Font(family='Helvetica', size=25,
+            #                 weight='normal', slant='roman'))
+            # self.continueButton.grid(row=2, column=4, sticky="nsew")
 
-            self.endButton = Button(
-                self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
-                bg="black", fg="white",
-                font=font.Font(family='Helvetica', size=25,
-                            weight='normal', slant='roman'))
-            self.endButton.grid(row=2, column=3, sticky="nsew")
+            # self.backButton = Button(
+            #     self, text="Back", command=lambda: self.on_state_change("back", None),
+            #     bg="black", fg="white",
+            #     font=font.Font(family='Helvetica', size=25,
+            #                 weight='normal', slant='roman'))
+            # self.backButton.grid(row=2, column=2, sticky="nsew")
+
+            # self.endButton = Button(
+            #     self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
+            #     bg="black", fg="white",
+            #     font=font.Font(family='Helvetica', size=25,
+            #                 weight='normal', slant='roman'))
+            # self.endButton.grid(row=2, column=3, sticky="nsew")
             
-            self.toggle_button = Button(
-                self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
-                bg="black", fg="white",
-                font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
-            self.toggle_button.grid(row=2, column=1, sticky="nsew")
+            # self.toggle_button = Button(
+            #     self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
+            #     bg="black", fg="white",
+            #     font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
+            # self.toggle_button.grid(row=2, column=1, sticky="nsew")
         elif nodeTitle == "Start":
             self.sensorFrame.frame.destroy()
         else:
             self.continueButton['state'] = 'disabled'
-        self.nodeFrame.frame.destroy()
+        # self.nodeFrame.frame.destroy()
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
 
@@ -93,7 +100,7 @@ class MainView(tk.Tk):
         w, h = self.winfo_screenwidth(), self.winfo_screenheight()
         print(w," ", h)
         w = int(h * 1.80)
-        self.resizeFactor = h / 777
+        self.resizeFactor = h / 678
         self.geometry("%dx%d+0+0" % (w, h))
         # self.bind("<Configure>", self.resize)
         self.overrideredirect(True)
@@ -104,7 +111,7 @@ class MainView(tk.Tk):
 
         # self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
 
-        self.buttom_frame = ttk.Frame(self.label)
+        # self.buttom_frame = ttk.Frame(self.label)
         self.nodeTitle = nodeTitle
 
         # Place the main frame in the grid to cover the entire screen
@@ -122,40 +129,40 @@ class MainView(tk.Tk):
         self.label.grid(row=0, columnspan=6, rowspan=4, column=0, sticky="nsew")
 
         if nodeTitle == "Start":
-                self.labelCover = tk.Label(self, bg="white", width=int(155*self.resizeFactor), height=int(80*self.resizeFactor))
-                self.labelCover.grid(row=2, rowspan=1, column=1, pady=2, sticky="nsew")  
+                # self.labelCover = tk.Label(self, bg="white", width=int(155*self.resizeFactor), height=int(80*self.resizeFactor))
+                # self.labelCover.grid(row=2, rowspan=1, column=1, pady=2, sticky="nsew")  
                 self.continueButton = Button(
-                self, text="I'm Ready", command=lambda: self.on_state_change("continue", None),
+                self, text="        I'm Ready        ", command=lambda: self.on_state_change("continue", None),
                 state="normal", bg="green", fg="black", pady=5, padx=5,
                 font=font.Font(family='Helvetica', size=25, 
                             weight='normal', slant='roman'))
-                self.continueButton.grid(row=2, column=3, sticky="nsew")
+                self.continueButton.grid(row=2, column=1, sticky="nse")
 
                 self.backButton = Button(
-                    self, text="Cancel", command=lambda: self.on_state_change("back", None),
+                    self, text="Cancel", command=lambda: self.destroy(),
                     bg="red", fg="black", pady=5, padx=5,
                     font=font.Font(family='Helvetica', size=25,
                                 weight='normal', slant='roman'))
-                self.backButton.grid(row=2, column=2, sticky="nsew")
+                self.backButton.grid(row=2, column=3, sticky="nsew")
 
         else:
             self.continueButton = Button(
                 self, text="Continue", command=lambda: self.on_state_change("continue", None),
-                state="disabled", bg="black", fg="white", 
+                state="disabled", bg="black", fg="white", padx=100,
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.continueButton.grid(row=2, column=4, sticky="nsew")
 
             self.backButton = Button(
                 self, text="Back", command=lambda: self.on_state_change("back", None),
-                bg="black", fg="white",
+                bg="black", fg="white", padx=100,
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.backButton.grid(row=2, column=2, sticky="nsew")
 
             self.endButton = Button(
                 self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
-                bg="black", fg="white",
+                bg="black", fg="white", padx=100,
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.endButton.grid(row=2, column=3, sticky="nsew")
@@ -164,7 +171,7 @@ class MainView(tk.Tk):
                 self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
-            self.toggle_button.grid(row=3, column=1, sticky="nsew")
+            self.toggle_button.grid(row=2, column=1, sticky="nsew")
 
     def on_state_change(self, text, quickAccessChoice):
         """Button submission event"""
@@ -173,6 +180,8 @@ class MainView(tk.Tk):
             self.ems_popup_window()
         elif text == "quick_access": 
             self.nodeFrame.frame.destroy()
+            self.continueButton.destroy()
+            self.backButton.destroy()
             self.update_observers(text, quickAccessChoice)
         else:
             # if(self.nodeFrame.video):
@@ -181,9 +190,12 @@ class MainView(tk.Tk):
                 # self.nodeFrame.mixer.quit()
                 # audioThread = threading.Thread(target=self.nodeFrame.mixer.music.pause, args=()) 
                 # audioThread.start()
-                
+            
             self.nodeFrame.frame.destroy()
-            self.update_observers(text, self.nodeFrame.selected)
+            if self.nodeTitle == "Start":
+                self.update_observers(text, 0)
+            else:
+                self.update_observers(text, self.nodeFrame.selected)
         pass
     
     def update_observers(self, main_choice, option_choice):
@@ -220,6 +232,7 @@ class MainView(tk.Tk):
         if self.nodeTitle == "Start":
             return
         self.sensorFrame = SensorView(self, self.devices)
+        self.toggle_button.lift()
 
     def ems_popup_window(self):
         window = tk.Toplevel()
@@ -271,7 +284,6 @@ class NodeView():
     def __init__(self, root, node, main_view, nodeTitle):
         self.resizeFactor = main_view.resizeFactor
         self.text = node["text"]
-        self.buttons = node["buttons"]
         self.selected = None
         self.main_view = main_view
         self.nodeTitle = nodeTitle
@@ -289,7 +301,7 @@ class NodeView():
                                                              weight='bold', slant='roman'),
                   wraplength=int(554*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
            
-        
+            self.buttons = node["buttons"]
         # if node.get("video", None) is not None:
         #     self.video = os.path.abspath(os.path.join(
         #     os.path.dirname(__file__), "data/resources/", node["video"]))
@@ -300,7 +312,7 @@ class NodeView():
         #     vidThread = threading.Thread(target=self._generate_video, args=()) 
         #     vidThread.start()
         
-        self._make_buttons()
+            self._make_buttons()
 
 
     # def _generate_video(self):
@@ -334,12 +346,12 @@ class NodeView():
                    font=font.Font(family='Helvetica', size=25,
                                   weight='normal', slant='roman'),
                    bg="black", fg=button[1], pady=15).pack()
-        self.frame.grid(row=1, column=2, columnspan=3, sticky="n")
+        self.frame.grid(row=1, column=2, columnspan=3, sticky="n", padx=100)
 
     def button_onclick(self, button):
         """Button click event"""
-        if self.audio:
-            self.stop_audio()
+        # if self.audio:
+        #     self.stop_audio()
         i = 0
         for i in range(len(self.buttons)):
             if self.buttons[i][0] == button:
@@ -353,7 +365,7 @@ class NodeView():
 class SensorView(tk.Frame):
     def __init__(self, root, devices):
         self.resizeFactor = root.resizeFactor
-        self.frame = tk.Frame(root, bg="#c4c4c4", width=160,
+        self.frame = tk.Frame(root, bg="#c4c4c4", width=int(160*self.resizeFactor),
                               height=100, borderwidth=5, relief="ridge", padx=0, pady=0)
         # ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
         #                                                      weight='bold', slant='roman'),
@@ -362,16 +374,17 @@ class SensorView(tk.Frame):
         self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=15)
         self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=45)
         self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=5)
         self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=45)
         self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=15)
+        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=5)
         self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=45)
         self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=15)
-        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=3)
-        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=146)
-        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=6)
+        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=135)
+
+        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=int(3*self.resizeFactor))
+        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=int(146*self.resizeFactor))
+        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=int(6*self.resizeFactor))
         self.devices = devices
         i = 1
         for device in devices:

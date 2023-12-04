@@ -7,6 +7,7 @@ from devices import BPCuff, PulseOx, Glucometer
 from view import MainView
 from view_dummy import MainView as MainViewDummy
 import devices
+from glucometerutils import glucometer
 
 # TODO: add observer pattern for devices
 
@@ -19,7 +20,7 @@ class Controller:
             self.view = MainView(self)
             # self.view.add_observer(self)
         else:
-            self.view = MainViewDummy("IsSceneSafe")
+            self.view = MainViewDummy("Start")
             self.view.add_observer(self)
         self.patient = Patient()
         self._observers = []
@@ -75,6 +76,7 @@ class Controller:
             if self.patient.current_node.node_id == "Glucometer":
                 self.turn_on_device("Glucometer")
             self.view.update_frame(self.patient.current_node.node_id)
+            self.view.update_metrics(self.devices)
     
     #Turn on devices when they need to be turned on
     def turn_on_device(self, device):
@@ -90,7 +92,10 @@ class Controller:
             if (device == "Glucometer"):
                 glucometer_device = self.devices[2]
                 glucometer_device.turn_on()
-                #self.device_notify() 
+                #TODO: this device does not need to be turned on
+                #self.device_notify()
+                if(not glucometer.device_connected()):
+                     print("Connect Glucometer")
             if (device == "DummyDevice"):
                 dummy_device = self.devices[3]
                 dummy_device.turn_on()
@@ -114,6 +119,7 @@ class Controller:
         # for device in self.devices:
         #     states[device.name] = device.GetStatus()
         self.logger.info("Adding device status to view")
+        self.logger.info("Resize Factor: " + str(self.view.resizeFactor))
         self.view.update_metrics(self.devices)
         self.view.start()
 

@@ -1,4 +1,7 @@
 from enum import Enum
+from glucometerutils import glucometer
+from bloodPressure import getBPData
+
 
 class DeviceState(str, Enum):
     on = 'online'
@@ -45,6 +48,11 @@ class BPCuff(Device):
     
     def turn_on(self): 
         print("BPCuff")
+        data = getBPData()
+        self.value["systolic"] = data[0]
+        self.value["diastolic"] = data[1]
+        self.value["pulse"] = data[2]
+        self.status = DeviceState.off
  
  
 class PulseOx(Device):
@@ -79,3 +87,5 @@ class Glucometer(Device):
     
     def turn_on(self): 
         print("Glucometer")
+        print(glucometer.device_connected())
+        print(glucometer.get_last())

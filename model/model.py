@@ -105,6 +105,7 @@ class Patient:
     def update_metrics(self, devices):
         """Updates the model with new device biometrics"""
         for device in devices:
+            print(self.biometrics)
             self.biometrics.update({device.name: device.value}) #Pulse is provided by both PulseOx and BPCuff, make sure to decide which one to use
 
 

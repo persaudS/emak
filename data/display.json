@@ -1,11 +1,7 @@
 {
   "Nodes": {
     "Start": {
-      "text": "This program will walk you through how to help an emergency medical situation.\n\n\n Have someone call 911 now and follow the directions to the best of your ability.",
-      "buttons": [
-        ["I'm Ready", "Green"],
-        ["Cancel", "Red"]
-      ]
+      "text": "This program will walk you through how to help an emergency medical situation.\n\n\n Have someone call 911 now and follow the directions to the best of your ability."
     },
     "IsSceneSafe": {
       "text": "Is the scene safe for everyone? Clear Cause?",
@@ -161,12 +157,18 @@
       ]
     },
     "ApplyBP": {
-      "text": "Apply the blood pressure monitor on the upper arm of the patient. Use the velcro to make it moderately tight. Once on, press the blue Start/Stop button. Wait for monitor to take reading",
+      "text": "Apply the blood pressure monitor on the relaxed upper arm of the patient. Use the velcro to make it moderately tight. Once on, press the blue Start/Stop button once.",
       "buttons": [
-        ["Blood pressure cuff attached", "Green"],
+        ["Blood pressure cuff attached and blue button pressed", "Green"],
         ["Blood pressure cuff unable to be attached", "Red"]
-      ], 
-      "device_state":["Needed"]
+      ]
+    },
+    "ReadBP": {
+      "text": "Wait for the reading to finish (around 30 sec). You will know the reading has finished once three numbers come on screen",
+      "buttons": [
+        ["Blood pressure cuff finished reading and shows three numbers", "Green"],
+        ["Blood pressure cuff does not show three numbers", "Red"]
+      ]
     },
     "ObtainHistory": {
       "text": "TEMPORARY: Obtain SAMPLE history",
@@ -181,6 +183,12 @@
     "KeepComfortable": {
       "text": "Ensure 911 has been called and wait for EMS to arrive. In the mean time, keep the patient comfortable. If possible, have someone else find a person with medical experience",
       "buttons": []
+    },
+    "Glucometer": {
+      "text": "1. Unplug Glucometer \n2. Insert test strip\n3. Take and apply blood sample to test strip using blood lancets\n4. Wait for reading and plug in Glucometer",
+      "buttons": [
+        ["Reading Done", "Green"]
+      ]
     }
   }
 }

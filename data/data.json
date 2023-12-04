@@ -7,7 +7,7 @@
     },
     "IsSceneSafe": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["QuickAccess", "PTAwake", "TestNode", "Call911"], 
+      "nextNodes": ["QuickAccess", "PTAwake", "TestNode","Glucometer"], 
       "device_status": ["Unneeded", "DummyDevice"]
     },
     "TestNode": {
@@ -125,9 +125,17 @@
     },
     "ApplyBP": {
       "thresholds": [0, 1],
-      "nextNodes": ["ObtainHistory", "END"], 
+      "nextNodes": ["ReadBP", "END"], 
       "device_status": ["Unneeded", "BPCuff"]
-      
+    },
+    "ReadBP": {
+      "thresholds": [0, 1],
+      "buttons": [
+        ["Blood pressure cuff finished reading and shows three numbers", "Green"],
+        ["Blood pressure cuff does not show three numbers", "Red"]
+      ], 
+      "nextNodes": ["ObtainHistory", "END"],
+      "device_status":["Needed", "BPCuff"]
     },
     "ObtainHistory": {
       "thresholds": [0, 1, 2, 3, 4],
@@ -139,6 +147,11 @@
       "nextNodes": ["END"], 
       "device_status": ["Unneeded", "BPCuff"]
       
+    },
+    "Glucometer": {
+      "thresholds": [0, 1],
+      "nextNodes": ["END", "END"],
+      "device_status": ["Unneeded", "Glucometer"]
     }
   }
 }

@@ -12,7 +12,6 @@ from devices import DeviceState
 
 class MainView(tk.Tk):
     """MainView class for the GUI"""
-
     PAD = 10
 
     def __init__(self, nodeTitles=["Start"]):
@@ -22,6 +21,7 @@ class MainView(tk.Tk):
         self.image_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/resources/main_frame1.jpg"))
         self._make_main_frame()
+        self.resizeFactor = 1
 
         self.resizable(False, False)
         # generate frames
