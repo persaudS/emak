@@ -79,4 +79,3 @@ class Glucometer(Device):
     
     def turn_on(self): 
         print("Glucometer")
- 

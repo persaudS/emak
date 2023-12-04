@@ -2,100 +2,131 @@
   "Nodes": {
     "Start": {
       "thresholds": [0],
-      "nextNodes": ["IsSceneSafe"]
+      "nextNodes": ["IsSceneSafe"], 
+      "device_status": ["Unneeded", "DummyDevice"]
     },
     "IsSceneSafe": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["QuickAccess", "PTAwake", "MovePT", "Call911"]
+      "nextNodes": ["QuickAccess", "PTAwake", "TestNode", "Call911"], 
+      "device_status": ["Unneeded", "DummyDevice"]
+    },
+    "TestNode": {
+      "thresholds": [0, 88, 95],
+      "nextNodes": ["END", "Fix", "KnowWhatHappened"], 
+      "device_status": ["Needed", "DummyDevice"]
     },
     "MovePT": {
       "thresholds": [0, 1],
-      "nextNodes": ["IsSceneSafe", "Call911"]
+      "nextNodes": ["IsSceneSafe", "Call911"], 
+      "device_status": ["Needed", "DummyDevice"]
     },
     "Call911": {
       "thresholds": [0],
-      "nextNodes": ["END"]
+      "nextNodes": ["END"], 
+      "device_status": ["Unneeded", "DummyDevice"]
     },
     "PTAwake": {
       "thresholds": [0, 1],
-      "nextNodes": ["AskPT", "SternumRub"]
+      "nextNodes": ["AskPT", "SternumRub"], 
+      "device_status": ["Unneeded", "DummyDevice"]
     },
     "QuickAccess": {
       "thresholds": [0, 1],
-      "nextNodes": ["IsSceneSafe", "PulseOx"]
+      "nextNodes": ["IsSceneSafe", "PulseOx"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "SternumRub": {
       "thresholds": [0, 1],
-      "nextNodes": ["AskPT", "AskWitnesses"]
+      "nextNodes": ["AskPT", "AskWitnesses"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "AskWitnesses": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"]
+      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "NonPhysical": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "END"]
+      "nextNodes": ["END", "END", "END", "END", "END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "AskPT": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"]
+      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "KnownPhysical": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "END"]
+      "nextNodes": ["END", "END", "END", "END", "END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "PulseOx": {
       "thresholds": [95, 88, 0],
-      "nextNodes": ["KnowWhatHappened", "Fix", "END"]
+      "nextNodes": ["KnowWhatHappened", "Fix", "END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
 
     "Trauma": {
       "thresholds": [0, 1],
-      "nextNodes": ["InLineStabilization", "Airway"]
+      "nextNodes": ["InLineStabilization", "Airway"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "InLineStabilization": {
       "thresholds": [0, 1],
-      "nextNodes": ["Airway", "KeepComfortable"]
+      "nextNodes": ["Airway", "KeepComfortable"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "Airway": {
       "thresholds": [0, 1, 2],
-      "nextNodes": ["ApplyPO/AssessBreath", "EmergencyPos", "JawThrust"]
+      "nextNodes": ["ApplyPO/AssessBreath", "EmergencyPos", "JawThrust"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "JawThrust": {
       "thresholds": [0, 1],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"]
+      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyPO/AssessBreath": {
       "thresholds": [0, 1, 2],
-      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"]
+      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "EmergencyPos": {
       "thresholds": [0],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"]
+      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "NeckPulse": {
       "thresholds": [0],
-      "nextNodes": ["END"]
+      "nextNodes": ["END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "SupplementO2": {
       "thresholds": [0],
-      "nextNodes": ["END"]
+      "nextNodes": ["END"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "AssessBleeding": {
       "thresholds": [0, 1],
-      "nextNodes": ["END", "ApplyBP"]
+      "nextNodes": ["END", "ApplyBP"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyBP": {
       "thresholds": [0, 1],
-      "nextNodes": ["ObtainHistory", "END"]
+      "nextNodes": ["ObtainHistory", "END"], 
+      "device_status": ["Unneeded", "BPCuff"]
+      
     },
     "ObtainHistory": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "KeepComfortable"]
+      "nextNodes": ["END", "END", "END", "END", "KeepComfortable"], 
+      "device_status": ["Unneeded", "BPCuff"]
     },
     "KeepComfortable": {
       "thresholds": [0],
-      "nextNodes": ["END"]
+      "nextNodes": ["END"], 
+      "device_status": ["Unneeded", "BPCuff"]
+      
     }
   }
 }

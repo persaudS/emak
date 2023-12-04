@@ -42,21 +42,21 @@ class MainView(tk.Tk):
             self.continueButton.destroy()
             self.backButton.destroy()
             self.continueButton = Button(
-                self, text="Continue", command=lambda: self.on_state_change("continue"),
+                self, text="Continue", command=lambda: self.on_state_change("continue", None),
                 state="disabled", bg="black", fg="white", 
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.continueButton.grid(row=2, column=4, sticky="nsew")
 
             self.backButton = Button(
-                self, text="Back", command=lambda: self.on_state_change("back"),
+                self, text="Back", command=lambda: self.on_state_change("back", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.backButton.grid(row=2, column=2, sticky="nsew")
 
             self.endButton = Button(
-                self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+                self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
@@ -102,14 +102,14 @@ class MainView(tk.Tk):
                 self.labelCover = tk.Label(self, bg="white", width=155, height=80)
                 self.labelCover.grid(row=2, rowspan=1, column=1, pady=2, sticky="nsew")  
                 self.continueButton = Button(
-                self, text="I'm Ready", command=lambda: self.on_state_change("continue"),
+                self, text="I'm Ready", command=lambda: self.on_state_change("continue", None),
                 state="normal", bg="green", fg="black", pady=5, padx=5,
                 font=font.Font(family='Helvetica', size=25, 
                             weight='normal', slant='roman'))
                 self.continueButton.grid(row=2, column=3, sticky="nsew")
 
                 self.backButton = Button(
-                    self, text="Cancel", command=lambda: self.on_state_change("back"),
+                    self, text="Cancel", command=lambda: self.on_state_change("back", None),
                     bg="red", fg="black", pady=5, padx=5,
                     font=font.Font(family='Helvetica', size=25,
                                 weight='normal', slant='roman'))
@@ -117,21 +117,21 @@ class MainView(tk.Tk):
 
         else:
             self.continueButton = Button(
-                self, text="Continue", command=lambda: self.on_state_change("continue"),
+                self, text="Continue", command=lambda: self.on_state_change("continue", None),
                 state="disabled", bg="black", fg="white", 
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.continueButton.grid(row=2, column=4, sticky="nsew")
 
             self.backButton = Button(
-                self, text="Back", command=lambda: self.on_state_change("back"),
+                self, text="Back", command=lambda: self.on_state_change("back", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
             self.backButton.grid(row=2, column=2, sticky="nsew")
 
             self.endButton = Button(
-                self, text="EMS Arrived", command=lambda: self.on_state_change("end"),
+                self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=25,
                             weight='normal', slant='roman'))
@@ -143,11 +143,14 @@ class MainView(tk.Tk):
                 font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
             self.toggle_button.grid(row=0, column=0, sticky="nsew")
 
-    def on_state_change(self, text):
+    def on_state_change(self, text, quickAccessChoice):
         """Button submission event"""
         if text == "end":
             print("end")
             self.ems_popup_window()
+        elif text == "quick_access": 
+            self.nodeFrame.frame.destroy()
+            self.update_observers(text, quickAccessChoice)
         else:
             self.nodeFrame.frame.destroy()
             self.update_observers(text, self.nodeFrame.selected)
@@ -217,13 +220,13 @@ class MainView(tk.Tk):
         
         # Define button titles TODO: Get images for the buttons
         button_titles = [
-            "Heart Emergency",
-            "Patient Fall",
-            "Bleeding",
-            "Stroke",
-            "Choking",
-            "Unknown Medical",
-            "Unknown Trauma"
+            ["Heart Emergency", 0],
+            ["Patient Fall", 1],
+            ["Bleeding", 2],
+            ["Stroke", 3],
+            ["Choking", 4],
+            ["Unknown Medical", 5],
+            ["Unknown Trauma", 6]
         ]
 
         for title in button_titles:
@@ -232,7 +235,7 @@ class MainView(tk.Tk):
 
     def handle_text(self, root, title):
         """Handles the text for the quick access buttons"""
-        button = tk.Button(root, text=title, font=font.Font(family='Helvetica', size=15, weight='normal'))
+        button = tk.Button(root, text=title[0], command=lambda: self.on_state_change("quick_access", title[1]), font=font.Font(family='Helvetica', size=15, weight='normal'))
         button.config(width=15, height=3, pady=10, anchor="center")
 
         return button

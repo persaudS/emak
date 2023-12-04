@@ -1,6 +1,7 @@
-14:27:02,435 EMAK INFO Starting GUI
-14:27:02,435 EMAK INFO Adding device status to view
-14:27:03,81 EMAK INFO Patient state updated
-14:27:03,81 EMAK INFO IsSceneSafe
-14:27:04,545 EMAK INFO Patient state updated
-14:27:04,546 EMAK INFO Glucometer
+22:06:31,761 EMAK INFO Starting GUI
+22:06:31,761 EMAK INFO Adding device status to view
+22:06:32,741 EMAK INFO Patient state updated
+22:06:32,742 EMAK INFO IsSceneSafe
+22:06:34,163 EMAK INFO Patient state updated
+22:06:34,163 EMAK INFO TestNode
+22:06:35,862 root INFO Device status updated

@@ -71,8 +71,8 @@ class Controller:
                 self.turn_on_device("Glucometer")
             self.view.update_frame(self.patient.current_node.node_id)
     
+    #Turn on devices when they need to be turned on
     def turn_on_device(self, device):
-        print(self.devices[1])
         if len(self.devices) > 0:
             if (device == "BPCuff"):
                 bp_device = self.devices[0]
@@ -86,10 +86,18 @@ class Controller:
                 glucometer_device = self.devices[2]
                 glucometer_device.turn_on()
                 #self.device_notify() 
-
+            if (device == "DummyDevice"):
+                dummy_device = self.devices[3]
+                dummy_device.turn_on()
+                self.device_notify() 
+    
+    #Update the patient with the retrieved device metrics 
+    def patient_update(self):
+        self.patient.update_metrics(self.devices)
 
 
     def device_notify(self):
+        print("here", self._observers)
         for observer in self._observers:
             observer.update_metrics(self.devices)
         
