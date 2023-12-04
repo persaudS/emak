@@ -47,6 +47,18 @@
             "END"
         ]
     },
+    "CPRPre": {
+        "thresholds": [0],
+        "nextNodes": [
+            "CPR"
+        ]
+    },
+    "CPR": {
+        "thresholds": [0],
+        "nextNodes": [
+            "CPRPost"
+        ]
+    },
     "PulseOx": {
         "thresholds": [95, 88, 0],
         "nextNodes": [

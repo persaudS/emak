@@ -1,4 +1,6 @@
 import logging
+import os
+os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/lib/python3.11/site-packages/imageio_ffmpeg/binaries/ffmpeg"
 import tkinter
 from model.model import Patient
 from devices import BPCuff, PulseOx, Glucometer
@@ -17,7 +19,7 @@ class Controller:
             self.view = MainView(self)
             # self.view.add_observer(self)
         else:
-            self.view = MainViewDummy("Start")
+            self.view = MainViewDummy("CPR")
             self.view.add_observer(self)
         self.patient = Patient()
         self._observers = []

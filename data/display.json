@@ -11,6 +11,15 @@
         "text": "Is the patient awake? Address the patient verbally",
         "buttons": [["Yes", "Green"], ["No", "Red"]]
     },
+    "CPRPre": {
+        "text": "Ask someone to look for an AED if possible. Ensure that 911 has been called. \n\n Place the person on their back on a firm, flat surface",
+        "buttons": [["I'm Ready to do CPR", "Green"], ["No", "Red"]]
+    },
+    "CPR": {
+        "text": "Follow Video Instructions. \n If AED is found, turn it on and follow instructions.",
+        "buttons": [["Return of Pulse", "Green"]],
+        "video": "CPR.mp4"
+    },
     "QuickAccess": {
         "text": "TODO",
         "buttons": [["Yes", "Green"], ["No", "Red"]]

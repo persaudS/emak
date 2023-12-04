@@ -1,8 +1,12 @@
 # from model import DecisionTree
+import math
+import threading
 import tkinter as tk
+import pygame
 from tkinter import ttk
 from tkinter import font
 from tkmacosx import Button
+import tkvideo as tkv
 import os
 import json
 from PIL import ImageTk, Image
@@ -21,14 +25,17 @@ class MainView(tk.Tk):
         self.data_path = os.path.abspath(os.path.join(
             os.path.dirname(__file__), "data/display.json"))
         self.image_path = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), "data/resources/main_frame1.jpg"))
+            os.path.dirname(__file__), "data/resources/main_frame3.jpg"))
         self._make_main_frame(nodeTitle)
-
-        self.resizable(False, False)
+        # self.attributes('-fullscreen', True)
+        self.wm_attributes('-fullscreen', 1)
+        self.resizable(True, True)
+        self.state('zoomed')
         # generate frames
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
         self.devices = {}
+
 
     def start(self):
         self.mainloop()
@@ -65,33 +72,57 @@ class MainView(tk.Tk):
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
 
+    # def resize(event):
+    #     print("New size is: {}x{}".format(event.width, event.height))
+
+
+
     def _make_main_frame(self, nodeTitle):
+        w, h = self.winfo_screenwidth(), self.winfo_screenheight()
+        print(w," ", h)
+        w = int(h * 1.30)
+        self.resizeFactor = h / 777
+        self.geometry("%dx%d+0+0" % (w, h))
+        # self.bind("<Configure>", self.resize)
+        self.overrideredirect(True)
         self.img = ImageTk.PhotoImage(
-            Image.open(self.image_path).resize((777, 678)))
-        self.geometry("777x678")
-        self.label = tk.Label(self, image=self.img, width=777, height=678)
+            Image.open(self.image_path).resize((w, h)))
+        # self.geometry("777x678")
+        self.label = tk.Label(self, image=self.img, width=w, height=h, justify="center")
+
         # self.main_frame = ttk.Frame(self.label, width=2331, height=2034, border=0, borderwidth=0)
 
         self.buttom_frame = ttk.Frame(self.label)
         self.nodeTitle = nodeTitle
 
         # Place the main frame in the grid to cover the entire screen
-        self.label.place(width=777, height=678)
-        self.grid_rowconfigure(0, weight=1, uniform="row", minsize=44)
-        self.grid_rowconfigure(1, weight=1, uniform="row", minsize=525)
-        self.grid_rowconfigure(2, weight=1, uniform="row", minsize=80, pad=5)
+        self.label.place(width=w, height=h)
+        self.grid_rowconfigure(0, weight=1, uniform="row", minsize=int(44*self.resizeFactor))
+        self.grid_rowconfigure(1, weight=1, uniform="row", minsize=int(525*self.resizeFactor))
+        self.grid_rowconfigure(2, weight=1, uniform="row", minsize=int(80*self.resizeFactor), pad=5)
         self.grid_rowconfigure(3, weight=1, uniform="row")
-        self.grid_columnconfigure(0, weight=1, uniform="column", minsize=10)
-        self.grid_columnconfigure(1, weight=2, uniform="column", minsize=155)
-        self.grid_columnconfigure(2, weight=1, uniform="column", minsize=190)
-        self.grid_columnconfigure(3, weight=1, uniform="column", minsize=199)
-        self.grid_columnconfigure(4, weight=1, uniform="column", minsize=199)
+        self.grid_columnconfigure(0, weight=1, uniform="column", minsize=int(10*self.resizeFactor))
+        self.grid_columnconfigure(1, weight=2, uniform="column", minsize=int(155*self.resizeFactor))
+        self.grid_columnconfigure(2, weight=1, uniform="column", minsize=int(190*self.resizeFactor))
+        self.grid_columnconfigure(3, weight=1, uniform="column", minsize=int(199*self.resizeFactor))
+        self.grid_columnconfigure(4, weight=1, uniform="column", minsize=int(199*self.resizeFactor))
         self.grid_columnconfigure(5, weight=1, uniform="column")
+        # self.grid_rowconfigure(0, weight=1, uniform="row", minsize=44)
+        # self.grid_rowconfigure(1, weight=1, uniform="row", minsize=525)
+        # self.grid_rowconfigure(2, weight=1, uniform="row", minsize=80, pad=5)
+        # self.grid_rowconfigure(3, weight=1, uniform="row")
+        # self.grid_columnconfigure(0, weight=1, uniform="column", minsize=10)
+        # self.grid_columnconfigure(1, weight=2, uniform="column", minsize=155)
+        # self.grid_columnconfigure(2, weight=1, uniform="column", minsize=190)
+        # self.grid_columnconfigure(3, weight=1, uniform="column", minsize=199)
+        # self.grid_columnconfigure(4, weight=1, uniform="column", minsize=199)
+        # self.grid_columnconfigure(5, weight=1, uniform="column")
+        self.label.grid(row=0, columnspan=6, rowspan=4, column=0, sticky="nsew")
 
         # self.buttom_frame = ttk.Frame(self)
         # self.buttom_frame.grid(row=0, column=0, sticky="se")
         if nodeTitle == "Start":
-                self.labelCover = tk.Label(self, bg="white", width=155, height=80)
+                self.labelCover = tk.Label(self, bg="white", width=int(155*self.resizeFactor), height=int(80*self.resizeFactor))
                 self.labelCover.grid(row=2, rowspan=1, column=1, pady=2, sticky="nsew")  
                 self.continueButton = Button(
                 self, text="I'm Ready", command=lambda: self.on_state_change("continue"),
@@ -194,33 +225,65 @@ class MainView(tk.Tk):
 
 class NodeView():
     def __init__(self, root, node, main_view, nodeTitle):
+        self.resizeFactor = main_view.resizeFactor
         self.text = node["text"]
         self.buttons = node["buttons"]
         self.selected = None
         self.main_view = main_view
         self.nodeTitle = nodeTitle
         self._observers = []
-
-        self.frame = tk.Frame(root, bg="white", width=500,
-                              height=100, padx=3, pady=3)
+        self.frame = tk.Frame(root, bg="white", width=int(500*self.resizeFactor),
+                              height=int(100*self.resizeFactor), padx=3, pady=3)
 
         if nodeTitle == "Start":
             self.frame.grid(row=1, column=1, columnspan=4, sticky="nsew")
             ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=20,
                                                              weight='bold', slant='roman'),
-                  wraplength=700, justify="center", relief="solid", padding=10).pack()
+                  wraplength=int(700*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
         else:
             ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
                                                              weight='bold', slant='roman'),
-                  wraplength=554, justify="center", relief="solid", padding=10).pack()
-            self.frame.grid(row=1, column=2, columnspan=3, sticky="nsew")
-            self._make_buttons()
+                  wraplength=int(554*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
+           
+        
+        if node.get("video", None) is not None:
+            self.video = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), "data/resources/", node["video"]))
+            self.audio = self.video.replace("mp4", "wav")
+            self._play_audio()
+            self.video_label = tk.Label(self.frame, bg="black", width=int(450*self.resizeFactor), height=int(253*self.resizeFactor))
+            self.video_label.pack()
+            vidThread = threading.Thread(target=self._generate_video, args=()) 
+            vidThread.start()
+        
+        self._make_buttons()
+            # self.slider.pack()
+            # print(os.environ['IMAGEIO_FFMPEG_EXE'])
+            # player = tkv.VideoPlayer(root, self.video, audio_path=self.audio, label=self.video_label, size=(300, 200), slider=self.slider, slider_var=self.slider_var,loading_gif=self.loading_gif, keep_ratio=True, cleanup_audio=False)
+            # player.play()
 
     # def _make_text(self):
     #     """Creates prompt text for the node"""
     #     text_frame = ttk.Frame(self.frame)
     #     ttk.Label(text_frame, text=self.text).pack()
     #     text_frame.grid(row=1, col=1, sticky="nsew")
+
+    def _generate_video(self):
+            # self.loading_gif = self.video.replace(node["video"], "loading_gif.gif")
+            #play = lambda: PlaySound('Sound.wav', SND_FILENAME)
+            # self.slider_var = IntVar(self.frame)
+            # self.slider = TickScale(self.frame, orient="horizontal", variable=self.slider_var)
+
+            video = tkv.tkvideo(self.video, self.video_label, loop=1, size=(int(450*self.resizeFactor),int(253*self.resizeFactor)))
+            video.play()
+
+    def _play_audio(self):
+        """Plays audio for the node"""
+        pygame.init()
+        pygame.mixer.init()
+        pygame.mixer.music.load(self.audio)
+        pygame.mixer.music.play(loops = -1)
+
 
     def add_observer(self, observer):
         if observer not in self._observers:
@@ -230,7 +293,7 @@ class NodeView():
         """Creates option buttons for the node"""
         for button in self.buttons:
             Button(self.frame,
-                   text=button[0], width=554, command=lambda option=button[0]: self.button_onclick(option),
+                   text=button[0], width=int(554*self.resizeFactor), command=lambda option=button[0]: self.button_onclick(option),
                    font=font.Font(family='Helvetica', size=25,
                                   weight='normal', slant='roman'),
                    bg="black", fg=button[1], borderless=1, pady=15).pack()
@@ -250,25 +313,26 @@ class NodeView():
 
 class SensorView(tk.Frame):
     def __init__(self, root, devices):
+        self.resizeFactor = root.resizeFactor
         self.frame = tk.Frame(root, bg="#c4c4c4", width=160,
                               height=151, padx=0, pady=0)
         # ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=30,
         #                                                      weight='bold', slant='roman'),
         #           wraplength=554, justify="center", relief="solid", padding=10).pack()
         self.frame.grid(row=1, column=1, rowspan=2, sticky="nsew")
-        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=15)
-        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=45)
-        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=15)
-        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=45)
-        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=15)
-        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=45)
-        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=100)
-        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=15)
-        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=3)
-        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=146)
-        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=6)
+        self.frame.grid_rowconfigure(0, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
+        self.frame.grid_rowconfigure(1, weight=1, uniform="row", minsize=int(45*self.resizeFactor))
+        self.frame.grid_rowconfigure(2, weight=1, uniform="row", minsize=int(100*self.resizeFactor))
+        self.frame.grid_rowconfigure(3, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
+        self.frame.grid_rowconfigure(4, weight=1, uniform="row", minsize=int(45*self.resizeFactor))
+        self.frame.grid_rowconfigure(5, weight=1, uniform="row", minsize=int(100*self.resizeFactor))
+        self.frame.grid_rowconfigure(6, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
+        self.frame.grid_rowconfigure(7, weight=1, uniform="row", minsize=int(45*self.resizeFactor))
+        self.frame.grid_rowconfigure(8, weight=1, uniform="row", minsize=int(100*self.resizeFactor))
+        self.frame.grid_rowconfigure(9, weight=1, uniform="row", minsize=int(15*self.resizeFactor))
+        self.frame.grid_columnconfigure(0, weight=1, uniform="column", minsize=int(3*self.resizeFactor))
+        self.frame.grid_columnconfigure(1, weight=2, uniform="column", minsize=int(146*self.resizeFactor))
+        self.frame.grid_columnconfigure(2, weight=1, uniform="column", minsize=int(6*self.resizeFactor))
         self.devices = devices
         i = 1
         for device in devices:
@@ -311,6 +375,8 @@ class SensorView(tk.Frame):
                                                              weight='bold', slant='roman'))
         labels = [labelName, labelStatus]
         return labels
+
+
 if __name__ == "__main__":
     main = MainView("IsSceneSafe")
     main.start()
