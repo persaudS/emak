@@ -74,6 +74,31 @@ class Patient:
         #This is for when we need to make informed decisions automatically using the device values
         if (self.current_node.device_status[0] == "Needed"): 
             #For when the value we receive is larger than the largest value in threshold 
+            #Need to figure out comparators for device specific data:
+            #TODO: BPCuff: Compare Systolic and Diastolic to Threshold Sys/Dia
+            #TODO: PulseOx Compare HR and OXygen to Threshold HR O2
+            #TODO: Glucometer compare Glucose to Threshold Glucose
+            deviceName = self.current_node.device_status[0]
+            if deviceName == "BPCuff":
+                print("BPCuff")
+            elif deviceName == "PulseOx":
+                data = self.biometrics.get("Pulse Oximeter")
+                if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
+                    self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
+                i = 0
+                #In data.json we need to have the nextNodes organized in the same manner as threshold values 
+                for option in self.current_node.thresholds:
+                    if self.biometrics.get(self.current_node.device_status[1]) <= option: 
+                        self._go_forward(self.current_node.next_nodes[i])
+                        print(i)
+                        return
+                    i += 1
+            elif deviceName == "Glucometer":
+                print("Glucometer")
+            else:
+                "Unrecognized device"
+
+
             if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
                 self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
             i = 0
