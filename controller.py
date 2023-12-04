@@ -2,7 +2,7 @@ import logging
 import os
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/lib/python3.11/site-packages/imageio_ffmpeg/binaries/ffmpeg"
 import tkinter
-from model.model import Patient
+from model.model import Patient, Node
 from devices import BPCuff, PulseOx, Glucometer
 from view import MainView
 from view_dummy import MainView as MainViewDummy
@@ -62,6 +62,9 @@ class Controller:
         elif main_choice == "end":
             print("End")
         else:
+            if main_choice == "quick_access":
+                self.patient.current_node = Node("QuickAccess", self.patient.model_data)
+               
             self.patient.decide(sub_choice)
             self.logger.info("Patient state updated")
             self.logger.info(self.patient.current_node.node_id)

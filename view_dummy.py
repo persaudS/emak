@@ -76,6 +76,8 @@ class MainView(tk.Tk):
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
             self.toggle_button.grid(row=2, column=1, sticky="nsew")
+        elif nodeTitle == "Start":
+            self.sensorFrame.frame.destroy()
         else:
             self.continueButton['state'] = 'disabled'
         self.nodeFrame.frame.destroy()
@@ -173,6 +175,13 @@ class MainView(tk.Tk):
             self.nodeFrame.frame.destroy()
             self.update_observers(text, quickAccessChoice)
         else:
+            # if(self.nodeFrame.video):
+            #     self.nodeFrame.stop_audio()
+                # self.nodeFrame.mixer.music.unload()
+                # self.nodeFrame.mixer.quit()
+                # audioThread = threading.Thread(target=self.nodeFrame.mixer.music.pause, args=()) 
+                # audioThread.start()
+                
             self.nodeFrame.frame.destroy()
             self.update_observers(text, self.nodeFrame.selected)
         pass
@@ -301,10 +310,16 @@ class NodeView():
 
     def _play_audio(self):
         """Plays audio for the node"""
-        pygame.init()
-        pygame.mixer.init()
-        pygame.mixer.music.load(self.audio)
-        pygame.mixer.music.play(loops = -1)
+        # pygame.init()
+        self.mixer = pygame.mixer
+        self.mixer.init()
+        self.mixer.music.load(self.audio)
+        self.mixer.music.play(loops = -1)
+    
+    def stop_audio(self):
+        """Stops audio for the node"""
+        self.mixer.music.stop()
+        self.mixer.quit()
 
 
     def add_observer(self, observer):
@@ -323,6 +338,8 @@ class NodeView():
 
     def button_onclick(self, button):
         """Button click event"""
+        if self.audio:
+            self.stop_audio()
         i = 0
         for i in range(len(self.buttons)):
             if self.buttons[i][0] == button:
