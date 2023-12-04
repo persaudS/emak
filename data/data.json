@@ -2,155 +2,252 @@
   "Nodes": {
     "Start": {
       "thresholds": [0],
-      "nextNodes": ["IsSceneSafe"], 
+      "nextNodes": ["IsSceneSafe"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
     "IsSceneSafe": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["QuickAccess", "PTAwake", "TestNode","Glucometer"], 
+      "nextNodes": ["QuickAccess", "PTAwake", "TestNode", "Glucometer"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
     "TestNode": {
       "thresholds": [0, 88, 95],
-      "nextNodes": ["END", "Fix", "KnowWhatHappened"], 
+      "nextNodes": ["END", "Fix", "KnowWhatHappened"],
       "device_status": ["Needed", "DummyDevice"]
     },
     "MovePT": {
       "thresholds": [0, 1],
-      "nextNodes": ["IsSceneSafe", "Call911"], 
+      "nextNodes": ["IsSceneSafe", "Call911"],
       "device_status": ["Needed", "DummyDevice"]
     },
     "Call911": {
       "thresholds": [0],
-      "nextNodes": ["END"], 
+      "nextNodes": ["END"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
     "PTAwake": {
       "thresholds": [0, 1],
-      "nextNodes": ["AskPT", "SternumRub"], 
+      "nextNodes": ["AskPT", "SternumRub"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
     "QuickAccess": {
       "thresholds": [0, 1],
-      "nextNodes": ["IsSceneSafe", "PulseOx"], 
+      "nextNodes": ["IsSceneSafe", "PulseOx"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "SternumRub": {
       "thresholds": [0, 1],
-      "nextNodes": ["AskPT", "AskWitnesses"], 
+      "nextNodes": ["AskPT", "AskWitnesses"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "AskWitnesses": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"], 
+      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "Medical"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "NonPhysical": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "END"], 
+      "nextNodes": [
+        "HeartIssue",
+        "AllergicRxn",
+        "Asthma",
+        "Neurological",
+        "Diabetic"
+      ],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "AskPT": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "END"], 
+      "nextNodes": ["KnownPhysical", "Trauma", "NonPhysical", "Medical"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "KnownPhysical": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "END"], 
+      "nextNodes": ["Burn", "Fall", "HeadInjury", "Bleeding", "BrokenBones"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "CPRPre": {
-        "thresholds": [0],
-        "nextNodes": [
-            "CPR"
-        ]
+      "thresholds": [0],
+      "nextNodes": ["CPR"]
     },
     "CPR": {
-        "thresholds": [0],
-        "nextNodes": [
-            "CPRPost"
-        ]
+      "thresholds": [0],
+      "nextNodes": ["CPRPost"]
     },
     "PulseOx": {
       "thresholds": [95, 88, 0],
-      "nextNodes": ["KnowWhatHappened", "Fix", "END"], 
+      "nextNodes": ["KnowWhatHappened", "Fix", "END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
 
     "Trauma": {
       "thresholds": [0, 1],
-      "nextNodes": ["InLineStabilization", "Airway"], 
+      "nextNodes": ["InLineStabilization", "Airway"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "InLineStabilization": {
       "thresholds": [0, 1],
-      "nextNodes": ["Airway", "KeepComfortable"], 
+      "nextNodes": ["Airway", "KeepComfortable"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "Airway": {
       "thresholds": [0, 1, 2],
-      "nextNodes": ["ApplyPO/AssessBreath", "EmergencyPos", "JawThrust"], 
+      "nextNodes": ["ApplyPO/AssessBreath", "EmergencyPos", "JawThrust"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "JawThrust": {
       "thresholds": [0, 1],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"], 
+      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyPO/AssessBreath": {
       "thresholds": [0, 1, 2],
-      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"], 
+      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "EmergencyPos": {
       "thresholds": [0],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"], 
+      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "NeckPulse": {
       "thresholds": [0],
-      "nextNodes": ["END"], 
+      "nextNodes": ["END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "SupplementO2": {
       "thresholds": [0],
-      "nextNodes": ["END"], 
+      "nextNodes": ["END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "AssessBleeding": {
       "thresholds": [0, 1],
-      "nextNodes": ["END", "ApplyBP"], 
+      "nextNodes": ["Bleeding", "ApplyBP"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyBP": {
       "thresholds": [0, 1],
-      "nextNodes": ["ReadBP", "END"], 
+      "nextNodes": ["ReadBP", "END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "ReadBP": {
       "thresholds": [0, 1],
       "buttons": [
-        ["Blood pressure cuff finished reading and shows three numbers", "Green"],
+        [
+          "Blood pressure cuff finished reading and shows three numbers",
+          "Green"
+        ],
         ["Blood pressure cuff does not show three numbers", "Red"]
-      ], 
+      ],
       "nextNodes": ["ObtainHistory", "END"],
-      "device_status":["Needed", "BPCuff"]
+      "device_status": ["Needed", "BPCuff"]
     },
     "ObtainHistory": {
       "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "KeepComfortable"], 
+      "nextNodes": ["END", "END", "END", "END", "KeepComfortable"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "KeepComfortable": {
       "thresholds": [0],
-      "nextNodes": ["END"], 
+      "nextNodes": ["END"],
       "device_status": ["Unneeded", "BPCuff"]
-      
     },
     "Glucometer": {
       "thresholds": [0, 1],
       "nextNodes": ["END", "END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+
+    "Medical": {
+      "thresholds": [0, 1, 2],
+      "nextNodes": [
+        "ApplyPO/AssessBreath2",
+        "EmergencyPos2",
+        "HeadTiltChinLift"
+      ],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "ApplyPO/AssessBreath2": {
+      "thresholds": [0, 1, 2, 3],
+      "nextNodes": ["Fowler", "Cardiac", "NeckPulse", "ApplyBP", "Choking"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "EmergencyPos2": {
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["ApplyPO/AssessBreath2", "Choking", "END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "HeadTiltChinLift": {
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["ApplyPO/AssessBreath2", "Allergic", "Choking"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+
+    "Fowler": {
+      "thresholds": [0],
+      "nextNodes": ["ApplyBP"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Choking": {
+      "thresholds": [0],
+      "nextNodes": [],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Allergic": {
+      "thresholds": [0],
+      "nextNodes": ["ApplyBP"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+
+    "Burn": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Fall": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "HeadInjury": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Bleeding": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "BrokenBones": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+
+    "HeartIssue": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "AllergicRxn": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Asthma": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Neurological": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Diabetic": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
     }
   }
