@@ -60,6 +60,13 @@
         ["Medical (e.g. diabetic)", "Yellow"]
       ]
     },
+    "EMSArrived": {
+      "text": "Patient Summary:",
+      "buttons": [
+        ["Physical (trauma)", "Yellow"],
+        ["Medical (e.g. diabetic)", "Yellow"]
+      ]
+    },
     "AskPT": {
       "text": "Ask PT",
       "buttons": [
@@ -274,6 +281,7 @@
         ["No", "Red"]
       ]
     },
+    
     "BrokenBones": {
       "text": "Make sure EMS is on the way an stabilize the patient in a comfortable position.",
       "buttons": []

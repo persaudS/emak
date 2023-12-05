@@ -40,6 +40,10 @@
       "nextNodes": ["KnownPhysical", "NonPhysical"],
       "device_status": ["Unneeded", "BPCuff"]
     },
+    "EMSArrived": {
+      "thresholds": [0, 1],
+      "device_status": ["Unneeded", "BPCuff"]
+    },
     "SternumRub": {
       "thresholds": [0, 1],
       "nextNodes": ["AskPT", "AskWitnesses"],

@@ -35,6 +35,7 @@ class MainView(tk.Tk):
         # self.state('zoomed')
         # generate frames
         self.devices = {}
+        self.history = []
         self.nodeFrame = NodeView(self, self._get_view_node(nodeTitle), self, nodeTitle)
         self.nodeFrame.add_observer(self)
 
@@ -146,38 +147,48 @@ class MainView(tk.Tk):
                 self.backButton.grid(row=2, column=3, sticky="nsew")
 
         else:
-            self.continueButton = Button(
-                self, text="Continue", command=lambda: self.on_state_change("continue", None),
-                state="disabled", bg="black", fg="white", padx=100,
-                font=font.Font(family='Helvetica', size=25,
-                            weight='normal', slant='roman'))
-            self.continueButton.grid(row=2, column=4, sticky="nsew")
+            if (nodeTitle == "EMSArrived"):
+                self.continueButton = Button(
+                    self, text="End Run", command=lambda: self.on_state_change("continue", None),
+                    state="normal", bg="black", fg="white", padx=100,
+                    font=font.Font(family='Helvetica', size=25,
+                                weight='normal', slant='roman'))
+                self.continueButton.grid(row=2, column=4, sticky="nsew")
+            else:
+                self.continueButton = Button(
+                    self, text="Continue", command=lambda: self.on_state_change("continue", None),
+                    state="normal", bg="black", fg="white", padx=100,
+                    font=font.Font(family='Helvetica', size=25,
+                                weight='normal', slant='roman'))
+                self.continueButton.grid(row=2, column=4, sticky="nsew")
 
+                self.endButton = Button(
+                    self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
+                    bg="black", fg="white", padx=100,
+                    font=font.Font(family='Helvetica', size=25,
+                                weight='normal', slant='roman'))
+                self.endButton.grid(row=2, column=3, sticky="nsew")
+                
             self.backButton = Button(
-                self, text="Back", command=lambda: self.on_state_change("back", None),
-                bg="black", fg="white", padx=100,
-                font=font.Font(family='Helvetica', size=25,
-                            weight='normal', slant='roman'))
+                    self, text="Back", command=lambda: self.on_state_change("back", None),
+                    bg="black", fg="white", padx=100,
+                    font=font.Font(family='Helvetica', size=25,
+                                weight='normal', slant='roman'))
             self.backButton.grid(row=2, column=2, sticky="nsew")
-
-            self.endButton = Button(
-                self, text="EMS Arrived", command=lambda: self.on_state_change("end", None),
-                bg="black", fg="white", padx=100,
-                font=font.Font(family='Helvetica', size=25,
-                            weight='normal', slant='roman'))
-            self.endButton.grid(row=2, column=3, sticky="nsew")
 
             self.toggle_button = Button(
                 self, text="Quick Access", command=lambda: self.on_state_change("quick_access", self.nodeTitle),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
             self.toggle_button.grid(row=2, column=1, sticky="nsew")
+            
 
     def on_state_change(self, text, quickAccessChoice):
         """Button submission event"""
         if text == "end":
-            print("end")
-            self.ems_popup_window()
+            self.nodeFrame.frame.destroy()
+            self.update_observers(text, quickAccessChoice)
+            print(self.history)
         elif text == "quick_access": 
             self.nodeFrame.frame.destroy()
             self.update_observers(text, quickAccessChoice)
@@ -190,9 +201,15 @@ class MainView(tk.Tk):
                 # audioThread.start()
             
             self.nodeFrame.frame.destroy()
-            if self.nodeTitle == "Start":
+            if self.nodeTitle == "Start" or self.nodeTitle == "EMSArrived":
                 self.update_observers(text, 0)
             else:
+                if self.nodeFrame.selected is None:
+                    self.history.append([self.nodeFrame.text, text])
+                else:
+                    button_subchoice = self.nodeFrame.buttons[self.nodeFrame.selected][0]
+                    self.history.append([self.nodeFrame.text, button_subchoice])
+
                 self.update_observers(text, self.nodeFrame.selected)
         pass
     
@@ -232,17 +249,17 @@ class MainView(tk.Tk):
         self.sensorFrame = SensorView(self, self.devices)
         self.toggle_button.lift()
 
-    def ems_popup_window(self):
-        window = tk.Toplevel()
-        window.title("EMS Arrived: Biometrics Available")
-        win_x = self.winfo_rootx() + 160
-        win_y = self.winfo_rooty() + 40
-        window.geometry(f'+{win_x}+{win_y}')
-        window.minsize(width=600, height=530)
-        label = tk.Label(window, text="Hello Dummy View")
-        label.pack(fill='x', padx=50, pady=5)
-        button_close = tk.Button(window, text="Close", command=window.destroy)
-        button_close.pack(fill='x')
+    # def ems_popup_window(self):
+    #     window = tk.Toplevel()
+    #     window.title("EMS Arrived: Biometrics Available")
+    #     win_x = self.winfo_rootx() + 160
+    #     win_y = self.winfo_rooty() + 40
+    #     window.geometry(f'+{win_x}+{win_y}')
+    #     window.minsize(width=600, height=530)
+    #     label = tk.Label(window, text="Hello Dummy View")
+    #     label.pack(fill='x', padx=50, pady=5)
+    #     button_close = tk.Button(window, text="Close", command=window.destroy)
+    #     button_close.pack(fill='x')
 
     # def quick_access_popup_window(self):
     #     window = tk.Toplevel()
@@ -255,26 +272,26 @@ class MainView(tk.Tk):
     #     button_close.pack(fill='x')
         
         # Define button titles TODO: Get images for the buttons
-        button_titles = [
-            ["Heart Emergency", 0],
-            ["Patient Fall", 1],
-            ["Bleeding", 2],
-            ["Stroke", 3],
-            ["Choking", 4],
-            ["Unknown Medical", 5],
-            ["Unknown Trauma", 6]
-        ]
+    #     button_titles = [
+    #         ["Heart Emergency", 0],
+    #         ["Patient Fall", 1],
+    #         ["Bleeding", 2],
+    #         ["Stroke", 3],
+    #         ["Choking", 4],
+    #         ["Unknown Medical", 5],
+    #         ["Unknown Trauma", 6]
+    #     ]
 
-        for title in button_titles:
-            button = self.handle_text(window, title)
-            button.pack(fill='both', expand=False)
+    #     for title in button_titles:
+    #         button = self.handle_text(window, title)
+    #         button.pack(fill='both', expand=False)
 
-    def handle_text(self, root, title):
-        """Handles the text for the quick access buttons"""
-        button = tk.Button(root, text=title[0], command=lambda: self.on_state_change("quick_access", title[1]), font=font.Font(family='Helvetica', size=15, weight='normal'))
-        button.config(width=15, height=3, pady=10, anchor="center")
+    # def handle_text(self, root, title):
+    #     """Handles the text for the quick access buttons"""
+    #     button = tk.Button(root, text=title[0], command=lambda: self.on_state_change("quick_access", title[1]), font=font.Font(family='Helvetica', size=15, weight='normal'))
+    #     button.config(width=15, height=3, pady=10, anchor="center")
 
-        return button
+    #     return button
 
 
 
@@ -294,6 +311,11 @@ class NodeView():
             ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=20,
                                                              weight='bold', slant='roman'),
                   wraplength=int(700*self.resizeFactor), justify="center", relief="solid", padding=10).pack()
+        elif (nodeTitle == "EMSArrived"):
+            ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=14,
+                                                             weight='bold', slant='roman'),
+                  wraplength=int(554*self.resizeFactor), justify="center", relief="solid", padding=5).pack()
+            self._handle_history()
         else:
             ttk.Label(self.frame, text=self.text, font=font.Font(family='Helvetica', size=25,
                                                              weight='bold', slant='roman'),
@@ -335,6 +357,17 @@ class NodeView():
     def add_observer(self, observer):
         if observer not in self._observers:
             self._observers.append(observer)
+
+    def _handle_history(self):
+        history = self.main_view.history
+        for node in history:
+            text = "\n\nPrompt: " + node[0] + "\nChoice: " + node[1]
+            ttk.Label(self.frame, text=text, font=font.Font(family='Helvetica', size=11,
+                                                             weight='normal', slant='roman'),
+                  wraplength=int(554*self.resizeFactor), justify="center", relief="ridge", padding=2).pack()
+        
+        self.frame.grid(row=1, column=2, columnspan=3, sticky="n", padx=25)
+
 
     def _make_buttons(self):
         """Creates option buttons for the node"""

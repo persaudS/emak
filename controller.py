@@ -3,6 +3,7 @@ import os
 os.environ["IMAGEIO_FFMPEG_EXE"] = "/opt/homebrew/lib/python3.11/site-packages/imageio_ffmpeg/binaries/ffmpeg"
 import tkinter
 from model.model import Patient, Node
+from shutdownPi import shutdownSys
 from devices import BPCuff, PulseOx, Glucometer
 from view import MainView
 from view_dummy import MainView as MainViewDummy
@@ -64,12 +65,14 @@ class Controller:
                 self.view_start()
                 return
             self.view.update_frame(self.patient.current_node.node_id) 
-        elif main_choice == "end":
-            print("End")
         else:
             if main_choice == "quick_access":
                 self.patient.current_node = Node("PreQuickAccess", self.patient.model_data)
                 self.patient.past_nodes.append(Node(sub_choice, self.patient.model_data))
+            
+            if self.patient.current_node.node_id == "EMSArrived" and main_choice == "continue":
+                self._turn_off_system()
+                return
                
             self.patient.decide(sub_choice)
             self.logger.info("Patient state updated")
@@ -85,7 +88,11 @@ class Controller:
             self.view.update_metrics(self.devices)
             self.logger.info("sensor frame: " + str(self.view.sensorFrame.devices[0]))
             # self.view.update_metrics(self.devices)
-    
+
+    #Turn off EMAK System
+    def _turn_off_system(self):
+        shutdownSys()
+
     #Turn on devices when they need to be turned on
     def turn_on_device(self, device):
         if len(self.devices) > 0:
