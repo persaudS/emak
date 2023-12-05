@@ -269,8 +269,8 @@
       "device_status": ["Unneeded", "Glucometer"]
     },
     "Neurological": {
-      "thresholds": [0],
-      "nextNodes": ["END"],
+      "thresholds": [0, 1],
+      "nextNodes": ["EmergencyPos2", "ApplyPO/AssessBreathMed"],
       "device_status": ["Unneeded", "Glucometer"]
     },
     "Diabetic": {

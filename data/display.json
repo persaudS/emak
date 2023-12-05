@@ -324,8 +324,12 @@
       "buttons": []
     },
     "Neurological": {
-      "text": "TEMPORARY: Handle neurologicaSl",
-      "buttons": []
+      "text": "Use the diagram below to determine if this patient is likely experiencing a stroke:",
+      "buttons": [
+        ["Yes", "Yellow"],
+        ["No", "Yellow"]
+      ],
+      "image": "stroke-fast-symptoms.jpg"
     },
     "Diabetic": {
       "text": "If it is suspected that the patient is currently having a diabetes related emergency, first grab the gloves and sanitizing wipes bag shown below. Put on the gloves and clean off one of the fingertips of patient using the sanitizing wipe.",
