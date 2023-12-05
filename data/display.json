@@ -77,9 +77,8 @@
       ]
     },
     "KnownPhysical": {
-      "text": "TEMPORARY: Obtain injury type",
+      "text": "Obtain injury type",
       "buttons": [
-        ["Fall", "Yellow"],
         ["Head Injury", "Yellow"],
         ["Bleeding", "Yellow"],
         ["Broken Bone(s)", "Yellow"]
@@ -94,6 +93,7 @@
     },
     "AskWitnesses": {
       "text": "Apply the pulse oximeter in the case on the patients finger as shown below. If injury is not apparent, ask witnesses if anyone knows what is wrong with the patient",
+      "image": "pulseOx.jpg",
       "buttons": [
         ["Known Physical Injury", "Yellow"],
         ["Unknown Physical Injury", "Yellow"],
@@ -120,6 +120,7 @@
     },
     "InLineStabilization": {
       "text": "Perform the in line stabilization move as shown below",
+      "image": "InLineStabilization",
       "buttons": [
         ["In line stabilization performed", "Green"],
         ["Move cannot be performed", "Red"]
@@ -135,6 +136,7 @@
     },
     "JawThrust": {
       "text": "Perform the jaw thrust move as shown below",
+      "image": "jaw_thrust.jpeg",
       "buttons": [
         ["Jaw thrust move performed", "Green"],
         ["Move cannot be performed", "Red"]
@@ -142,6 +144,7 @@
     },
     "ApplyPO/AssessBreath": {
       "text": "Apply the pulse oximeter in the case on the patients finger as shown below",
+      "image": "pulseOx.jpg",
       "buttons": [
         ["TEMPORARY: Normal Readings", "Green"],
         ["TEMPORARY: Cardiac arrest", "Red"],
@@ -150,6 +153,7 @@
     },
     "EmergencyPos": {
       "text": "Place the patient in the emergency position as shown below. Ensure their airway is kept clear",
+      "image": "emergency_position.jpg",
       "buttons": [
         ["Patient moved into the emergency position", "Green"],
         ["Move cannot be performed", "Red"]
@@ -157,6 +161,7 @@
     },
     "NeckPulse": {
       "text": "Feel for pulse in the neck as shown below. If none, begin CPR. If available, apply an AED and follow the provided instructions. Otherwise, wait for EMS.",
+      "image": "NeckPulse.jpg",
       "buttons": []
     },
     "SupplementO2": {
@@ -188,17 +193,12 @@
       ]
     },
     "ObtainHistory": {
-      "text": "TEMPORARY: Obtain SAMPLE history",
+      "text": "Select injury type",
       "buttons": [
-        ["Fall", "Yellow"],
         ["Head Injury", "Yellow"],
         ["Broken Bone(s)", "Yellow"],
         ["Other", "Yellow"]
       ]
-    },
-    "KeepComfortable": {
-      "text": "Ensure 911 has been called and wait for EMS to arrive. In the mean time, keep the patient comfortable. If possible, have someone else find a person with medical experience",
-      "buttons": []
     },
     "Glucometer": {
       "text": "1. Unplug Glucometer \n2. Insert test strip\n3. Take and apply blood sample to test strip using blood lancets\n4. Wait for reading and plug in Glucometer",
@@ -213,8 +213,9 @@
         ["No", "Red"]
       ]
     },
-    "ApplyPO/AssessBreath2": {
+    "ApplyPO/AssessBreathMed": {
       "text": "Apply the pulse oximeter in the case on the patients finger as shown below",
+      "image": "pulseOx.jpg",
       "buttons": [
         ["TEMPORARY: Normal Readings", "Green"],
         ["TEMPORARY: Cardiac arrest", "Red"],
@@ -234,6 +235,7 @@
     },
     "EmergencyPos2": {
       "text": "Place the patient in the emergency position as shown below. Ensure their airway is kept clear",
+      "image": "emergency_position.jpg",
       "buttons": [
         ["Patient moved into the emergency position and is breathing", "Green"],
         ["Patient moved into the emergency position and is choking", "Red"],
@@ -242,6 +244,7 @@
     },
     "HeadTiltChinLift": {
       "text": "Perform the head-tilt chin-lift as shown below.",
+      "image": "Head-tilt-chin-lift.png",
       "buttons": [
         ["Patient is breathing clearly", "Green"],
         ["Patient appears to be having an allergic reaction", "Red"],
@@ -255,24 +258,17 @@
     },
     "Choking": {
       "text": "Check if the patient has debris visible in their throat. If so, attempt to remove it. Otherwise perform the Heimlich shown below.",
-      "buttons": []
+      "buttons": [["Choking Resolved", "Green"]]
     },
     "Allergic": {
       "text": "Move the patient away from potential allergens. If possible, use Epipen or supplemental oxygen. Move patient into the Fowler position shown below.",
       "buttons": [["Completed as best as possible", "Green"]]
     },
 
-    "Burn": {
-      "text": "TEMPORARY: Handle burn",
-      "buttons": [["END", "Green"]]
-    },
-    "Fall": {
-      "text": "TEMPORARY: Handle fall",
-      "buttons": []
-    },
     "HeadInjury": {
-      "text": "TEMPORARY: Handle head injury",
-      "buttons": []
+      "text": "Gently raise patient head slightly, roughly 20 degrees:",
+      "image": "",
+      "buttons": [["Completed as best as possible", "Green"]]
     },
     "Bleeding": {
       "text": "Is the patient bleeding severly from an extremity?",
@@ -284,7 +280,7 @@
 
     "BrokenBones": {
       "text": "Make sure EMS is on the way an stabilize the patient in a comfortable position.",
-      "buttons": []
+      "buttons": [["Continue", "Green"]]
     },
 
     "BleedExtremity": {

@@ -72,8 +72,8 @@
       "device_status": ["Unneeded", "BPCuff"]
     },
     "KnownPhysical": {
-      "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["Fall", "HeadInjury", "Bleeding", "BrokenBones"],
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["HeadInjury", "Bleeding", "BrokenBones"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "CPRPre": {
@@ -97,7 +97,7 @@
     },
     "InLineStabilization": {
       "thresholds": [0, 1],
-      "nextNodes": ["Airway", "KeepComfortable"],
+      "nextNodes": ["Airway", "END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "Airway": {
@@ -107,7 +107,7 @@
     },
     "JawThrust": {
       "thresholds": [0, 1],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"],
+      "nextNodes": ["ApplyPO/AssessBreath", "END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyPO/AssessBreath": {
@@ -117,7 +117,7 @@
     },
     "EmergencyPos": {
       "thresholds": [0],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"],
+      "nextNodes": ["ApplyPO/AssessBreath", "END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "NeckPulse": {
@@ -153,13 +153,8 @@
       "device_status": ["Needed", "BPCuff"]
     },
     "ObtainHistory": {
-      "thresholds": [0, 1, 2, 3, 4],
-      "nextNodes": ["END", "END", "END", "END", "KeepComfortable"],
-      "device_status": ["Unneeded", "BPCuff"]
-    },
-    "KeepComfortable": {
-      "thresholds": [0],
-      "nextNodes": ["END"],
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["HeadInjury", "BrokenBones", "END"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "Glucometer": {
@@ -180,25 +175,25 @@
     "Medical": {
       "thresholds": [0, 1, 2],
       "nextNodes": [
-        "ApplyPO/AssessBreath2",
+        "ApplyPO/AssessBreathMed",
         "EmergencyPos2",
         "HeadTiltChinLift"
       ],
       "device_status": ["Unneeded", "Glucometer"]
     },
-    "ApplyPO/AssessBreath2": {
+    "ApplyPO/AssessBreathMed": {
       "thresholds": [0, 1, 2, 3],
       "nextNodes": ["Fowler", "Cardiac", "NeckPulse", "ApplyBP", "Choking"],
       "device_status": ["Unneeded", "Glucometer"]
     },
     "EmergencyPos2": {
       "thresholds": [0, 1, 2],
-      "nextNodes": ["ApplyPO/AssessBreath2", "Choking", "END"],
+      "nextNodes": ["ApplyPO/AssessBreathMed", "Choking", "END"],
       "device_status": ["Unneeded", "Glucometer"]
     },
     "HeadTiltChinLift": {
       "thresholds": [0, 1, 2],
-      "nextNodes": ["ApplyPO/AssessBreath2", "Allergic", "Choking"],
+      "nextNodes": ["ApplyPO/AssessBreathMed", "Allergic", "Choking"],
       "device_status": ["Unneeded", "Glucometer"]
     },
 
@@ -209,23 +204,19 @@
     },
     "Choking": {
       "thresholds": [0],
-      "nextNodes": [],
-      "device_status": ["Unneeded", "Glucometer"]
+      "nextNodes": ["ApplyPO/AssessBreath"],
+      "device_status": ["Unneeded", "BPCuff"]
     },
+
     "Allergic": {
       "thresholds": [0],
       "nextNodes": ["ApplyBP"],
       "device_status": ["Unneeded", "Glucometer"]
     },
 
-    "Fall": {
-      "thresholds": [0],
-      "nextNodes": ["END"],
-      "device_status": ["Unneeded", "Glucometer"]
-    },
     "HeadInjury": {
       "thresholds": [0],
-      "nextNodes": ["END"],
+      "nextNodes": ["InLineStabilization"],
       "device_status": ["Unneeded", "Glucometer"]
     },
     "Bleeding": {
