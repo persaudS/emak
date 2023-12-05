@@ -13,7 +13,7 @@
       ]
     },
     "MovePT": {
-      "text": "Move the patient to somewhere safe for both you and the patient",
+      "text": "Move the patient to somewhere safe for both you and the patient if possible",
       "buttons": [
         ["Completed", "Green"],
         ["Patient cannot be moved to a safe location", "Red"]
@@ -145,11 +145,7 @@
     "ApplyPO/AssessBreath": {
       "text": "Apply the pulse oximeter in the case on the patients finger as shown below",
       "image": "pulseOx.jpg",
-      "buttons": [
-        ["TEMPORARY: Normal Readings", "Green"],
-        ["TEMPORARY: Cardiac arrest", "Red"],
-        ["TEMPORARY: SpO2 < 88, Respiratory distress ", "Red"]
-      ]
+      "buttons": [["Continue", "Green"]]
     },
     "EmergencyPos": {
       "text": "Place the patient in the emergency position as shown below. Ensure their airway is kept clear",

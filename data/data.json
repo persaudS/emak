@@ -7,7 +7,7 @@
     },
     "IsSceneSafe": {
       "thresholds": [0, 1, 2, 3],
-      "nextNodes": ["QuickAccess", "PTAwake", "TestNode", "Glucometer"],
+      "nextNodes": ["QuickAccess", "PTAwake", "MovePT", "Call911"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
     "TestNode": {
@@ -111,9 +111,9 @@
       "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyPO/AssessBreath": {
-      "thresholds": [0, 1, 2],
-      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"],
-      "device_status": ["Unneeded", "BPCuff"]
+      "thresholds": [95, 88, 0],
+      "nextNodes": ["AssessBleeding", "SupplementO2", "NeckPulse"],
+      "device_status": ["Needed", "PulseOx"]
     },
     "EmergencyPos": {
       "thresholds": [0],
