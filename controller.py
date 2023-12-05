@@ -64,7 +64,7 @@ class Controller:
                 self.view.add_observer(self)
                 self.view_start()
                 return
-            self.view.update_frame(self.patient.current_node.node_id) 
+            self.view.update_frame(self.patient.current_node.node_id)
         else:
             if main_choice == "quick_access":
                 self.patient.current_node = Node("PreQuickAccess", self.patient.model_data)
@@ -73,8 +73,11 @@ class Controller:
             if self.patient.current_node.node_id == "EMSArrived" and main_choice == "continue":
                 self._turn_off_system()
                 return
-               
-            self.patient.decide(sub_choice)
+            
+            if main_choice == "end":
+                self.patient.decide(-1)
+            else:
+                self.patient.decide(sub_choice)
             self.logger.info("Patient state updated")
             self.logger.info(self.patient.current_node.node_id)
             if self.patient.current_node.node_id == "BPCuff":
