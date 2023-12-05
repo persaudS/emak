@@ -49,15 +49,11 @@
       "buttons": [["Return of Pulse", "Green"]],
       "video": "CPR.mp4"
     },
-    "PreQuickAccess":{
-      "text": "",
-      "buttons": [["GoTO", "Green"]]
-    },
     "QuickAccess": {
-      "text": "Pless select the type of ailment",
+      "text": "TODO",
       "buttons": [
-        ["Physical (trauma)", "Yellow"],
-        ["Medical (e.g. diabetic)", "Yellow"]
+        ["Yes", "Green"],
+        ["No", "Red"]
       ]
     },
     "AskPT": {
@@ -70,7 +66,7 @@
       ]
     },
     "KnownPhysical": {
-      "text": "TEMPORARY: Obtain injury type",
+      "text": "Select injury type",
       "buttons": [
         ["Fall", "Yellow"],
         ["Head Injury", "Yellow"],
@@ -113,6 +109,7 @@
     },
     "InLineStabilization": {
       "text": "Perform the in line stabilization move as shown below",
+      "image": "InLineStabilization.jpg",
       "buttons": [
         ["In line stabilization performed", "Green"],
         ["Move cannot be performed", "Red"]
@@ -128,33 +125,45 @@
     },
     "JawThrust": {
       "text": "Perform the jaw thrust move as shown below",
+      "image": "jaw_thrust.jpg",
       "buttons": [
-        ["Jaw thrust move performed", "Green"],
+        ["Jaw thrust performed, airway clear", "Green"],
+        ["Jaw thrust performed, airway blocked", "Yellow"],
         ["Move cannot be performed", "Red"]
       ]
     },
+    "Heimlich": {
+      "text": "Try to scoop out blockage if visible during jaw thrust. If not, perform the Heimlich as shown below",
+      "image": "Heimlich.jpg",
+      "buttons": [["Airway Clear", "Green"]]
+    },
     "ApplyPO/AssessBreath": {
-      "text": "Apply the pulse oximeter in the case on the patients finger as shown below",
+      "text": "Apply the Pulse Oximeter in the case on the patients finger as shown below. Keep it on the patient.",
+      "image": "PulseOximeter.jpg",
       "buttons": [
-        ["TEMPORARY: Normal Readings", "Green"],
-        ["TEMPORARY: Cardiac arrest", "Red"],
-        ["TEMPORARY: SpO2 < 88, Respiratory distress ", "Red"]
+        ["Pulse Oximeter applied.", "Green"],
+        ["Can't apply Pulse Oximeter", "Red"]
       ]
     },
     "EmergencyPos": {
-      "text": "Place the patient in the emergency position as shown below. Ensure their airway is kept clear",
+      "text": "Place the patient in the recovery position as shown below. Ensure their airway is kept clear.",
+      "image": "emergency_position.jpg",
       "buttons": [
         ["Patient moved into the emergency position", "Green"],
         ["Move cannot be performed", "Red"]
       ]
     },
     "NeckPulse": {
-      "text": "Feel for pulse in the neck as shown below. If none, begin CPR. If available, apply an AED and follow the provided instructions. Otherwise, wait for EMS.",
-      "buttons": []
+      "text": "Feel for pulse in the neck as shown below as show below.",
+      "image": "NeckPulse.jpg",
+      "buttons": [
+        ["Pulse found", "Green"],
+        ["Pulse not found", "Red"]
+      ]
     },
     "SupplementO2": {
-      "text": "Ensure that 911 has been called and wait for EMS to arrive. If possible, supply the patient with supplemental oxygen. If possible, have someone else find a person with medical experience",
-      "buttons": []
+      "text": "Ensure that 911 has been called and wait for EMS to arrive. If possible, supply the patient with supplemental oxygen.",
+      "buttons": [["O2 Applied or Not Available", "Green"]]
     },
     "AssessBleeding": {
       "text": "Is the patient bleeding?",
@@ -181,7 +190,7 @@
       ]
     },
     "ObtainHistory": {
-      "text": "TEMPORARY: Obtain SAMPLE history",
+      "text": "Select Injury type",
       "buttons": [
         ["Fall", "Yellow"],
         ["Head Injury", "Yellow"],
@@ -255,10 +264,6 @@
       "buttons": [["Completed as best as possible", "Green"]]
     },
 
-    "Burn": {
-      "text": "TEMPORARY: Handle burn",
-      "buttons": [["END", "Green"]]
-    },
     "Fall": {
       "text": "TEMPORARY: Handle fall",
       "buttons": []
@@ -301,12 +306,51 @@
       "buttons": []
     },
     "Neurological": {
-      "text": "TEMPORARY: Handle neurologicaSl",
+      "text": "TEMPORARY: Handle neurological",
       "buttons": []
     },
     "Diabetic": {
-      "text": "TEMPORARY: Handle diabetic",
-      "buttons": []
+      "text": "If it is suspected that the patient is currently having a diabetes related emergency, first grab the gloves and sanitizing wipes bag shown below. Put on the gloves and clean off one of the fingertips of patient using the sanitizing wipe.",
+      "image": "Gloves.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "GetGlucometer": {
+      "text": "Unplug the glucometer and turn it on by holding the butterfly button as shown below. Set it aside for now.",
+      "image": "GlucOn.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "GetLancets": {
+      "text": "Grab a test strip and lancet as shown below. Remove the purple end of the lancet by twisting it off. Remove the test strip from the package by sliding it out.",
+      "image": "StripsAndLancets.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "GetBlood": {
+      "text": "Making sure to stay sanitary, hold the test strip with one hand. With the other hand, use the push lancet on the sanitized finger of the patient. Set down the lance and squeeze around the edge of the finger. A droplet of blood should form that you can collect using the end of the test strip as shown below.",
+      "image": "lancing.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "PlugInSample": {
+      "text": "Plug the sample into the turned on glucometer as shown below.",
+      "image": "StripInGluc.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "PlugInGlucometer": {
+      "text": "Finally, plug the glucometer into the cable it was initially plugged into.",
+      "image": "PlugInGluc.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+
+    "LowSugar": {
+      "text": "The patient's blood sugar appears low. If possible, provide them some sugar rich food. Otherwise, wait for EMS to arrive.",
+      "buttons": [["Continue", "Green"]]
+    },
+    "NormalSugar": {
+      "text": "The patient's blood sugar appears normal. Please wait for EMS to arrive.",
+      "buttons": [["Continue", "Green"]]
+    },
+    "HighSugar": {
+      "text": "The patient's blood sugar appears high. Keep the patient comfortable and provide water. Wait for EMS to arrive.",
+      "buttons": [["Continue", "Green"]]
     }
   }
 }
