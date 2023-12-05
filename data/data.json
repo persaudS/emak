@@ -209,11 +209,15 @@
     },
 
     "Allergic": {
-      "thresholds": [0],
+      "thresholds": [0, 1],
+      "nextNodes": ["ApplyBP", "ApplyPO/AssessBreathMed"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "Allergic2": {
+      "thresholds": [0, 1],
       "nextNodes": ["ApplyBP"],
       "device_status": ["Unneeded", "Glucometer"]
     },
-
     "HeadInjury": {
       "thresholds": [0],
       "nextNodes": ["InLineStabilization"],

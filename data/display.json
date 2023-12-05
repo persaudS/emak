@@ -247,7 +247,7 @@
       "image": "Head-tilt-chin-lift.png",
       "buttons": [
         ["Patient is breathing clearly", "Green"],
-        ["Patient appears to be having an allergic reaction", "Red"],
+        ["Patient has red and/or swollen throat", "Yellow"],
         ["Patient is choking", "Red"]
       ]
     },
@@ -261,10 +261,18 @@
       "buttons": [["Choking Resolved", "Green"]]
     },
     "Allergic": {
+      "text": "Is patient near allergens and/or has any of the symptoms shown below:",
+      "image": "allergy.jpg",
+      "buttons": [
+        ["Yes", "Green"],
+        ["No", "Yellow"]
+      ]
+    },
+    "Allergic2": {
       "text": "Move the patient away from potential allergens. If possible, use Epipen or supplemental oxygen. Move patient into the Fowler position shown below.",
+      "image": "Fowler.jpg",
       "buttons": [["Completed as best as possible", "Green"]]
     },
-
     "HeadInjury": {
       "text": "Gently raise patient head slightly, roughly 20 degrees:",
       "image": "",
@@ -284,8 +292,19 @@
     },
 
     "BleedExtremity": {
-      "text": "If bleeding profusely from an extremity, grab some piece of cloth or belt which can be wrapped around the extremity above the wound. Make this as tight as possible so as to limit the loss of blood. Make sure EMS is on the way",
-      "buttons": [["End assessment", "Red"]]
+      "text": "Is there profuse bleeding?",
+      "buttons": [
+        ["Yes", "Red"],
+        ["Bleeding but not profusely", "Yellow"]
+      ]
+    },
+    "BleedExtremity2": {
+      "text": "If bleeding profusely from an extremity, grab a piece of cloth or belt and wrap 3 inches above the wound. Make this as tight as possible.",
+      "buttons": [["Instructions followed to best ability", "Green"]]
+    },
+    "BleedExtremity3": {
+      "text": "Apply direct pressure to wound using gloves and bandages if available, otherwise use a clean cloth.",
+      "buttons": [["Applying direct pressure", "Yellow"]]
     },
     "BleedOther": {
       "text": "Find some clean piece of gauze or cloth and use it to cover the wound. Apply pressure to limit the loss of blood as much as possible. Make sure EMS is on the way.",
