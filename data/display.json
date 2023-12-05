@@ -49,11 +49,15 @@
       "buttons": [["Return of Pulse", "Green"]],
       "video": "CPR.mp4"
     },
+    "PreQuickAccess":{
+      "text": "",
+      "buttons": [["GoTO", "Green"]]
+    },
     "QuickAccess": {
-      "text": "TODO",
+      "text": "Pless select the type of ailment",
       "buttons": [
-        ["Yes", "Green"],
-        ["No", "Red"]
+        ["Physical (trauma)", "Yellow"],
+        ["Medical (e.g. diabetic)", "Yellow"]
       ]
     },
     "AskPT": {
@@ -255,7 +259,7 @@
 
     "Burn": {
       "text": "TEMPORARY: Handle burn",
-      "buttons": []
+      "buttons": [["END", "Green"]]
     },
     "Fall": {
       "text": "TEMPORARY: Handle fall",

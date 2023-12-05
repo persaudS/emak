@@ -24,8 +24,10 @@ class Device(object):
 
     def start(self):
         return False
+    
     def add_observer(self, observer):
-        self._observers.append(observer)
+        if observer not in self._observers:
+            self._observers.append(observer)
 
     def notify(self):
         for observer in self._observers:
@@ -52,7 +54,8 @@ class BPCuff(Device):
         self.value["systolic"] = data[0]
         self.value["diastolic"] = data[1]
         self.value["pulse"] = data[2]
-        self.status = DeviceState.off
+        self.status = DeviceState.on
+        self.notify()
  
  
 class PulseOx(Device):
@@ -89,3 +92,5 @@ class Glucometer(Device):
         print("Glucometer")
         print(glucometer.device_connected())
         print(glucometer.get_last())
+        self.status = DeviceState.on
+        self.notify()

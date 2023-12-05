@@ -168,7 +168,7 @@ class MainView(tk.Tk):
             self.endButton.grid(row=2, column=3, sticky="nsew")
 
             self.toggle_button = Button(
-                self, text="Quick Access", command=lambda: self.quick_access_popup_window(),
+                self, text="Quick Access", command=lambda: self.on_state_change("quick_access", self.nodeTitle),
                 bg="black", fg="white",
                 font=font.Font(family='Helvetica', size=15, weight='normal', slant='roman'))
             self.toggle_button.grid(row=2, column=1, sticky="nsew")
@@ -180,8 +180,6 @@ class MainView(tk.Tk):
             self.ems_popup_window()
         elif text == "quick_access": 
             self.nodeFrame.frame.destroy()
-            self.continueButton.destroy()
-            self.backButton.destroy()
             self.update_observers(text, quickAccessChoice)
         else:
             # if(self.nodeFrame.video):
@@ -246,15 +244,15 @@ class MainView(tk.Tk):
         button_close = tk.Button(window, text="Close", command=window.destroy)
         button_close.pack(fill='x')
 
-    def quick_access_popup_window(self):
-        window = tk.Toplevel()
-        window.title("Quick Access Panel")
-        win_x = self.winfo_rootx() + 160
-        win_y = self.winfo_rooty() + 40
-        window.geometry(f'+{win_x}+{win_y}')
-        window.minsize(width=600, height=530)
-        button_close = tk.Button(window, text="Close", command=window.destroy)
-        button_close.pack(fill='x')
+    # def quick_access_popup_window(self):
+    #     window = tk.Toplevel()
+    #     window.title("Quick Access Panel")
+    #     win_x = self.winfo_rootx() + 160
+    #     win_y = self.winfo_rooty() + 40
+    #     window.geometry(f'+{win_x}+{win_y}')
+    #     window.minsize(width=600, height=530)
+    #     button_close = tk.Button(window, text="Close", command=window.destroy)
+    #     button_close.pack(fill='x')
         
         # Define button titles TODO: Get images for the buttons
         button_titles = [
@@ -397,7 +395,6 @@ class SensorView(tk.Frame):
     def handle_text(self, root, device):
         """Handles the text for the device"""
         textLabel = f"\n\n\n{device.name}:\n"
-
         labelStatus = None
         if device.status == DeviceState.off:
             text = f"Device Off"
@@ -413,15 +410,16 @@ class SensorView(tk.Frame):
         else :
             color = "green" # Add checks for vitals
             if device.name == "Blood Pressure Cuff":
-                text = f"\n\n\n{device.name}\n\nSystolic: {device.value['systolic']}\nDiastolic: {device.value['diastolic']}\nPulse: {device.value['pulse']}"
+                text = f"Systolic: {device.value['systolic']} mmHg\nDiastolic: {device.value['diastolic']} mmHg\n"
             elif device.name == "Pulse Oximeter":
                 text = f"{device.name}\n\nPulse: {device.value['pulse']}\nOxygen: {device.value['oxygen']}"
             elif device.name == "Glucometer":
                 text = f"{device.name}\n\nGlucose: {device.value}"
             else:
                 text = f"{device.name}\n\n{device.value}"
-                labelStatus = tk.Label(self.frame, text=text, bg="black", fg=color, font=font.Font(family='Helvetica', size=12,
-                                                         weight='normal', slant='roman'))
+
+            labelStatus = tk.Label(self.frame, text=text, bg="black", fg=color, font=font.Font(family='Helvetica', size=13,
+                                                         weight='bold', slant='roman'))
                 
         labelName = tk.Label(self.frame, text=textLabel, bg="black", fg=color, font=font.Font(family='Helvetica', size=13,
                                                              weight='bold', slant='roman'))

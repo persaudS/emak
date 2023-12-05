@@ -29,6 +29,10 @@ class Controller:
         self.devices.append(BPCuff())
         self.devices.append(PulseOx())
         self.devices.append(Glucometer())
+
+        for device in self.devices:
+            device.add_observer(self)
+
         self.patient.add_observer(self)  # Controller is an observer of Patient
         self.add_observer(self.view)  # View is an observer of Controller
         self.add_observer(self.patient)  # Patient is an observer of Controller
@@ -64,7 +68,8 @@ class Controller:
             print("End")
         else:
             if main_choice == "quick_access":
-                self.patient.current_node = Node("QuickAccess", self.patient.model_data)
+                self.patient.current_node = Node("PreQuickAccess", self.patient.model_data)
+                self.patient.past_nodes.append(Node(sub_choice, self.patient.model_data))
                
             self.patient.decide(sub_choice)
             self.logger.info("Patient state updated")
@@ -75,8 +80,11 @@ class Controller:
                 self.turn_on_device("PulseOx")
             if self.patient.current_node.node_id == "Glucometer":
                 self.turn_on_device("Glucometer")
+
             self.view.update_frame(self.patient.current_node.node_id)
             self.view.update_metrics(self.devices)
+            self.logger.info("sensor frame: " + str(self.view.sensorFrame.devices[0]))
+            # self.view.update_metrics(self.devices)
     
     #Turn on devices when they need to be turned on
     def turn_on_device(self, device):
@@ -96,10 +104,6 @@ class Controller:
                 #self.device_notify()
                 if(not glucometer.device_connected()):
                      print("Connect Glucometer")
-            if (device == "DummyDevice"):
-                dummy_device = self.devices[3]
-                dummy_device.turn_on()
-                self.device_notify() 
     
     #Update the patient with the retrieved device metrics 
     def patient_update(self):

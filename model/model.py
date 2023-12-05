@@ -66,6 +66,10 @@ class Patient:
         if (self.current_node.node_id == "Start"):
             self._go_forward(self.current_node.next_nodes[0])
             return
+        if (self.current_node.node_id == "PreQuickAccess"):
+            self._go_forward(self.current_node.next_nodes[0])
+            self.past_nodes.pop()
+            return
         if (self.current_node.device_status[0] == "Needed" and self.current_node.device_status[1] != "Shutdown"): 
             #Assuming controller is only observer of patient
             self._observers[0].turn_on_device(self.current_node.device_status[1])
@@ -82,40 +86,43 @@ class Patient:
             deviceName = self.current_node.device_status[1]
             if deviceName == "BPCuff":
                 data = self.biometrics.get("Blood Pressure Cuff")
-                if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
-                    self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
-                i = 0
-                #In data.json we need to have the nextNodes organized in the same manner as threshold values 
-                for option in self.current_node.thresholds:
-                    if self.biometrics.get(self.current_node.device_status[1]) <= option: 
-                        self._go_forward(self.current_node.next_nodes[i])
-                        print(i)
-                        return
-                    i += 1
+                if (data is not None):
+                    if (data[0] > max(self.current_node.thresholds)):
+                        self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
+                    i = 0
+                    #In data.json we need to have the nextNodes organized in the same manner as threshold values 
+                    for option in self.current_node.thresholds:
+                        if data[0] <= option: 
+                            self._go_forward(self.current_node.next_nodes[i])
+                            print(i)
+                            return
+                        i += 1
             elif deviceName == "PulseOx":
                 data = self.biometrics.get("Pulse Oximeter")
-                if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
-                    self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
-                i = 0
-                #In data.json we need to have the nextNodes organized in the same manner as threshold values 
-                for option in self.current_node.thresholds:
-                    if self.biometrics.get(self.current_node.device_status[1]) <= option: 
-                        self._go_forward(self.current_node.next_nodes[i])
-                        print(i)
-                        return
-                    i += 1
+                if (data is not None):
+                    if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
+                        self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
+                    i = 0
+                    #In data.json we need to have the nextNodes organized in the same manner as threshold values 
+                    for option in self.current_node.thresholds:
+                        if self.biometrics.get(self.current_node.device_status[1]) <= option: 
+                            self._go_forward(self.current_node.next_nodes[i])
+                            print(i)
+                            return
+                        i += 1
             elif deviceName == "Glucometer":
                 data = self.biometrics.get("Glucometer")
-                if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
-                    self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
-                i = 0
-                #In data.json we need to have the nextNodes organized in the same manner as threshold values 
-                for option in self.current_node.thresholds:
-                    if self.biometrics.get(self.current_node.device_status[1]) <= option: 
-                        self._go_forward(self.current_node.next_nodes[i])
-                        print(i)
-                        return
-                    i += 1
+                if (data is not None):
+                    if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):
+                        self._go_forward(self.current_node.next_nodes[len(self.current_node.thresholds) - 1])
+                    i = 0
+                    #In data.json we need to have the nextNodes organized in the same manner as threshold values 
+                    for option in self.current_node.thresholds:
+                        if self.biometrics.get(self.current_node.device_status[1]) <= option: 
+                            self._go_forward(self.current_node.next_nodes[i])
+                            print(i)
+                            return
+                        i += 1
             else:
                 shutdownSys()
             # if (self.biometrics.get(self.current_node.device_status[1]) > max(self.current_node.thresholds)):

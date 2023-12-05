@@ -30,9 +30,14 @@
       "nextNodes": ["AskPT", "SternumRub"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
+    "PreQuickAccess":{
+      "thresholds": [0],
+      "nextNodes": ["QuickAccess"],
+      "device_status": ["Unneeded", "None"]
+    },
     "QuickAccess": {
       "thresholds": [0, 1],
-      "nextNodes": ["IsSceneSafe", "PulseOx"],
+      "nextNodes": ["KnownPhysical", "NonPhysical"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "SternumRub": {
@@ -165,7 +170,7 @@
     "Shutdown": {
       "thresholds": [0, 1],
       "nextNodes": ["END", "END"],
-      "device_status": ["Unneeded", "Shutdown"]
+      "device_status": ["Needed", "Shutdown"]
     },
     "Medical": {
       "thresholds": [0, 1, 2],
