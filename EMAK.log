@@ -1,29 +1,37 @@
-21:55:22,594 EMAK INFO Starting GUI
-21:55:22,595 EMAK INFO Adding device status to view
-21:55:22,595 EMAK INFO Resize Factor: 1.592920353982301
-21:55:23,990 EMAK INFO Patient state updated
-21:55:23,991 EMAK INFO IsSceneSafe
-21:55:23,992 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
-21:55:23,992 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-21:55:23,993 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-21:55:23,993 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
-21:55:23,993 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
-21:55:24,578 EMAK INFO sensor frame: <devices.BPCuff object at 0xf64666e8>
-21:55:28,760 EMAK INFO Patient state updated
-21:55:28,761 EMAK INFO QuickAccess
-21:55:28,835 EMAK INFO sensor frame: <devices.BPCuff object at 0xf64666e8>
-21:55:30,791 EMAK INFO Patient state updated
-21:55:30,791 EMAK INFO KnownPhysical
-21:55:30,828 EMAK INFO sensor frame: <devices.BPCuff object at 0xf64666e8>
-21:55:48,377 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
-21:55:48,377 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-21:55:48,377 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-21:55:48,378 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
-21:55:48,378 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
-21:55:49,626 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
-21:55:49,626 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-21:55:49,627 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
-21:55:49,627 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
-21:55:49,627 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
-21:55:50,176 EMAK INFO Adding device status to view
-21:55:50,176 EMAK INFO Resize Factor: 1.592920353982301
+00:25:06,460 EMAK INFO Starting GUI
+00:25:06,461 EMAK INFO Adding device status to view
+00:25:06,462 EMAK INFO Resize Factor: 1.592920353982301
+00:25:07,594 EMAK INFO Patient state updated
+00:25:07,594 EMAK INFO IsSceneSafe
+00:25:07,595 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+00:25:07,596 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:07,596 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:07,596 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+00:25:07,596 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+00:25:08,196 EMAK INFO sensor frame: <devices.BPCuff object at 0xf678d790>
+00:25:09,691 EMAK INFO Patient state updated
+00:25:09,691 EMAK INFO QuickAccess
+00:25:09,723 EMAK INFO sensor frame: <devices.BPCuff object at 0xf678d790>
+00:25:11,371 EMAK INFO Patient state updated
+00:25:11,372 EMAK INFO KnownPhysical
+00:25:11,463 EMAK INFO sensor frame: <devices.BPCuff object at 0xf678d790>
+00:25:28,367 EMAK INFO Patient state updated
+00:25:28,368 EMAK INFO EMSArrived
+00:25:28,370 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+00:25:28,371 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:28,372 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:28,373 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+00:25:28,374 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+00:25:29,13 EMAK INFO sensor frame: <devices.BPCuff object at 0xf678d790>
+00:25:45,7 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+00:25:45,8 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:45,8 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:45,9 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+00:25:45,9 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+00:25:46,243 PIL.TiffImagePlugin DEBUG tag: Orientation (274) - type: short (3) - value: b'\x00\x01'
+00:25:46,243 PIL.TiffImagePlugin DEBUG tag: XResolution (282) - type: rational (5) Tag Location: 34 - Data Location: 74 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:46,244 PIL.TiffImagePlugin DEBUG tag: YResolution (283) - type: rational (5) Tag Location: 46 - Data Location: 82 - value: b'\x00\x00\x00H\x00\x00\x00\x01'
+00:25:46,245 PIL.TiffImagePlugin DEBUG tag: ResolutionUnit (296) - type: short (3) - value: b'\x00\x02'
+00:25:46,246 PIL.TiffImagePlugin DEBUG tag: ExifIFD (34665) - type: long (4) - value: b'\x00\x00\x00Z'
+00:25:46,904 EMAK INFO Adding device status to view
+00:25:46,904 EMAK INFO Resize Factor: 1.592920353982301

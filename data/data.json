@@ -42,6 +42,7 @@
     },
     "EMSArrived": {
       "thresholds": [0, 1],
+      "nextNodes": [],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "SternumRub": {

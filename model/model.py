@@ -68,6 +68,7 @@ class Patient:
             return
         if (choice == -1):
             self._go_forward("EMSArrived")
+            return
         if (self.current_node.node_id == "PreQuickAccess"):
             self._go_forward(self.current_node.next_nodes[0])
             self.past_nodes.pop()
