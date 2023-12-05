@@ -49,7 +49,7 @@
       "buttons": [["Return of Pulse", "Green"]],
       "video": "CPR.mp4"
     },
-    "PreQuickAccess":{
+    "PreQuickAccess": {
       "text": "",
       "buttons": [["GoTO", "Green"]]
     },
@@ -281,7 +281,7 @@
         ["No", "Red"]
       ]
     },
-    
+
     "BrokenBones": {
       "text": "Make sure EMS is on the way an stabilize the patient in a comfortable position.",
       "buttons": []
@@ -313,8 +313,47 @@
       "buttons": []
     },
     "Diabetic": {
-      "text": "TEMPORARY: Handle diabetic",
-      "buttons": []
+      "text": "If it is suspected that the patient is currently having a diabetes related emergency, first grab the gloves and sanitizing wipes bag shown below. Put on the gloves and clean off one of the fingertips of patient using the sanitizing wipe.",
+      "image": "Gloves.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "GetGlucometer": {
+      "text": "Unplug the glucometer and turn it on by holding the butterfly button as shown below. Set it aside for now.",
+      "image": "GlucOn.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "GetLancets": {
+      "text": "Grab a test strip and lancet as shown below. Remove the purple end of the lancet by twisting it off. Remove the test strip from the package by sliding it out.",
+      "image": "StripsAndLancets.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "GetBlood": {
+      "text": "Making sure to stay sanitary, hold the test strip with one hand. With the other hand, use the push lancet on the sanitized finger of the patient. Set down the lance and squeeze around the edge of the finger. A droplet of blood should form that you can collect using the end of the test strip as shown below.",
+      "image": "lancing.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "PlugInSample": {
+      "text": "Plug the sample into the turned on glucometer as shown below.",
+      "image": "StripInGluc.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+    "PlugInGlucometer": {
+      "text": "Finally, plug the glucometer into the cable it was initially plugged into.",
+      "image": "PlugInGluc.jpg",
+      "buttons": [["Completed", "Green"]]
+    },
+
+    "LowSugar": {
+      "text": "The patient's blood sugar appears low. If possible, provide them some sugar rich food. Otherwise, wait for EMS to arrive.",
+      "buttons": [["Continue", "Green"]]
+    },
+    "NormalSugar": {
+      "text": "The patient's blood sugar appears normal. Please wait for EMS to arrive.",
+      "buttons": [["Continue", "Green"]]
+    },
+    "HighSugar": {
+      "text": "The patient's blood sugar appears high. Keep the patient comfortable and provide water. Wait for EMS to arrive.",
+      "buttons": [["Continue", "Green"]]
     }
   }
 }

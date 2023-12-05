@@ -30,7 +30,7 @@
       "nextNodes": ["AskPT", "SternumRub"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
-    "PreQuickAccess":{
+    "PreQuickAccess": {
       "thresholds": [0],
       "nextNodes": ["QuickAccess"],
       "device_status": ["Unneeded", "None"]
@@ -271,6 +271,46 @@
       "device_status": ["Unneeded", "Glucometer"]
     },
     "Diabetic": {
+      "thresholds": [0],
+      "nextNodes": ["GetGlucometer"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "GetGlucometer": {
+      "thresholds": [0],
+      "nextNodes": ["GetLancets"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "GetLancets": {
+      "thresholds": [0],
+      "nextNodes": ["GetBlood"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "GetBlood": {
+      "thresholds": [0],
+      "nextNodes": ["PlugInSample"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "PlugInSample": {
+      "thresholds": [0],
+      "nextNodes": ["PlugInGlucometer"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "PlugInGlucometer": {
+      "thresholds": [180, 70, 0],
+      "nextNodes": ["HighSugar", "NormalSugar", "LowSugar"],
+      "device_status": ["Needed", "Glucometer"]
+    },
+    "LowSugar": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "NormalSugar": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "HighSugar": {
       "thresholds": [0],
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
