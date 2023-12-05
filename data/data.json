@@ -233,8 +233,17 @@
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
     },
-
     "BleedExtremity": {
+      "thresholds": [0, 1],
+      "nextNodes": ["BleedExtremity2", "BleedExtremity3"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "BleedExtremity2": {
+      "thresholds": [0],
+      "nextNodes": ["BleedExtremity3"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "BleedExtremity3": {
       "thresholds": [0],
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
@@ -244,7 +253,6 @@
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
     },
-
     "HeartIssue": {
       "thresholds": [0],
       "nextNodes": ["END"],
