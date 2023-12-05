@@ -59,7 +59,7 @@
       "thresholds": [0, 1, 2, 3, 4],
       "nextNodes": [
         "HeartIssue",
-        "AllergicRxn",
+        "Allergic",
         "Asthma",
         "Neurological",
         "Diabetic"
@@ -254,11 +254,6 @@
       "device_status": ["Unneeded", "Glucometer"]
     },
     "HeartIssue": {
-      "thresholds": [0],
-      "nextNodes": ["END"],
-      "device_status": ["Unneeded", "Glucometer"]
-    },
-    "AllergicRxn": {
       "thresholds": [0],
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
