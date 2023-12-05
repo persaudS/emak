@@ -1,6 +1,7 @@
 from enum import Enum
 from glucometerutils import glucometer
 from bloodPressure import getBPData
+from pulseOxArduino import read_pulseOx
 
 
 class DeviceState(str, Enum):
@@ -73,6 +74,9 @@ class PulseOx(Device):
     
     def turn_on(self): 
         print("PulseOx")
+        self.value["pulse"], self.value["oxygen"] = read_pulseOx()
+        self.status = DeviceState.on
+        self.notify()
  
  
 class Glucometer(Device):
@@ -90,7 +94,9 @@ class Glucometer(Device):
     
     def turn_on(self): 
         print("Glucometer")
-        print(glucometer.device_connected())
-        print(glucometer.get_last())
-        self.status = DeviceState.on
-        self.notify()
+        if glucometer.device_connected():
+            self.value = glucometer.get_last()
+            self.status = DeviceState.on
+            self.notify()
+        else:
+            print("Glucometer not connected")

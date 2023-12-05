@@ -30,14 +30,9 @@
       "nextNodes": ["AskPT", "SternumRub"],
       "device_status": ["Unneeded", "DummyDevice"]
     },
-    "PreQuickAccess":{
-      "thresholds": [0],
-      "nextNodes": ["QuickAccess"],
-      "device_status": ["Unneeded", "None"]
-    },
     "QuickAccess": {
       "thresholds": [0, 1],
-      "nextNodes": ["KnownPhysical", "NonPhysical"],
+      "nextNodes": ["IsSceneSafe", "PulseOx"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "EMSArrived": {
@@ -84,12 +79,6 @@
       "thresholds": [0],
       "nextNodes": ["CPRPost"]
     },
-    "PulseOx": {
-      "thresholds": [95, 88, 0],
-      "nextNodes": ["KnowWhatHappened", "Fix", "END"],
-      "device_status": ["Unneeded", "BPCuff"]
-    },
-
     "Trauma": {
       "thresholds": [0, 1],
       "nextNodes": ["InLineStabilization", "Airway"],
@@ -106,14 +95,27 @@
       "device_status": ["Unneeded", "BPCuff"]
     },
     "JawThrust": {
+      "thresholds": [0, 1, 2],
+      "nextNodes": ["ApplyPO/AssessBreath", "ClearAirway", "KeepComfortable"],
+      "device_status": ["Unneeded", "BPCuff"]
+    },
+    "ClearAirway": {
       "thresholds": [0, 1],
-      "nextNodes": ["ApplyPO/AssessBreath", "KeepComfortable"],
+      "nextNodes": ["ApplyPO/AssessBreath", "Heimlich", "KeepComfortable"],
+      "device_status": ["Unneeded", "BPCuff"]
+    },
+    "Heimlich": {
+      "thresholds": [0],
+      "nextNodes": ["ApplyPO/AssessBreath"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "ApplyPO/AssessBreath": {
-      "thresholds": [0, 1, 2],
-      "nextNodes": ["AssessBleeding", "NeckPulse", "SupplementO2"],
-      "device_status": ["Unneeded", "BPCuff"]
+      "thresholds": [
+        [95, 88, 5],
+        [60, 60, 5]
+      ],
+      "nextNodes": ["AskWitnesses", "SupplementO2", "NeckPulse"],
+      "device_status": ["Needed", "PulseOx"]
     },
     "EmergencyPos": {
       "thresholds": [0],
@@ -121,13 +123,13 @@
       "device_status": ["Unneeded", "BPCuff"]
     },
     "NeckPulse": {
-      "thresholds": [0],
-      "nextNodes": ["END"],
+      "thresholds": [0, 1],
+      "nextNodes": ["AskWitnesses", "CPRPre"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "SupplementO2": {
       "thresholds": [0],
-      "nextNodes": ["END"],
+      "nextNodes": ["AssessBleeding"],
       "device_status": ["Unneeded", "BPCuff"]
     },
     "AssessBleeding": {
@@ -175,7 +177,7 @@
     "Shutdown": {
       "thresholds": [0, 1],
       "nextNodes": ["END", "END"],
-      "device_status": ["Needed", "Shutdown"]
+      "device_status": ["Unneeded", "Shutdown"]
     },
     "Medical": {
       "thresholds": [0, 1, 2],
@@ -252,7 +254,7 @@
 
     "HeartIssue": {
       "thresholds": [0],
-      "nextNodes": ["END"],
+      "nextNodes": ["KeepComfortable"],
       "device_status": ["Unneeded", "Glucometer"]
     },
     "AllergicRxn": {
@@ -271,6 +273,46 @@
       "device_status": ["Unneeded", "Glucometer"]
     },
     "Diabetic": {
+      "thresholds": [0],
+      "nextNodes": ["GetGlucometer"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "GetGlucometer": {
+      "thresholds": [0],
+      "nextNodes": ["GetLancets"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "GetLancets": {
+      "thresholds": [0],
+      "nextNodes": ["GetBlood"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "GetBlood": {
+      "thresholds": [0],
+      "nextNodes": ["PlugInSample"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "PlugInSample": {
+      "thresholds": [0],
+      "nextNodes": ["PlugInGlucometer"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "PlugInGlucometer": {
+      "thresholds": [180, 70, 0],
+      "nextNodes": ["HighSugar", "NormalSugar", "LowSugar"],
+      "device_status": ["Needed", "Glucometer"]
+    },
+    "LowSugar": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "NormalSugar": {
+      "thresholds": [0],
+      "nextNodes": ["END"],
+      "device_status": ["Unneeded", "Glucometer"]
+    },
+    "HighSugar": {
       "thresholds": [0],
       "nextNodes": ["END"],
       "device_status": ["Unneeded", "Glucometer"]
